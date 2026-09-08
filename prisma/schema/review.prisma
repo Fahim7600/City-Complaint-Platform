@@ -1,0 +1,15 @@
+model Review {
+  id           String   @id @default(uuid())
+  complaintId  String   @unique
+  citizenId    String
+  technicianId String
+  rating       Int
+  comment      String?
+  createdAt    DateTime @default(now())
+
+  complaint  Complaint @relation(fields: [complaintId], references: [id])
+  citizen    User      @relation("CitizenReviews", fields: [citizenId], references: [id])
+  technician User      @relation("TechnicianReviews", fields: [technicianId], references: [id])
+
+  @@map("reviews")
+}

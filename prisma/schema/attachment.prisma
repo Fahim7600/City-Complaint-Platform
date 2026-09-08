@@ -1,0 +1,13 @@
+model Attachment {
+  id           String         @id @default(uuid())
+  complaintId  String
+  url          String
+  type         AttachmentType
+  uploadedById String
+  createdAt    DateTime       @default(now())
+
+  complaint  Complaint @relation(fields: [complaintId], references: [id])
+  uploadedBy User      @relation(fields: [uploadedById], references: [id])
+
+  @@map("attachments")
+}

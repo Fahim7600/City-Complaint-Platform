@@ -1,0 +1,15 @@
+model Category {
+  id           String    @id @default(uuid())
+  name         String
+  departmentId String
+  description  String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+
+  department Department  @relation(fields: [departmentId], references: [id])
+  complaints Complaint[]
+
+  @@unique([name, departmentId])
+  @@map("categories")
+}

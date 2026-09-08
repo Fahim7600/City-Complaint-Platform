@@ -1,0 +1,28 @@
+model User {
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  passwordHash String?
+  googleId     String?   @unique
+  role         Role      @default(CITIZEN)
+  isPremium    Boolean   @default(false)
+  departmentId String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+
+  department          Department?    @relation(fields: [departmentId], references: [id])
+  complaintsFiled     Complaint[]    @relation("CitizenComplaints")
+  complaintsAssigned  Complaint[]    @relation("TechnicianComplaints")
+  attachmentsUploaded Attachment[]
+  auditLogs           AuditLog[]
+  reviewsGiven        Review[]       @relation("CitizenReviews")
+  reviewsReceived     Review[]       @relation("TechnicianReviews")
+  notifications       Notification[]
+  subscription        Subscription?
+  payments            Payment[]
+
+  @@index([role])
+  @@index([departmentId])
+  @@map("users")
+}

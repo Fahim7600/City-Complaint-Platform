@@ -1,0 +1,45 @@
+enum Role {
+  CITIZEN
+  TECHNICIAN
+  MANAGER
+  ADMIN
+}
+
+enum ComplaintStatus {
+  PENDING
+  ASSIGNED
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+  REJECTED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum AttachmentType {
+  EVIDENCE
+  BEFORE_WORK
+  AFTER_WORK
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  INCOMPLETE
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+}
+
+enum PaymentPurpose {
+  PREMIUM_SUBSCRIPTION
+}
