@@ -2,6 +2,7 @@ model Attachment {
   id           String         @id @default(uuid())
   complaintId  String
   url          String
+  publicId     String
   type         AttachmentType
   uploadedById String
   createdAt    DateTime       @default(now())

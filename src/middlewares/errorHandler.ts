@@ -27,12 +27,15 @@ export const errorHandler: ErrorRequestHandler = (
     console.error(err.stack);
   }
 
-  // Hide stack trace and sensitive details in production
+  // Hide stack trace and sensitive details in production unless structured errors exist
   const errorDetails =
-    config.NODE_ENV === "production"
-      ? undefined
-      : err.errors ||
-        (err.stack ? { stack: err.stack.split("\n") } : undefined);
+    err.errors !== undefined
+      ? err.errors
+      : config.NODE_ENV === "production"
+        ? undefined
+        : err.stack
+          ? { stack: err.stack.split("\n") }
+          : undefined;
 
   res.status(statusCode).json(errorResponse(message, errorDetails));
 };

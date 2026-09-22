@@ -12,6 +12,7 @@ enum ComplaintStatus {
   RESOLVED
   CLOSED
   REJECTED
+  CANCELLED
 }
 
 enum Priority {
