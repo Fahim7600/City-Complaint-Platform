@@ -1,3 +1,4 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
@@ -5,6 +6,7 @@ import morgan from "morgan";
 import { config } from "./config/env";
 import { errorHandler } from "./middlewares/errorHandler";
 import { notFoundHandler } from "./middlewares/notFound";
+import { webhookHandler } from "./modules/payments/payment.controller";
 import apiRoutes from "./routes";
 
 const app = express();
@@ -30,8 +32,16 @@ app.use(
   }),
 );
 
+// Stripe must receive the unparsed body for signature verification.
+app.post(
+  "/api/v1/payments/webhook",
+  express.raw({ type: "application/json" }),
+  webhookHandler,
+);
+
 // Body parsing middleware
 app.use(express.json());
+app.use(cookieParser());
 
 // Request logging middleware
 app.use(morgan(config.NODE_ENV === "production" ? "combined" : "dev"));
