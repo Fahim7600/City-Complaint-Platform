@@ -1,6 +1,7 @@
 import { ComplaintStatus, Priority, type Prisma, Role } from "@prisma/client";
 import { prisma } from "../../config/prisma";
 import { AppError } from "../auth/auth.service";
+import { createNotification } from "../notifications/notification.service";
 import {
   getManagerDepartmentId,
   verifyComplaintAccess,
@@ -404,7 +405,7 @@ export const assignTechnician = async (
   }
 
   // Atomic conditional update in transaction to avoid race conditions
-  return await prisma.$transaction(async (tx) => {
+  const assignedComplaint = await prisma.$transaction(async (tx) => {
     const result = await tx.complaint.updateMany({
       where: {
         id,
@@ -443,6 +444,25 @@ export const assignTechnician = async (
       },
     });
   });
+
+  await Promise.all([
+    createNotification({
+      userId: complaint.citizenId,
+      type: "COMPLAINT_ASSIGNED",
+      message: `Your complaint "${complaint.title}" has been assigned to a technician`,
+      relatedEntityType: "Complaint",
+      relatedEntityId: id,
+    }),
+    createNotification({
+      userId: technicianId,
+      type: "NEW_ASSIGNMENT",
+      message: `You have been assigned complaint "${complaint.title}"`,
+      relatedEntityType: "Complaint",
+      relatedEntityId: id,
+    }),
+  ]);
+
+  return assignedComplaint;
 };
 
 export const updateStatus = async (
@@ -522,7 +542,7 @@ export const updateStatus = async (
   }
 
   // Atomic conditional update in transaction to prevent race conditions
-  return await prisma.$transaction(async (tx) => {
+  const updatedComplaint = await prisma.$transaction(async (tx) => {
     const result = await tx.complaint.updateMany({
       where: {
         id,
@@ -561,6 +581,42 @@ export const updateStatus = async (
       },
     });
   });
+
+  if (targetStatus === ComplaintStatus.REJECTED) {
+    await createNotification({
+      userId: complaint.citizenId,
+      type: "COMPLAINT_REJECTED",
+      message: `Your complaint "${complaint.title}" was rejected: ${note}`,
+      relatedEntityType: "Complaint",
+      relatedEntityId: id,
+    });
+  } else if (targetStatus === ComplaintStatus.RESOLVED) {
+    await createNotification({
+      userId: complaint.citizenId,
+      type: "COMPLAINT_RESOLVED",
+      message: `Your complaint "${complaint.title}" has been resolved`,
+      relatedEntityType: "Complaint",
+      relatedEntityId: id,
+    });
+  } else if (targetStatus === ComplaintStatus.CLOSED) {
+    await createNotification({
+      userId: complaint.citizenId,
+      type: "COMPLAINT_CLOSED",
+      message: `Your complaint "${complaint.title}" has been closed`,
+      relatedEntityType: "Complaint",
+      relatedEntityId: id,
+    });
+  } else if (isReopenTransition && complaint.assignedTechnicianId) {
+    await createNotification({
+      userId: complaint.assignedTechnicianId,
+      type: "COMPLAINT_REOPENED",
+      message: `Complaint "${complaint.title}" was reopened: ${note}`,
+      relatedEntityType: "Complaint",
+      relatedEntityId: id,
+    });
+  }
+
+  return updatedComplaint;
 };
 
 export const cancelComplaint = async (user: UserContext, id: string) => {

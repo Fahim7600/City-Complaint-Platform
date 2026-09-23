@@ -2,6 +2,7 @@ import { ApprovalStatus, type Prisma, Role } from "@prisma/client";
 import { prisma } from "../../config/prisma";
 import { sanitizeUser } from "../../utils/sanitizeUser";
 import { AppError } from "../auth/auth.service";
+import { createNotification } from "../notifications/notification.service";
 
 interface StaffApplicationUser {
   userId: string;
@@ -117,6 +118,17 @@ export const decideApplication = async (
             decidedById: user.userId,
             decidedAt: new Date(),
           },
+  });
+
+  await createNotification({
+    userId: targetUserId,
+    type: "STAFF_APPLICATION_DECISION",
+    message:
+      decision === "APPROVED"
+        ? `Your application for ${target.requestedRole} was approved`
+        : `Your staff application was rejected: ${reason}`,
+    relatedEntityType: "User",
+    relatedEntityId: targetUserId,
   });
 
   await prisma.auditLog.create({

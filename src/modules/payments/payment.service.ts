@@ -11,6 +11,7 @@ import { prisma } from "../../config/prisma";
 import { stripe } from "../../config/stripe";
 import { AppError } from "../auth/auth.service";
 import type { UserContext } from "../complaints/complaint.service";
+import { createNotification } from "../notifications/notification.service";
 
 const stripeId = (value: string | { id: string } | null | undefined) =>
   typeof value === "string" ? value : value?.id;
@@ -179,6 +180,13 @@ export const handleWebhookEvent = async (
           purpose: PaymentPurpose.PREMIUM_SUBSCRIPTION,
         },
       });
+      await createNotification({
+        userId: user.id,
+        type: "PAYMENT_SUCCEEDED",
+        message: "Your premium subscription payment succeeded",
+        relatedEntityType: "Payment",
+        relatedEntityId: paymentIntentId,
+      });
       await prisma.subscription.update({
         where: { userId: user.id },
         data: {
@@ -218,6 +226,16 @@ export const handleWebhookEvent = async (
           status: PaymentStatus.FAILED,
           purpose: PaymentPurpose.PREMIUM_SUBSCRIPTION,
         },
+      });
+      await createNotification({
+        userId: user.id,
+        type: "PAYMENT_FAILED",
+        message:
+          "Your premium subscription payment failed. Please update your payment method",
+        relatedEntityType: "Payment",
+        relatedEntityId: stripeId(
+          stripeField<string | { id: string }>(invoice, "payment_intent"),
+        ),
       });
       await prisma.subscription.update({
         where: { userId: user.id },
