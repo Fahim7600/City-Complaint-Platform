@@ -10,6 +10,7 @@ model Complaint {
   priority             Priority        @default(MEDIUM)
   assignedTechnicianId String?
   slaDueAt             DateTime?
+  overdueNotifiedAt    DateTime?
   resolvedAt           DateTime?
   createdAt            DateTime        @default(now())
   updatedAt            DateTime        @updatedAt

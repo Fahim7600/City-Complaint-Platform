@@ -3,6 +3,8 @@ model Notification {
   userId    String
   type      String
   message   String
+  relatedEntityType String?
+  relatedEntityId   String?
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
 
