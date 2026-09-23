@@ -2,6 +2,7 @@ import type { Role } from "@prisma/client";
 import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { config } from "../config/env";
+import { prisma } from "../config/prisma";
 import { errorResponse } from "../utils/response";
 
 export interface JwtAccessPayload {
@@ -29,12 +30,26 @@ export const authenticate = (
       config.JWT_ACCESS_SECRET,
     ) as JwtAccessPayload;
 
-    req.user = {
-      userId: decoded.userId,
-      role: decoded.role,
-    };
+    void prisma.user
+      .findUnique({
+        where: { id: decoded.userId },
+        select: { role: true, deletedAt: true },
+      })
+      .then((user) => {
+        if (!user || user.deletedAt) {
+          res.status(401).json(errorResponse("User account is unavailable"));
+          return;
+        }
 
-    next();
+        req.user = {
+          userId: decoded.userId,
+          role: user.role,
+        };
+        next();
+      })
+      .catch(() => {
+        res.status(401).json(errorResponse("Unable to verify user account"));
+      });
   } catch (_err) {
     res
       .status(401)
