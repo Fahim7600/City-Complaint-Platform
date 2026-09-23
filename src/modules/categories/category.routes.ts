@@ -15,7 +15,6 @@ import {
 
 const router = Router();
 
-router.use(authenticate, authorize(Role.ADMIN));
 /** @swagger
  * /admin/departments/{departmentId}/categories:
  *   post:
@@ -28,6 +27,8 @@ router.use(authenticate, authorize(Role.ADMIN));
  */
 router.post(
   "/admin/departments/:departmentId/categories",
+  authenticate,
+  authorize(Role.ADMIN),
   validate(createCategorySchema),
   createCategoryController,
 );
@@ -42,6 +43,8 @@ router.post(
  */
 router.get(
   "/admin/departments/:departmentId/categories",
+  authenticate,
+  authorize(Role.ADMIN),
   listCategoriesController,
 );
 /** @swagger
@@ -56,6 +59,8 @@ router.get(
  */
 router.patch(
   "/admin/categories/:id",
+  authenticate,
+  authorize(Role.ADMIN),
   validate(updateCategorySchema),
   updateCategoryController,
 );
@@ -68,6 +73,11 @@ router.patch(
  *     parameters: [{in: path, name: id, required: true, schema: {type: string, format: uuid}}]
  *     responses: {200: {description: Deleted}, 400: {description: Active complaints prevent deletion}, 401: {description: Unauthorized}, 403: {description: Admin access required}, 404: {description: Not found}}
  */
-router.delete("/admin/categories/:id", deleteCategoryController);
+router.delete(
+  "/admin/categories/:id",
+  authenticate,
+  authorize(Role.ADMIN),
+  deleteCategoryController,
+);
 
 export default router;

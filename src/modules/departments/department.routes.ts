@@ -27,7 +27,11 @@ export const departmentAdminRoutes = Router();
  */
 router.get("/", listDepartmentsController);
 
-departmentAdminRoutes.use(authenticate, authorize(Role.ADMIN));
+departmentAdminRoutes.use(
+  "/admin/departments",
+  authenticate,
+  authorize(Role.ADMIN),
+);
 /** @swagger
  * /admin/departments:
  *   post:
