@@ -5,6 +5,12 @@ enum Role {
   ADMIN
 }
 
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 enum ComplaintStatus {
   PENDING
   ASSIGNED

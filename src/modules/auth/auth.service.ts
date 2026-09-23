@@ -13,6 +13,7 @@ import type {
   LoginInput,
   RegisterInput,
 } from "./auth.validation";
+import { submitStaffApplication } from "./staffApplication.service";
 
 export const BCRYPT_SALT_ROUNDS = 12;
 export const REFRESH_COOKIE_NAME = "refreshToken";
@@ -83,7 +84,7 @@ export const issueTokens = async (
 };
 
 export const registerUser = async (input: RegisterInput, res: Response) => {
-  const { name, email, password } = input;
+  const { name, email, password, staffApplication } = input;
 
   // Check if email already exists
   const existingUser = await prisma.user.findUnique({
@@ -117,11 +118,15 @@ export const registerUser = async (input: RegisterInput, res: Response) => {
     },
   });
 
+  const registeredUser = staffApplication
+    ? await submitStaffApplication(user.id, staffApplication)
+    : sanitizeUser(user);
+
   // Issue tokens
   const accessToken = await issueTokens(user, res);
 
   return {
-    user: sanitizeUser(user),
+    user: registeredUser,
     accessToken,
   };
 };

@@ -2,8 +2,10 @@ import { Router } from "express";
 import attachmentRoutes from "../modules/attachments/attachment.routes";
 import authRoutes from "../modules/auth/auth.routes";
 import complaintRoutes from "../modules/complaints/complaint.routes";
+import departmentRoutes from "../modules/departments/department.routes";
 import paymentRoutes from "../modules/payments/payment.routes";
 import reviewRoutes from "../modules/reviews/review.routes";
+import staffApplicationRoutes from "../modules/staffApplications/staffApplication.routes";
 import userRoutes from "../modules/users/user.routes";
 import { successResponse } from "../utils/response";
 
@@ -23,6 +25,8 @@ router.use("/users", userRoutes);
 router.use("/complaints", complaintRoutes);
 router.use("/payments", paymentRoutes);
 router.use("/", reviewRoutes);
+router.use("/departments", departmentRoutes);
+router.use("/staff-applications", staffApplicationRoutes);
 // Attachment routes own their own full paths (/complaints/:id/attachments and /attachments/:id)
 router.use("/", attachmentRoutes);
 

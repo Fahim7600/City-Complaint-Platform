@@ -9,6 +9,12 @@ model User {
   phone        String?
   avatarUrl    String?
   departmentId String?
+  requestedRole Role?
+  approvalStatus ApprovalStatus?
+  decidedById String?
+  decidedAt DateTime?
+  experience String?
+  qualification String?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   deletedAt    DateTime?
@@ -24,6 +30,8 @@ model User {
   subscription        Subscription?
   payments            Payment[]
   refreshTokens       RefreshToken[]
+  staffApplicationsDecided User[] @relation("StaffApplicationDecisions")
+  decidedBy User? @relation("StaffApplicationDecisions", fields: [decidedById], references: [id])
 
   @@index([role])
   @@index([departmentId])
