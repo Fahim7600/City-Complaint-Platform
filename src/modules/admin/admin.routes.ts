@@ -3,6 +3,7 @@ import { Router } from "express";
 import { authenticate, authorize } from "../../middlewares/auth.middleware";
 import { validate } from "../../middlewares/validate";
 import {
+  checkOverdueSlasController,
   deactivateUserController,
   getDashboardStatsController,
   listAuditLogsController,
@@ -19,6 +20,8 @@ import {
 const router = Router();
 
 router.use(authenticate, authorize(Role.ADMIN));
+
+router.post("/jobs/check-overdue-slas", checkOverdueSlasController);
 
 router.get("/users", validate(listUsersQuerySchema), listUsersController);
 router.patch(

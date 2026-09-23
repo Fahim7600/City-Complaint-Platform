@@ -1,4 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
+import { checkOverdueSlas } from "../../jobs/checkOverdueSla.job";
 import { errorResponse, successResponse } from "../../utils/response";
 import { AppError } from "../auth/auth.service";
 import {
@@ -116,6 +117,21 @@ export const listAuditLogsController = async (
     res
       .status(200)
       .json(successResponse("Audit logs retrieved successfully", result));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const checkOverdueSlasController = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const result = await checkOverdueSlas();
+    res
+      .status(200)
+      .json(successResponse("Overdue SLA check completed", result));
   } catch (error) {
     next(error);
   }

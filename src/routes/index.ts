@@ -2,8 +2,12 @@ import { Router } from "express";
 import adminRoutes from "../modules/admin/admin.routes";
 import attachmentRoutes from "../modules/attachments/attachment.routes";
 import authRoutes from "../modules/auth/auth.routes";
+import categoryRoutes from "../modules/categories/category.routes";
 import complaintRoutes from "../modules/complaints/complaint.routes";
-import departmentRoutes from "../modules/departments/department.routes";
+import departmentRoutes, {
+  departmentAdminRoutes,
+} from "../modules/departments/department.routes";
+import notificationRoutes from "../modules/notifications/notification.routes";
 import paymentRoutes from "../modules/payments/payment.routes";
 import reviewRoutes from "../modules/reviews/review.routes";
 import staffApplicationRoutes from "../modules/staffApplications/staffApplication.routes";
@@ -26,8 +30,11 @@ router.use("/admin", adminRoutes);
 router.use("/users", userRoutes);
 router.use("/complaints", complaintRoutes);
 router.use("/payments", paymentRoutes);
+router.use("/notifications", notificationRoutes);
 router.use("/", reviewRoutes);
 router.use("/departments", departmentRoutes);
+router.use("/", departmentAdminRoutes);
+router.use("/", categoryRoutes);
 router.use("/staff-applications", staffApplicationRoutes);
 // Attachment routes own their own full paths (/complaints/:id/attachments and /attachments/:id)
 router.use("/", attachmentRoutes);
