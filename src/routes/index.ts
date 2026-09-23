@@ -1,4 +1,5 @@
 import { Router } from "express";
+import adminRoutes from "../modules/admin/admin.routes";
 import attachmentRoutes from "../modules/attachments/attachment.routes";
 import authRoutes from "../modules/auth/auth.routes";
 import complaintRoutes from "../modules/complaints/complaint.routes";
@@ -21,6 +22,7 @@ router.get("/health", (_req, res) => {
 });
 
 router.use("/auth", authRoutes);
+router.use("/admin", adminRoutes);
 router.use("/users", userRoutes);
 router.use("/complaints", complaintRoutes);
 router.use("/payments", paymentRoutes);
