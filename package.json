@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "description": "Backend platform for City Complaint & Service Request Platform",
   "main": "dist/server.js",
+  "engines": {
+    "node": ">=24 <25"
+  },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc",
+    "build": "prisma generate && tsc",
     "start": "node dist/server.js",
     "lint": "biome check .",
     "format": "biome format --write .",
-    "seed": "prisma db seed"
+    "seed": "prisma db seed",
+    "generate:postman": "tsx scripts/generate-postman.ts"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -33,6 +37,10 @@
     "morgan": "^1.10.0",
     "multer": "^2.4.0",
     "node-cron": "^4.6.0",
+    "openapi-to-postmanv2": "^6.3.3",
+    "stripe": "^22.6.2",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1",
     "zod": "^4.6.5"
   },
   "devDependencies": {
@@ -46,9 +54,12 @@
     "@types/morgan": "^1.9.9",
     "@types/multer": "^2.2.0",
     "@types/node": "^22.9.0",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "prisma": "^5.22.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3"
   }
 }

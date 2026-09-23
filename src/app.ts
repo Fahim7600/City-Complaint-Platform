@@ -3,13 +3,18 @@ import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+import swaggerUi from "swagger-ui-express";
 import { config } from "./config/env";
+import { swaggerSpec } from "./config/swagger";
 import { errorHandler } from "./middlewares/errorHandler";
 import { notFoundHandler } from "./middlewares/notFound";
 import { webhookHandler } from "./modules/payments/payment.controller";
 import apiRoutes from "./routes";
 
 const app = express();
+
+app.set("trust proxy", 1);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Security middleware
 app.use(helmet());
@@ -32,6 +37,14 @@ app.use(
   }),
 );
 
+/** @swagger
+ * /payments/webhook:
+ *   post:
+ *     summary: Receive a Stripe webhook event
+ *     tags: [Payments]
+ *     requestBody: {required: true, content: {application/json: {schema: {type: object}}}}
+ *     responses: {200: {description: Webhook acknowledged}, 400: {description: Invalid signature}, 500: {description: Processing failure}}
+ */
 // Stripe must receive the unparsed body for signature verification.
 app.post(
   "/api/v1/payments/webhook",
