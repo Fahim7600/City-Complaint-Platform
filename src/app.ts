@@ -10,6 +10,7 @@ import { errorHandler } from "./middlewares/errorHandler";
 import { notFoundHandler } from "./middlewares/notFound";
 import { webhookHandler } from "./modules/payments/payment.controller";
 import apiRoutes from "./routes";
+import { successResponse } from "./utils/response";
 
 const app = express();
 
@@ -58,6 +59,15 @@ app.use(cookieParser());
 
 // Request logging middleware
 app.use(morgan(config.NODE_ENV === "production" ? "combined" : "dev"));
+
+app.get("/", (_req, res) => {
+  res.status(200).json(
+    successResponse("City Complaint & Service Request Platform API", {
+      health: "/api/v1/health",
+      documentation: "/api-docs",
+    }),
+  );
+});
 
 // Mount API routes under /api/v1
 app.use("/api/v1", apiRoutes);
