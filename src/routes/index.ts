@@ -16,6 +16,13 @@ import { successResponse } from "../utils/response";
 
 const router = Router();
 
+/** @swagger
+ * /health:
+ *   get:
+ *     summary: Check API health
+ *     tags: [System]
+ *     responses: {200: {description: Server health}}
+ */
 router.get("/health", (_req, res) => {
   res.status(200).json(
     successResponse("Server is healthy", {
