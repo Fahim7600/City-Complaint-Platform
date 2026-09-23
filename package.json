@@ -13,7 +13,8 @@
     "lint": "biome check .",
     "format": "biome format --write .",
     "seed": "prisma db seed",
-    "generate:postman": "tsx scripts/generate-postman.ts"
+    "generate:postman": "tsx scripts/generate-postman.ts",
+    "validate:docs": "tsx scripts/validate-docs.ts"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
