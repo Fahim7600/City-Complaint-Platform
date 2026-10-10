@@ -172,6 +172,48 @@ export const activateFromCheckoutSession = async (
   return { activated: true, userId: localUser.id };
 };
 
+export const syncCheckoutSession = async (
+  sessionId: string,
+  expectedUserId?: string,
+): Promise<{
+  synced: boolean;
+  sessionStatus: Stripe.Checkout.Session.Status | null;
+  paymentStatus: Stripe.Checkout.Session.PaymentStatus;
+}> => {
+  let session: Stripe.Checkout.Session;
+  try {
+    session = await stripe.checkout.sessions.retrieve(sessionId);
+  } catch (err: unknown) {
+    const error = err as { statusCode?: number; code?: string };
+    if (error?.statusCode === 404 || error?.code === "resource_missing") {
+      throw new AppError("Checkout session not found", 404);
+    }
+    throw err;
+  }
+
+  if (expectedUserId && session.metadata?.userId !== expectedUserId) {
+    throw new AppError("Forbidden", 403);
+  }
+
+  if (
+    session.payment_status !== "paid" &&
+    session.payment_status !== "no_payment_required"
+  ) {
+    return {
+      synced: false,
+      sessionStatus: session.status,
+      paymentStatus: session.payment_status,
+    };
+  }
+
+  const result = await activateFromCheckoutSession(session);
+  return {
+    synced: result.activated,
+    sessionStatus: session.status,
+    paymentStatus: session.payment_status,
+  };
+};
+
 export const createCheckoutSession = async (user: UserContext) => {
   if (user.role !== Role.CITIZEN) {
     throw new AppError("Only citizens can purchase premium subscriptions", 403);

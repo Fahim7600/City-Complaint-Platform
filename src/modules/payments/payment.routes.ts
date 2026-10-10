@@ -1,14 +1,17 @@
 import { Role } from "@prisma/client";
 import { Router } from "express";
 import { authenticate, authorize } from "../../middlewares/auth.middleware";
+import { validate } from "../../middlewares/validate";
 import {
   cancelSubscriptionHandler,
   checkoutCancelHandler,
   checkoutSuccessHandler,
+  confirmSessionHandler,
   createCheckoutSessionHandler,
   getMySubscriptionHandler,
   getPaymentByIdHandler,
 } from "./payment.controller";
+import { confirmSessionSchema } from "./payment.validation";
 
 const router = Router();
 
@@ -54,6 +57,7 @@ router.get("/subscription", authenticate, getMySubscriptionHandler);
  *   get:
  *     summary: Stripe Checkout success placeholder
  *     tags: [Payments]
+ *     parameters: [{in: query, name: session_id, required: false, schema: {type: string}}]
  *     responses: {200: {description: Payment successful}}
  */
 router.get("/checkout-success", checkoutSuccessHandler);
@@ -65,6 +69,22 @@ router.get("/checkout-success", checkoutSuccessHandler);
  *     responses: {200: {description: Checkout cancelled}}
  */
 router.get("/checkout-cancel", checkoutCancelHandler);
+/** @swagger
+ * /payments/confirm-session:
+ *   post:
+ *     summary: Confirm and synchronize a Stripe Checkout session
+ *     tags: [Payments]
+ *     security: [{bearerAuth: []}]
+ *     requestBody: {required: true, content: {application/json: {schema: {type: object, required: [sessionId], properties: {sessionId: {type: string}}}}}}
+ *     responses: {200: {description: Payment status checked}, 400: {description: Validation failed}, 401: {description: Unauthorized}, 403: {description: Citizen access required}, 404: {description: Checkout session not found}}
+ */
+router.post(
+  "/confirm-session",
+  authenticate,
+  authorize(Role.CITIZEN),
+  validate(confirmSessionSchema),
+  confirmSessionHandler,
+);
 /** @swagger
  * /payments/{id}:
  *   get:

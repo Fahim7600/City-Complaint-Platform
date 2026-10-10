@@ -7,6 +7,7 @@ import {
   getMySubscription,
   getPaymentById,
   handleWebhookEvent,
+  syncCheckoutSession,
 } from "./payment.service";
 
 export const createCheckoutSessionHandler = async (
@@ -67,10 +68,56 @@ export const getPaymentByIdHandler = async (
   }
 };
 
-export const checkoutSuccessHandler = (_req: Request, res: Response): void => {
+export const checkoutSuccessHandler = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const sessionId = req.query.session_id;
+  const csRegex = /^cs_(test|live)_[A-Za-z0-9_]+$/;
+
+  if (typeof sessionId === "string" && csRegex.test(sessionId)) {
+    try {
+      const result = await syncCheckoutSession(sessionId);
+      res
+        .status(200)
+        .json(
+          successResponse("Payment successful, you can close this tab", result),
+        );
+      return;
+    } catch (error) {
+      console.error(
+        "[Stripe] Failed to sync checkout session on success return",
+        error,
+      );
+      res.status(200).json(
+        successResponse("Payment successful, you can close this tab", {
+          synced: false,
+        }),
+      );
+      return;
+    }
+  }
+
   res
     .status(200)
     .json(successResponse("Payment successful, you can close this tab"));
+};
+
+export const confirmSessionHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    if (!req.user) throw new AppError("Unauthorized", 401);
+    const result = await syncCheckoutSession(
+      req.body.sessionId,
+      req.user.userId,
+    );
+    res.status(200).json(successResponse("Payment status checked", result));
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const checkoutCancelHandler = (_req: Request, res: Response): void => {
