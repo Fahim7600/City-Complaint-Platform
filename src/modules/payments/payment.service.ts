@@ -519,9 +519,22 @@ export const handleWebhookEvent = async (
 
 export const cancelSubscription = async (user: UserContext) => {
   const subscription = await getSubscriptionForUser(user.userId);
-  if (!subscription || subscription.status !== SubscriptionStatus.ACTIVE) {
+  if (
+    !subscription ||
+    (subscription.status !== SubscriptionStatus.ACTIVE &&
+      subscription.status !== SubscriptionStatus.PAST_DUE)
+  ) {
     throw new AppError("Active subscription not found", 404);
   }
+
+  if (subscription.cancelAtPeriodEnd) {
+    return {
+      message:
+        "Premium remains active until the end of your current billing period",
+      currentPeriodEnd: subscription.currentPeriodEnd,
+    };
+  }
+
   if (!subscription.stripeSubscriptionId) {
     throw new AppError("Stripe subscription is not configured", 400);
   }
