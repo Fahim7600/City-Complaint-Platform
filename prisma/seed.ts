@@ -3,6 +3,8 @@ import { PrismaClient, Role } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 
+import { departmentData } from "./seed-data";
+
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
 const prisma = new PrismaClient();
@@ -17,7 +19,12 @@ async function main() {
     );
   }
 
-  const demoStaffPassword = process.env.DEMO_USERS_PASSWORD || "DemoStaff2026!";
+  const demoStaffPassword = process.env.DEMO_USERS_PASSWORD;
+  if (!demoStaffPassword) {
+    throw new Error(
+      "[Seed Error] DEMO_USERS_PASSWORD environment variable must be set in your .env file before running seed.",
+    );
+  }
 
   console.log("🌱 Starting database seed...");
 
@@ -40,97 +47,6 @@ async function main() {
       role: Role.ADMIN,
     },
   });
-
-  // 2. Sample Departments and Categories data
-  const departmentData = [
-    {
-      name: "Roads & Infrastructure",
-      description:
-        "Handles road maintenance, streetlights, and traffic signals.",
-      categories: [
-        {
-          name: "Pothole Repair",
-          description: "Damaged or hazardous road potholes",
-        },
-        {
-          name: "Streetlight Outage",
-          description: "Non-functioning streetlights",
-        },
-        {
-          name: "Traffic Signal Fault",
-          description: "Malfunctioning traffic signals or signs",
-        },
-      ],
-      manager: {
-        name: "Sarah Connor (Roads Mgr)",
-        email: "manager.roads@citycomplaints.com",
-      },
-      technicians: [
-        { name: "John Tech (Roads)", email: "tech1.roads@citycomplaints.com" },
-        { name: "Mike Tech (Roads)", email: "tech2.roads@citycomplaints.com" },
-      ],
-    },
-    {
-      name: "Water Supply & Sewage",
-      description:
-        "Manages water supply lines, pipe leaks, and drainage issues.",
-      categories: [
-        {
-          name: "Pipe Leakage",
-          description: "Main water pipe burst or leaking lines",
-        },
-        {
-          name: "Low Water Pressure",
-          description: "Persistent low pressure issues",
-        },
-        {
-          name: "Sewage Blockage",
-          description: "Blocked sewage or open manholes",
-        },
-      ],
-      manager: {
-        name: "Alex Mercer (Water Mgr)",
-        email: "manager.water@citycomplaints.com",
-      },
-      technicians: [
-        { name: "David Tech (Water)", email: "tech1.water@citycomplaints.com" },
-        { name: "Emma Tech (Water)", email: "tech2.water@citycomplaints.com" },
-      ],
-    },
-    {
-      name: "Sanitation & Waste Management",
-      description:
-        "Oversees garbage collection, public cleanliness, and illegal dumping.",
-      categories: [
-        {
-          name: "Uncollected Garbage",
-          description: "Overdue residential or commercial waste collection",
-        },
-        {
-          name: "Illegal Dumping",
-          description: "Unauthorized dumping of hazardous/bulk waste",
-        },
-        {
-          name: "Drain Blockage",
-          description: "Clogged stormwater drains",
-        },
-      ],
-      manager: {
-        name: "Elena Vance (Sanitation Mgr)",
-        email: "manager.sanitation@citycomplaints.com",
-      },
-      technicians: [
-        {
-          name: "Carlos Tech (Sanitation)",
-          email: "tech1.sanitation@citycomplaints.com",
-        },
-        {
-          name: "Lisa Tech (Sanitation)",
-          email: "tech2.sanitation@citycomplaints.com",
-        },
-      ],
-    },
-  ];
 
   const createdAccounts: Array<{
     name: string;
@@ -226,7 +142,7 @@ async function main() {
 
   console.log("\n✅ Database seeding complete!");
   console.log(
-    `ℹ️ Demo staff accounts password set to DEMO_USERS_PASSWORD env value (or default: "${demoStaffPassword}")\n`,
+    "ℹ️ Demo staff accounts password set to DEMO_USERS_PASSWORD env value\n",
   );
   console.table(createdAccounts);
 }
