@@ -16,8 +16,50 @@ import { createNotification } from "../notifications/notification.service";
 const stripeId = (value: string | { id: string } | null | undefined) =>
   typeof value === "string" ? value : value?.id;
 
-const stripeField = <T>(value: unknown, field: string): T | undefined =>
-  (value as Record<string, T> | null | undefined)?.[field];
+export const getPeriodEnd = (sub: Stripe.Subscription): Date | null => {
+  const itemPeriodEnd = sub.items?.data?.[0]?.current_period_end;
+  if (typeof itemPeriodEnd === "number") {
+    return new Date(itemPeriodEnd * 1000);
+  }
+  const topPeriodEnd = (sub as unknown as Record<string, unknown>)
+    ?.current_period_end;
+  if (typeof topPeriodEnd === "number") {
+    return new Date(topPeriodEnd * 1000);
+  }
+  return null;
+};
+
+export const mapStripeStatus = (
+  status: Stripe.Subscription.Status,
+): SubscriptionStatus => {
+  switch (status) {
+    case "active":
+    case "trialing":
+      return SubscriptionStatus.ACTIVE;
+    case "past_due":
+      return SubscriptionStatus.PAST_DUE;
+    case "canceled":
+    case "unpaid":
+    case "incomplete_expired":
+      return SubscriptionStatus.CANCELED;
+    case "incomplete":
+    case "paused":
+      return SubscriptionStatus.INCOMPLETE;
+    default:
+      return SubscriptionStatus.INCOMPLETE;
+  }
+};
+
+export const premiumForStatus = (status: SubscriptionStatus): boolean => {
+  switch (status) {
+    case SubscriptionStatus.ACTIVE:
+    case SubscriptionStatus.PAST_DUE:
+      return true;
+    case SubscriptionStatus.CANCELED:
+    case SubscriptionStatus.INCOMPLETE:
+      return false;
+  }
+};
 
 const getUserByCustomerId = async (customerId: string) => {
   const subscription = await prisma.subscription.findFirst({
@@ -29,6 +71,106 @@ const getUserByCustomerId = async (customerId: string) => {
 
 const getSubscriptionForUser = async (userId: string) =>
   prisma.subscription.findUnique({ where: { userId } });
+
+export const applyStripeSubscription = async (
+  stripeSubscription: Stripe.Subscription,
+  userId: string,
+): Promise<{ status: SubscriptionStatus; isNew: boolean }> => {
+  const customerId = stripeId(stripeSubscription.customer);
+  const stripeSubscriptionId = stripeSubscription.id;
+  const newStatus = mapStripeStatus(stripeSubscription.status);
+  const currentPeriodEnd = getPeriodEnd(stripeSubscription);
+  const cancelAtPeriodEnd = stripeSubscription.cancel_at_period_end;
+
+  const result = await prisma.$transaction(async (tx) => {
+    const existing = await tx.subscription.findUnique({
+      where: { userId },
+    });
+
+    const isNew = !(
+      existing?.stripeSubscriptionId === stripeSubscriptionId &&
+      existing?.status === SubscriptionStatus.ACTIVE
+    );
+
+    await tx.subscription.upsert({
+      where: { userId },
+      create: {
+        userId,
+        stripeCustomerId: customerId,
+        stripeSubscriptionId,
+        status: newStatus,
+        currentPeriodEnd,
+        cancelAtPeriodEnd,
+      },
+      update: {
+        stripeCustomerId: customerId,
+        stripeSubscriptionId,
+        status: newStatus,
+        currentPeriodEnd,
+        cancelAtPeriodEnd,
+      },
+    });
+
+    await tx.user.update({
+      where: { id: userId },
+      data: { isPremium: premiumForStatus(newStatus) },
+    });
+
+    return { status: newStatus, isNew };
+  });
+
+  return result;
+};
+
+export const activateFromCheckoutSession = async (
+  session: Stripe.Checkout.Session,
+): Promise<{ activated: boolean; userId?: string }> => {
+  if (session.mode !== "subscription" || session.status !== "complete") {
+    return { activated: false };
+  }
+
+  const customerId = stripeId(session.customer);
+  const subscriptionId = stripeId(session.subscription);
+  if (!subscriptionId) {
+    throw new AppError(
+      "Stripe checkout session is missing subscription data",
+      500,
+    );
+  }
+
+  const stripeSubscription =
+    await stripe.subscriptions.retrieve(subscriptionId);
+
+  const localUser =
+    (customerId ? await getUserByCustomerId(customerId) : null) ??
+    (session.metadata?.userId
+      ? await prisma.user.findUnique({
+          where: { id: session.metadata.userId },
+        })
+      : null);
+
+  if (!localUser) {
+    throw new AppError("Unable to resolve subscription user", 500);
+  }
+
+  const { isNew } = await applyStripeSubscription(
+    stripeSubscription,
+    localUser.id,
+  );
+
+  if (isNew) {
+    await prisma.auditLog.create({
+      data: {
+        actorId: localUser.id,
+        action: "SUBSCRIPTION_STARTED",
+        entityType: "Subscription",
+        entityId: localUser.id,
+      },
+    });
+  }
+
+  return { activated: true, userId: localUser.id };
+};
 
 export const createCheckoutSession = async (user: UserContext) => {
   if (user.role !== Role.CITIZEN) {
@@ -43,9 +185,18 @@ export const createCheckoutSession = async (user: UserContext) => {
 
   let subscription = await getSubscriptionForUser(account.id);
   if (
-    subscription?.status === SubscriptionStatus.ACTIVE &&
-    !subscription.cancelAtPeriodEnd
+    subscription?.status === SubscriptionStatus.ACTIVE ||
+    subscription?.status === SubscriptionStatus.PAST_DUE
   ) {
+    if (subscription.cancelAtPeriodEnd) {
+      const periodEndFormatted = subscription.currentPeriodEnd
+        ? subscription.currentPeriodEnd.toISOString().split("T")[0]
+        : "";
+      throw new AppError(
+        `Your subscription is set to cancel on ${periodEndFormatted}. You can subscribe again after it ends.`,
+        400,
+      );
+    }
     throw new AppError("You already have an active subscription", 400);
   }
 
@@ -70,12 +221,25 @@ export const createCheckoutSession = async (user: UserContext) => {
     });
   }
 
+  const frontendBase = config.FRONTEND_BASE_URL?.replace(/\/+$/, "");
+  let successUrl: string;
+  let cancelUrl: string;
+
+  if (frontendBase) {
+    successUrl = `${frontendBase}/premium/success?session_id={CHECKOUT_SESSION_ID}`;
+    cancelUrl = `${frontendBase}/premium/cancel`;
+  } else {
+    const appBase = config.APP_BASE_URL.replace(/\/+$/, "");
+    successUrl = `${appBase}/api/v1/payments/checkout-success?session_id={CHECKOUT_SESSION_ID}`;
+    cancelUrl = `${appBase}/api/v1/payments/checkout-cancel`;
+  }
+
   const session = await stripe.checkout.sessions.create({
     mode: "subscription",
     customer: customerId,
     line_items: [{ price: config.STRIPE_PREMIUM_PRICE_ID, quantity: 1 }],
-    success_url: `${config.APP_BASE_URL}/api/v1/payments/checkout-success`,
-    cancel_url: `${config.APP_BASE_URL}/api/v1/payments/checkout-cancel`,
+    success_url: successUrl,
+    cancel_url: cancelUrl,
     metadata: { userId: account.id },
   });
 
@@ -94,203 +258,71 @@ export const handleWebhookEvent = async (
       config.STRIPE_WEBHOOK_SECRET,
     );
   } catch (_error) {
+    console.error("[Stripe] invalid webhook signature");
     throw new AppError("Invalid Stripe webhook signature", 400);
   }
 
+  console.log(`[Stripe] event received ${event.type} ${event.id}`);
+
   switch (event.type) {
     case "checkout.session.completed": {
-      const session = event.data.object;
-      const customerId = stripeId(session.customer);
-      const stripeSubscriptionId = stripeId(session.subscription);
-      if (!customerId || !stripeSubscriptionId) {
-        throw new AppError(
-          "Stripe checkout session is missing subscription data",
-          500,
-        );
-      }
-
-      const stripeSubscription =
-        await stripe.subscriptions.retrieve(stripeSubscriptionId);
-      const currentPeriodEnd = stripeField<number>(
-        stripeSubscription,
-        "current_period_end",
+      await activateFromCheckoutSession(
+        event.data.object as Stripe.Checkout.Session,
       );
-      if (!currentPeriodEnd) {
-        throw new AppError("Stripe subscription period is missing", 500);
-      }
-      const user =
-        (await getUserByCustomerId(customerId)) ??
-        (session.metadata?.userId
-          ? await prisma.user.findUnique({
-              where: { id: session.metadata.userId },
-            })
-          : null);
-      if (!user) throw new AppError("Unable to resolve subscription user", 500);
-
-      await prisma.subscription.upsert({
-        where: { userId: user.id },
-        create: {
-          userId: user.id,
-          stripeCustomerId: customerId,
-          stripeSubscriptionId,
-          status: SubscriptionStatus.ACTIVE,
-          currentPeriodEnd: new Date(currentPeriodEnd * 1000),
-          cancelAtPeriodEnd: false,
-        },
-        update: {
-          stripeCustomerId: customerId,
-          stripeSubscriptionId,
-          status: SubscriptionStatus.ACTIVE,
-          currentPeriodEnd: new Date(currentPeriodEnd * 1000),
-          cancelAtPeriodEnd: false,
-        },
-      });
-      await prisma.user.update({
-        where: { id: user.id },
-        data: { isPremium: true },
-      });
-      await prisma.auditLog.create({
-        data: {
-          actorId: user.id,
-          action: "SUBSCRIPTION_STARTED",
-          entityType: "Subscription",
-          entityId: user.id,
-        },
-      });
-      return;
-    }
-
-    case "invoice.payment_succeeded": {
-      const invoice = event.data.object;
-      const customerId = stripeId(invoice.customer);
-      const user = customerId ? await getUserByCustomerId(customerId) : null;
-      if (!user || !customerId)
-        throw new AppError("Unable to resolve invoice user", 500);
-      const periodEnd = invoice.lines.data[0]?.period.end;
-      const paymentIntentId = stripeId(
-        stripeField<string | { id: string }>(invoice, "payment_intent"),
-      );
-      await prisma.payment.create({
-        data: {
-          userId: user.id,
-          amount: invoice.amount_paid,
-          currency: invoice.currency,
-          stripePaymentIntentId: paymentIntentId,
-          status: PaymentStatus.SUCCEEDED,
-          purpose: PaymentPurpose.PREMIUM_SUBSCRIPTION,
-        },
-      });
-      await createNotification({
-        userId: user.id,
-        type: "PAYMENT_SUCCEEDED",
-        message: "Your premium subscription payment succeeded",
-        relatedEntityType: "Payment",
-        relatedEntityId: paymentIntentId,
-      });
-      await prisma.subscription.update({
-        where: { userId: user.id },
-        data: {
-          currentPeriodEnd: periodEnd ? new Date(periodEnd * 1000) : undefined,
-          status: SubscriptionStatus.ACTIVE,
-        },
-      });
-      await prisma.user.update({
-        where: { id: user.id },
-        data: { isPremium: true },
-      });
-      await prisma.auditLog.create({
-        data: {
-          actorId: user.id,
-          action: "PAYMENT_SUCCEEDED",
-          entityType: "Payment",
-          entityId: user.id,
-        },
-      });
-      return;
-    }
-
-    case "invoice.payment_failed": {
-      const invoice = event.data.object;
-      const customerId = stripeId(invoice.customer);
-      const user = customerId ? await getUserByCustomerId(customerId) : null;
-      if (!user || !customerId)
-        throw new AppError("Unable to resolve invoice user", 500);
-      await prisma.payment.create({
-        data: {
-          userId: user.id,
-          amount: invoice.amount_due,
-          currency: invoice.currency,
-          stripePaymentIntentId: stripeId(
-            stripeField<string | { id: string }>(invoice, "payment_intent"),
-          ),
-          status: PaymentStatus.FAILED,
-          purpose: PaymentPurpose.PREMIUM_SUBSCRIPTION,
-        },
-      });
-      await createNotification({
-        userId: user.id,
-        type: "PAYMENT_FAILED",
-        message:
-          "Your premium subscription payment failed. Please update your payment method",
-        relatedEntityType: "Payment",
-        relatedEntityId: stripeId(
-          stripeField<string | { id: string }>(invoice, "payment_intent"),
-        ),
-      });
-      await prisma.subscription.update({
-        where: { userId: user.id },
-        data: { status: SubscriptionStatus.PAST_DUE },
-      });
-      await prisma.auditLog.create({
-        data: {
-          actorId: user.id,
-          action: "PAYMENT_FAILED",
-          entityType: "Payment",
-          entityId: user.id,
-        },
-      });
       return;
     }
 
     case "customer.subscription.updated": {
-      const stripeSubscription = event.data.object;
+      const stripeSubscription = event.data.object as Stripe.Subscription;
       const customerId = stripeId(stripeSubscription.customer);
-      if (!customerId)
-        throw new AppError("Subscription customer is missing", 500);
-      const currentPeriodEnd = stripeField<number>(
-        stripeSubscription,
-        "current_period_end",
-      );
-      await prisma.subscription.updateMany({
+      if (!customerId) {
+        console.warn("[Stripe] Subscription updated event missing customer id");
+        return;
+      }
+      const localSubscription = await prisma.subscription.findFirst({
         where: { stripeCustomerId: customerId },
-        data: {
-          stripeSubscriptionId: stripeSubscription.id,
-          status: stripeSubscription.status as SubscriptionStatus,
-          currentPeriodEnd: currentPeriodEnd
-            ? new Date(currentPeriodEnd * 1000)
-            : undefined,
-          cancelAtPeriodEnd: stripeSubscription.cancel_at_period_end,
-        },
       });
+      if (!localSubscription) {
+        console.warn(
+          `[Stripe] No local subscription found for customer ${customerId}`,
+        );
+        return;
+      }
+      await applyStripeSubscription(
+        stripeSubscription,
+        localSubscription.userId,
+      );
       return;
     }
 
     case "customer.subscription.deleted": {
-      const stripeSubscription = event.data.object;
+      const stripeSubscription = event.data.object as Stripe.Subscription;
       const customerId = stripeId(stripeSubscription.customer);
-      if (!customerId)
-        throw new AppError("Subscription customer is missing", 500);
+      if (!customerId) {
+        console.warn("[Stripe] Subscription deleted event missing customer id");
+        return;
+      }
       const localSubscription = await prisma.subscription.findFirst({
         where: { stripeCustomerId: customerId },
       });
-      if (!localSubscription) throw new AppError("Subscription not found", 500);
-      await prisma.subscription.update({
-        where: { id: localSubscription.id },
-        data: { status: SubscriptionStatus.CANCELED, cancelAtPeriodEnd: false },
-      });
-      await prisma.user.update({
-        where: { id: localSubscription.userId },
-        data: { isPremium: false },
+      if (!localSubscription) {
+        console.warn(
+          `[Stripe] No local subscription found for customer ${customerId}`,
+        );
+        return;
+      }
+      await prisma.$transaction(async (tx) => {
+        await tx.subscription.update({
+          where: { id: localSubscription.id },
+          data: {
+            status: SubscriptionStatus.CANCELED,
+            cancelAtPeriodEnd: false,
+          },
+        });
+        await tx.user.update({
+          where: { id: localSubscription.userId },
+          data: { isPremium: false },
+        });
       });
       await prisma.auditLog.create({
         data: {
@@ -300,6 +332,141 @@ export const handleWebhookEvent = async (
           entityId: localSubscription.id,
         },
       });
+      return;
+    }
+
+    case "invoice.payment_succeeded": {
+      const invoice = event.data.object as Stripe.Invoice;
+      const customerId = stripeId(invoice.customer);
+      const user = customerId ? await getUserByCustomerId(customerId) : null;
+      if (!user || !customerId) {
+        throw new AppError("Unable to resolve invoice user", 500);
+      }
+
+      const existingPayment = await prisma.payment.findUnique({
+        where: { stripeInvoiceId: invoice.id },
+      });
+
+      const isNewOrChangedToSucceeded =
+        !existingPayment || existingPayment.status !== PaymentStatus.SUCCEEDED;
+
+      const payment = await prisma.payment.upsert({
+        where: { stripeInvoiceId: invoice.id },
+        create: {
+          userId: user.id,
+          amount: invoice.amount_paid,
+          currency: invoice.currency,
+          stripePaymentIntentId: null,
+          stripeInvoiceId: invoice.id,
+          status: PaymentStatus.SUCCEEDED,
+          purpose: PaymentPurpose.PREMIUM_SUBSCRIPTION,
+        },
+        update: {
+          amount: invoice.amount_paid,
+          currency: invoice.currency,
+          status: PaymentStatus.SUCCEEDED,
+        },
+      });
+
+      if (isNewOrChangedToSucceeded) {
+        await createNotification({
+          userId: user.id,
+          type: "PAYMENT_SUCCEEDED",
+          message: "Your premium subscription payment succeeded",
+          relatedEntityType: "Payment",
+          relatedEntityId: payment.id,
+        });
+        await prisma.auditLog.create({
+          data: {
+            actorId: user.id,
+            action: "PAYMENT_SUCCEEDED",
+            entityType: "Payment",
+            entityId: user.id,
+          },
+        });
+      }
+
+      const periodEnd = invoice.lines?.data?.[0]?.period?.end;
+      await prisma.subscription.update({
+        where: { userId: user.id },
+        data: {
+          ...(typeof periodEnd === "number"
+            ? { currentPeriodEnd: new Date(periodEnd * 1000) }
+            : {}),
+          status: SubscriptionStatus.ACTIVE,
+        },
+      });
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { isPremium: true },
+      });
+      return;
+    }
+
+    case "invoice.payment_failed": {
+      const invoice = event.data.object as Stripe.Invoice;
+      const customerId = stripeId(invoice.customer);
+      const user = customerId ? await getUserByCustomerId(customerId) : null;
+      if (!user || !customerId) {
+        throw new AppError("Unable to resolve invoice user", 500);
+      }
+
+      const existingPayment = await prisma.payment.findUnique({
+        where: { stripeInvoiceId: invoice.id },
+      });
+
+      if (existingPayment?.status === PaymentStatus.SUCCEEDED) {
+        return;
+      }
+
+      const isNewlyCreated = !existingPayment;
+
+      const payment = await prisma.payment.upsert({
+        where: { stripeInvoiceId: invoice.id },
+        create: {
+          userId: user.id,
+          amount: invoice.amount_due,
+          currency: invoice.currency,
+          stripePaymentIntentId: null,
+          stripeInvoiceId: invoice.id,
+          status: PaymentStatus.FAILED,
+          purpose: PaymentPurpose.PREMIUM_SUBSCRIPTION,
+        },
+        update: {
+          amount: invoice.amount_due,
+          currency: invoice.currency,
+          status: PaymentStatus.FAILED,
+        },
+      });
+
+      if (isNewlyCreated) {
+        await createNotification({
+          userId: user.id,
+          type: "PAYMENT_FAILED",
+          message:
+            "Your premium subscription payment failed. Please update your payment method",
+          relatedEntityType: "Payment",
+          relatedEntityId: payment.id,
+        });
+        await prisma.auditLog.create({
+          data: {
+            actorId: user.id,
+            action: "PAYMENT_FAILED",
+            entityType: "Payment",
+            entityId: user.id,
+          },
+        });
+      }
+
+      const localSubscription = await prisma.subscription.findUnique({
+        where: { userId: user.id },
+      });
+      if (localSubscription?.status === SubscriptionStatus.ACTIVE) {
+        await prisma.subscription.update({
+          where: { userId: user.id },
+          data: { status: SubscriptionStatus.PAST_DUE },
+        });
+      }
       return;
     }
 
