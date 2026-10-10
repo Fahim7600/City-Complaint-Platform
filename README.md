@@ -216,13 +216,14 @@ stripe listen --forward-to localhost:3000/api/v1/payments/webhook
 
 ## Deployment
 
-**Target:** [Render](https://render.com)
+**Target:** [Render](https://render.com) (Manual Web Service)
 
 | | |
 |---|---|
-| **Build command** | `npm install && npx prisma generate && npx prisma migrate deploy && npm run build` |
+| **Node version** | `24` (`.node-version` or `NODE_VERSION=24`) |
+| **Build command** | `npm run render:build` |
 | **Start command** | `npm start` |
-| **Health check** | `GET /api/v1/health` |
+| **Health check** | `/api/v1/health` |
 
 Configure every variable from `.env.example` in Render's dashboard. Full manual steps in [`DEPLOYMENT.md`](./DEPLOYMENT.md).
 
