@@ -44,6 +44,7 @@ const stripeSecretKey = getRequiredEnvVar("STRIPE_SECRET_KEY");
 const stripeWebhookSecret = getRequiredEnvVar("STRIPE_WEBHOOK_SECRET");
 const stripePremiumPriceId = getRequiredEnvVar("STRIPE_PREMIUM_PRICE_ID");
 const appBaseUrl = getRequiredEnvVar("APP_BASE_URL");
+const frontendBaseUrl = process.env.FRONTEND_BASE_URL?.trim() || "";
 
 export const config = {
   PORT: port,
@@ -62,4 +63,5 @@ export const config = {
   STRIPE_WEBHOOK_SECRET: stripeWebhookSecret,
   STRIPE_PREMIUM_PRICE_ID: stripePremiumPriceId,
   APP_BASE_URL: appBaseUrl,
+  FRONTEND_BASE_URL: frontendBaseUrl,
 };
