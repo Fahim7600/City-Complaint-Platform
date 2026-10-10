@@ -4,6 +4,7 @@ model Payment {
   amount                Int
   currency              String         @default("usd")
   stripePaymentIntentId String?        @unique
+  stripeInvoiceId       String?        @unique
   status                PaymentStatus
   purpose               PaymentPurpose
   createdAt             DateTime       @default(now())
