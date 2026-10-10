@@ -135,6 +135,7 @@ export const swaggerSpec = swaggerJSDoc({
             amount: { type: "integer" },
             currency: { type: "string" },
             stripePaymentIntentId: { type: "string", nullable: true },
+            stripeInvoiceId: { type: "string", nullable: true },
             status: {
               type: "string",
               enum: ["PENDING", "SUCCEEDED", "FAILED", "REFUNDED"],
