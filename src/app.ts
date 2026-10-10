@@ -24,15 +24,24 @@ app.use(helmet());
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (
-        !origin ||
-        config.ALLOWED_ORIGINS.includes("*") ||
-        config.ALLOWED_ORIGINS.includes(origin)
-      ) {
+      if (!origin) {
         callback(null, true);
-      } else {
-        callback(new Error(`Origin ${origin} is not allowed by CORS`));
+        return;
       }
+      if (config.ALLOWED_ORIGINS.includes("*")) {
+        if (config.NODE_ENV === "production") {
+          console.warn(
+            "[CORS Warning] Wildcard '*' allowed origin in production is insecure",
+          );
+        }
+        callback(null, true);
+        return;
+      }
+      if (config.ALLOWED_ORIGINS.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error(`Origin ${origin} is not allowed by CORS`));
     },
     credentials: true,
   }),
