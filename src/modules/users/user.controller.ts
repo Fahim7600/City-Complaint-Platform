@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import { successResponse } from "../../utils/response";
-import { AppError, REFRESH_COOKIE_NAME } from "../auth/auth.service";
+import { AppError } from "../auth/auth.service";
+import { clearRefreshCookie } from "../auth/refreshCookie";
 import { changePassword, getMe, updateProfile } from "./user.service";
 
 export const getMeHandler = async (
@@ -53,7 +54,7 @@ export const changePasswordHandler = async (
     }
     const result = await changePassword(userId, req.body);
     // Clear refresh token cookie since all sessions were revoked
-    res.clearCookie(REFRESH_COOKIE_NAME, { path: "/api/v1/auth" });
+    clearRefreshCookie(res);
     res.status(200).json(successResponse(result.message));
   } catch (error) {
     next(error);

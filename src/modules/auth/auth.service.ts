@@ -16,7 +16,16 @@ import type {
 import { submitStaffApplication } from "./staffApplication.service";
 
 export const BCRYPT_SALT_ROUNDS = 12;
-export const REFRESH_COOKIE_NAME = "refreshToken";
+export {
+  REFRESH_COOKIE_NAME,
+  refreshCookieOptions,
+  clearRefreshCookie,
+} from "./refreshCookie";
+import {
+  REFRESH_COOKIE_NAME,
+  clearRefreshCookie,
+  refreshCookieOptions,
+} from "./refreshCookie";
 
 export class AppError extends Error implements CustomError {
   statusCode: number;
@@ -71,13 +80,11 @@ export const issueTokens = async (
 
   // 5. Set refresh token as httpOnly cookie
   const maxAgeMs = expiresAt.getTime() - Date.now();
-  res.cookie(REFRESH_COOKIE_NAME, refreshToken, {
-    httpOnly: true,
-    secure: config.NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: maxAgeMs > 0 ? maxAgeMs : 7 * 24 * 60 * 60 * 1000,
-    path: "/api/v1/auth",
-  });
+  res.cookie(
+    REFRESH_COOKIE_NAME,
+    refreshToken,
+    refreshCookieOptions(maxAgeMs > 0 ? maxAgeMs : undefined),
+  );
 
   // 6. Return access token only
   return accessToken;
@@ -251,7 +258,7 @@ export const refreshUserToken = async (
       jti: string;
     };
   } catch (_err) {
-    res.clearCookie(REFRESH_COOKIE_NAME, { path: "/api/v1/auth" });
+    clearRefreshCookie(res);
     throw new AppError("Invalid or expired refresh token", 401);
   }
 
@@ -261,7 +268,7 @@ export const refreshUserToken = async (
   });
 
   if (!dbToken) {
-    res.clearCookie(REFRESH_COOKIE_NAME, { path: "/api/v1/auth" });
+    clearRefreshCookie(res);
     throw new AppError("Refresh token not found", 401);
   }
 
@@ -272,7 +279,7 @@ export const refreshUserToken = async (
       where: { userId: decoded.userId, revokedAt: null },
       data: { revokedAt: new Date() },
     });
-    res.clearCookie(REFRESH_COOKIE_NAME, { path: "/api/v1/auth" });
+    clearRefreshCookie(res);
     throw new AppError(
       "Refresh token reuse detected. All sessions revoked.",
       401,
@@ -280,7 +287,7 @@ export const refreshUserToken = async (
   }
 
   if (dbToken.expiresAt < new Date()) {
-    res.clearCookie(REFRESH_COOKIE_NAME, { path: "/api/v1/auth" });
+    clearRefreshCookie(res);
     throw new AppError("Refresh token expired", 401);
   }
 
@@ -289,7 +296,7 @@ export const refreshUserToken = async (
   });
 
   if (!user || user.deletedAt) {
-    res.clearCookie(REFRESH_COOKIE_NAME, { path: "/api/v1/auth" });
+    clearRefreshCookie(res);
     throw new AppError("User not found or deactivated", 401);
   }
 
@@ -336,5 +343,5 @@ export const logoutUser = async (
   }
 
   // Clear cookie regardless
-  res.clearCookie(REFRESH_COOKIE_NAME, { path: "/api/v1/auth" });
+  clearRefreshCookie(res);
 };
