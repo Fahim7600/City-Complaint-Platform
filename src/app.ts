@@ -38,6 +38,9 @@ app.use(
   }),
 );
 
+// Request logging middleware
+app.use(morgan(config.NODE_ENV === "production" ? "combined" : "dev"));
+
 /** @swagger
  * /payments/webhook:
  *   post:
@@ -56,9 +59,6 @@ app.post(
 // Body parsing middleware
 app.use(express.json());
 app.use(cookieParser());
-
-// Request logging middleware
-app.use(morgan(config.NODE_ENV === "production" ? "combined" : "dev"));
 
 app.get("/", (_req, res) => {
   res.status(200).json(
