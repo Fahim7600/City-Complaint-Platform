@@ -1,4 +1,4 @@
-import { Role } from "@prisma/client";
+import { Role, SubscriptionStatus } from "@prisma/client";
 import { z } from "zod";
 
 export const overrideRoleSchema = z
@@ -47,6 +47,14 @@ export const auditLogQuerySchema = z.object({
   to: z.string().datetime({ offset: true }).optional(),
 });
 
+export const listPaymentsQuerySchema = z.object({
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(50).default(10),
+  status: z.nativeEnum(SubscriptionStatus).optional(),
+  userId: z.string().uuid("Invalid user ID format").optional(),
+});
+
 export type OverrideRoleInput = z.infer<typeof overrideRoleSchema>;
 export type ListUsersQuery = z.infer<typeof listUsersQuerySchema>;
 export type AuditLogQuery = z.infer<typeof auditLogQuerySchema>;
+export type ListPaymentsQuery = z.infer<typeof listPaymentsQuerySchema>;

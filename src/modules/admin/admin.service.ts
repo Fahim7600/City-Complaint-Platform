@@ -10,6 +10,7 @@ import { sanitizeUser } from "../../utils/sanitizeUser";
 import { AppError } from "../auth/auth.service";
 import type {
   AuditLogQuery,
+  ListPaymentsQuery,
   ListUsersQuery,
   OverrideRoleInput,
 } from "./admin.validation";
@@ -331,5 +332,74 @@ export const listAuditLogs = async (query: AuditLogQuery) => {
     page: query.page,
     limit: query.limit,
     totalPages: Math.ceil(total / query.limit) || 1,
+  };
+};
+
+export const listSubscriptions = async (query: ListPaymentsQuery) => {
+  const where: Prisma.SubscriptionWhereInput = {};
+  if (query.status) {
+    where.status = query.status;
+  }
+  if (query.userId) {
+    where.userId = query.userId;
+  }
+
+  const total = await prisma.subscription.count({ where });
+  const subscriptions = await prisma.subscription.findMany({
+    where,
+    skip: (query.page - 1) * query.limit,
+    take: query.limit,
+    orderBy: { createdAt: "desc" },
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          payments: {
+            orderBy: { createdAt: "desc" },
+            select: {
+              id: true,
+              amount: true,
+              currency: true,
+              status: true,
+              createdAt: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const formattedSubscriptions = subscriptions.map((sub) => ({
+    id: sub.id,
+    user: {
+      id: sub.user.id,
+      name: sub.user.name,
+      email: sub.user.email,
+    },
+    status: sub.status,
+    currentPeriodEnd: sub.currentPeriodEnd,
+    cancelAtPeriodEnd: sub.cancelAtPeriodEnd,
+    payments: sub.user.payments.map((p) => ({
+      id: p.id,
+      amount: p.amount,
+      currency: p.currency,
+      status: p.status,
+      paidAt: p.createdAt,
+    })),
+    createdAt: sub.createdAt,
+    updatedAt: sub.updatedAt,
+  }));
+
+  return {
+    subscriptions: formattedSubscriptions,
+    items: formattedSubscriptions,
+    meta: {
+      page: query.page,
+      limit: query.limit,
+      total,
+      totalPages: Math.ceil(total / query.limit) || 1,
+    },
   };
 };

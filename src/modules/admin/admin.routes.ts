@@ -7,12 +7,14 @@ import {
   deactivateUserController,
   getDashboardStatsController,
   listAuditLogsController,
+  listPaymentsController,
   listUsersController,
   overrideUserRoleAndDepartmentController,
   reactivateUserController,
 } from "./admin.controller";
 import {
   auditLogQuerySchema,
+  listPaymentsQuerySchema,
   listUsersQuerySchema,
   overrideRoleSchema,
 } from "./admin.validation";
@@ -98,5 +100,32 @@ router.get(
   validate(auditLogQuerySchema),
   listAuditLogsController,
 );
+
+/** @swagger
+ * /admin/payments:
+ *   get:
+ *     summary: List subscriptions and payment history
+ *     tags: [Admin]
+ *     security: [{bearerAuth: []}]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema: {type: integer, default: 1}
+ *       - in: query
+ *         name: limit
+ *         schema: {type: integer, maximum: 50, default: 10}
+ *       - in: query
+ *         name: status
+ *         schema: {type: string, enum: [ACTIVE, CANCELED, PAST_DUE, INCOMPLETE]}
+ *       - in: query
+ *         name: userId
+ *         schema: {type: string, format: uuid}
+ *     responses:
+ *       200: {description: Subscriptions and payments retrieved successfully}
+ *       400: {description: Validation failure}
+ *       401: {description: Unauthorized}
+ *       403: {description: Admin access required}
+ */
+router.get("/payments", listPaymentsController);
 
 export default router;

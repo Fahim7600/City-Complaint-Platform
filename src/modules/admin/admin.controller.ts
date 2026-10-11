@@ -6,11 +6,16 @@ import {
   deactivateUser,
   getDashboardStats,
   listAuditLogs,
+  listSubscriptions,
   listUsers,
   overrideUserRoleAndDepartment,
   reactivateUser,
 } from "./admin.service";
-import { auditLogQuerySchema, listUsersQuerySchema } from "./admin.validation";
+import {
+  auditLogQuerySchema,
+  listPaymentsQuerySchema,
+  listUsersQuerySchema,
+} from "./admin.validation";
 
 const getParamId = (req: Request): string => {
   const { id } = req.params;
@@ -132,6 +137,31 @@ export const checkOverdueSlasController = async (
     res
       .status(200)
       .json(successResponse("Overdue SLA check completed", result));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const listPaymentsController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const parseResult = listPaymentsQuerySchema.safeParse(req.query);
+    if (!parseResult.success) {
+      const fieldErrors = parseResult.error.issues.map((issue) => ({
+        field: issue.path.join("."),
+        message: issue.message,
+      }));
+      throw new AppError("Validation failed", 400, fieldErrors);
+    }
+    const result = await listSubscriptions(parseResult.data);
+    res
+      .status(200)
+      .json(
+        successResponse("Payment subscriptions retrieved successfully", result),
+      );
   } catch (error) {
     next(error);
   }
