@@ -1,6 +1,7 @@
 import { Role } from "@prisma/client";
 import { Router } from "express";
 import { authenticate, authorize } from "../../middlewares/auth.middleware";
+import { checkoutLimiter } from "../../middlewares/rateLimit.middleware";
 import { validate } from "../../middlewares/validate";
 import {
   cancelSubscriptionHandler,
@@ -25,6 +26,14 @@ const router = Router();
  */
 router.post(
   "/checkout-session",
+  checkoutLimiter,
+  authenticate,
+  authorize(Role.CITIZEN),
+  createCheckoutSessionHandler,
+);
+router.post(
+  "/checkout",
+  checkoutLimiter,
   authenticate,
   authorize(Role.CITIZEN),
   createCheckoutSessionHandler,
@@ -80,6 +89,7 @@ router.get("/checkout-cancel", checkoutCancelHandler);
  */
 router.post(
   "/confirm-session",
+  checkoutLimiter,
   authenticate,
   authorize(Role.CITIZEN),
   validate(confirmSessionSchema),

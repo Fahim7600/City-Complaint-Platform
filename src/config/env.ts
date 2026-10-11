@@ -108,6 +108,8 @@ const stripeSecretKey = getRequiredEnvVar("STRIPE_SECRET_KEY");
 const stripeWebhookSecret = getRequiredEnvVar("STRIPE_WEBHOOK_SECRET");
 const stripePremiumPriceId = getRequiredEnvVar("STRIPE_PREMIUM_PRICE_ID");
 
+const rateLimitDisabled = process.env.RATE_LIMIT_DISABLED === "true";
+
 export const config = {
   PORT: port,
   DATABASE_URL: databaseUrl,
@@ -126,4 +128,5 @@ export const config = {
   STRIPE_PREMIUM_PRICE_ID: stripePremiumPriceId,
   APP_BASE_URL: appBaseUrl,
   FRONTEND_BASE_URL: frontendBaseUrl,
+  RATE_LIMIT_DISABLED: rateLimitDisabled,
 };

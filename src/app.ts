@@ -8,13 +8,16 @@ import { config } from "./config/env";
 import { swaggerSpec } from "./config/swagger";
 import { errorHandler } from "./middlewares/errorHandler";
 import { notFoundHandler } from "./middlewares/notFound";
+import { globalLimiter } from "./middlewares/rateLimit.middleware";
 import { webhookHandler } from "./modules/payments/payment.controller";
 import apiRoutes from "./routes";
 import { successResponse } from "./utils/response";
 
 const app = express();
 
-app.set("trust proxy", 1);
+if (config.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Security middleware
@@ -64,6 +67,9 @@ app.post(
   express.raw({ type: "application/json" }),
   webhookHandler,
 );
+
+// Global rate limiter applied after the Stripe webhook route
+app.use(globalLimiter);
 
 // Body parsing middleware
 app.use(express.json());

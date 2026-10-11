@@ -1,4 +1,8 @@
 import { Router } from "express";
+import {
+  authLimiter,
+  refreshLimiter,
+} from "../../middlewares/rateLimit.middleware";
 import { validate } from "../../middlewares/validate";
 import {
   googleAuthHandler,
@@ -34,7 +38,12 @@ const router = Router();
  *               staffApplication: {type: object}
  *     responses: {201: {description: Registered}, 400: {description: Validation failure}}
  */
-router.post("/register", validate(registerSchema), registerHandler);
+router.post(
+  "/register",
+  authLimiter,
+  validate(registerSchema),
+  registerHandler,
+);
 /** @swagger
  * /auth/login:
  *   post:
@@ -45,7 +54,7 @@ router.post("/register", validate(registerSchema), registerHandler);
  *       content: {application/json: {schema: {type: object, required: [email, password], properties: {email: {type: string}, password: {type: string}}}}}
  *     responses: {200: {description: Login successful}, 400: {description: Validation failure}, 401: {description: Invalid credentials}}
  */
-router.post("/login", validate(loginSchema), loginHandler);
+router.post("/login", authLimiter, validate(loginSchema), loginHandler);
 /** @swagger
  * /auth/google:
  *   post:
@@ -56,7 +65,12 @@ router.post("/login", validate(loginSchema), loginHandler);
  *       content: {application/json: {schema: {type: object, required: [idToken], properties: {idToken: {type: string}}}}}
  *     responses: {200: {description: Login successful}, 400: {description: Invalid token}}
  */
-router.post("/google", validate(googleAuthSchema), googleAuthHandler);
+router.post(
+  "/google",
+  authLimiter,
+  validate(googleAuthSchema),
+  googleAuthHandler,
+);
 /** @swagger
  * /auth/refresh-token:
  *   post:
@@ -64,7 +78,7 @@ router.post("/google", validate(googleAuthSchema), googleAuthHandler);
  *     tags: [Auth]
  *     responses: {200: {description: Token refreshed}, 401: {description: Invalid refresh token}}
  */
-router.post("/refresh-token", refreshTokenHandler);
+router.post("/refresh-token", refreshLimiter, refreshTokenHandler);
 /** @swagger
  * /auth/logout:
  *   post:
