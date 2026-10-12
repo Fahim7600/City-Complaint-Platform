@@ -12,6 +12,7 @@ import paymentRoutes from "../modules/payments/payment.routes";
 import publicRoutes from "../modules/public/public.routes";
 import reviewRoutes from "../modules/reviews/review.routes";
 import staffApplicationRoutes from "../modules/staffApplications/staffApplication.routes";
+import technicianRoutes from "../modules/technicians/technician.routes";
 import userRoutes from "../modules/users/user.routes";
 import { successResponse } from "../utils/response";
 
@@ -40,6 +41,7 @@ router.use("/users", userRoutes);
 router.use("/complaints", complaintRoutes);
 router.use("/payments", paymentRoutes);
 router.use("/notifications", notificationRoutes);
+router.use("/technicians", technicianRoutes);
 router.use("/", reviewRoutes);
 router.use("/departments", departmentRoutes);
 router.use("/", departmentAdminRoutes);

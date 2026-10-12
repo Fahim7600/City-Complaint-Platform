@@ -49,6 +49,7 @@ export const listUsers = async (query: ListUsersQuery) => {
       requestedRole: true,
       phone: true,
       isPremium: true,
+      isAvailable: true,
       deletedAt: true,
       createdAt: true,
     },

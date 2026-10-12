@@ -406,6 +406,13 @@ export const assignTechnician = async (
     );
   }
 
+  if (!technician.isAvailable) {
+    throw new AppError(
+      "Technician is currently unavailable for assignment",
+      400,
+    );
+  }
+
   // Atomic conditional update in transaction to avoid race conditions
   const assignedComplaint = await prisma.$transaction(async (tx) => {
     const allowedStatuses =
