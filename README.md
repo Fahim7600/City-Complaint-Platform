@@ -17,9 +17,9 @@
 
 | Resource | Target URL / Placeholder |
 |---|---|
-| **Live API** | `<ADD_LIVE_URL>` |
-| **Swagger UI Documentation** | `<ADD_LIVE_URL>/api-docs` |
-| **Health Check Endpoint** | `<ADD_LIVE_URL>/api/v1/health` |
+| **Live API** | [https://city-complaint-platform-1.onrender.com](https://city-complaint-platform-1.onrender.com) |
+| **Swagger UI Documentation** | [https://city-complaint-platform-1.onrender.com/api-docs](https://city-complaint-platform-1.onrender.com/api-docs) |
+| **Health Check Endpoint** | [https://city-complaint-platform-1.onrender.com/api/v1/health](https://city-complaint-platform-1.onrender.com/api/v1/health) |
 | **Postman Collection** | `<ADD_POSTMAN_LINK>` |
 | **Frontend Application** | `<ADD_FRONTEND_URL>` |
 
