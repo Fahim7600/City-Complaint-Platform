@@ -110,7 +110,10 @@ const stripePremiumPriceId = getRequiredEnvVar("STRIPE_PREMIUM_PRICE_ID");
 
 const rateLimitDisabled = process.env.RATE_LIMIT_DISABLED === "true";
 
-const parseOptionalPositiveInt = (key: string, defaultValue: number): number => {
+const parseOptionalPositiveInt = (
+  key: string,
+  defaultValue: number,
+): number => {
   const raw = process.env[key]?.trim();
   if (!raw) return defaultValue;
   const parsed = Number.parseInt(raw, 10);

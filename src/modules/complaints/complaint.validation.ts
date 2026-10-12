@@ -78,3 +78,13 @@ export type ReTriageInput = z.infer<typeof reTriageSchema>;
 export type AssignInput = z.infer<typeof assignSchema>;
 export type StatusUpdateInput = z.infer<typeof statusUpdateSchema>;
 export type ListQueryInput = z.infer<typeof listQuerySchema>;
+
+export const reopenComplaintSchema = z.object({
+  reason: z
+    .string()
+    .trim()
+    .min(5, "Reopen reason must be at least 5 characters long")
+    .max(500, "Reopen reason cannot exceed 500 characters"),
+});
+
+export type ReopenComplaintInput = z.infer<typeof reopenComplaintSchema>;

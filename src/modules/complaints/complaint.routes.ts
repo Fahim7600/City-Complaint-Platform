@@ -159,7 +159,26 @@ router.post(
   cancelComplaintHandler,
 );
 
-// 10. Soft delete complaint (Admin only)
+// 10. Reopen complaint (Citizen only)
+/** @swagger
+ * /complaints/{id}/reopen:
+ *   patch:
+ *     summary: Reopen a resolved complaint within window
+ *     tags: [Complaints]
+ *     security: [{bearerAuth: []}]
+ *     parameters: [{in: path, name: id, required: true, schema: {type: string, format: uuid}}]
+ *     requestBody: {required: true, content: {application/json: {schema: {type: object, required: [reason], properties: {reason: {type: string, minLength: 5, maxLength: 500}}}}}}
+ *     responses: {200: {description: Reopened complaint}, 400: {description: Expired or invalid status}, 401: {description: Unauthorized}, 403: {description: Forbidden}, 404: {description: Not found}}
+ */
+router.patch(
+  "/:id/reopen",
+  authenticate,
+  authorize(Role.CITIZEN),
+  validate(reopenComplaintSchema),
+  reopenComplaintHandler,
+);
+
+// 11. Soft delete complaint (Admin only)
 /** @swagger
  * /complaints/{id}:
  *   delete:

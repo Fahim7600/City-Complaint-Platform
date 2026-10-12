@@ -706,3 +706,156 @@ export const softDeleteComplaint = async (user: UserContext, id: string) => {
 
   return { message: "Complaint soft-deleted successfully" };
 };
+
+export const reopenComplaint = async (
+  user: UserContext,
+  id: string,
+  input: ReopenComplaintInput,
+) => {
+  if (user.role !== Role.CITIZEN) {
+    throw new AppError(
+      "Forbidden: Only citizens can reopen their complaints",
+      403,
+    );
+  }
+
+  const complaint = await prisma.complaint.findUnique({
+    where: { id },
+    include: {
+      category: { select: { id: true, slaHours: true } },
+      assignedTechnician: {
+        select: { id: true, role: true, isAvailable: true, deletedAt: true },
+      },
+    },
+  });
+
+  if (!complaint || complaint.deletedAt) {
+    throw new AppError("Complaint not found", 404);
+  }
+
+  if (complaint.citizenId !== user.userId) {
+    throw new AppError(
+      "Forbidden: You can only reopen your own complaints",
+      403,
+    );
+  }
+
+  if (complaint.status !== ComplaintStatus.RESOLVED) {
+    throw new AppError("Only resolved complaints can be reopened", 400);
+  }
+
+  if (!complaint.resolvedAt) {
+    throw new AppError("Complaint has no recorded resolution date", 400);
+  }
+
+  const windowMs = config.REOPEN_WINDOW_DAYS * 24 * 60 * 60 * 1000;
+  const elapsedMs = Date.now() - complaint.resolvedAt.getTime();
+  if (elapsedMs > windowMs) {
+    throw new AppError(
+      `Reopen window expired. Complaints can only be reopened within ${config.REOPEN_WINDOW_DAYS} days of resolution.`,
+      400,
+    );
+  }
+
+  const tech = complaint.assignedTechnician;
+  const isTechActiveAndAvailable = Boolean(
+    tech &&
+      !tech.deletedAt &&
+      tech.role === Role.TECHNICIAN &&
+      tech.isAvailable,
+  );
+
+  const newStatus = isTechActiveAndAvailable
+    ? ComplaintStatus.ASSIGNED
+    : ComplaintStatus.PENDING;
+  const newAssignedTechnicianId = isTechActiveAndAvailable
+    ? complaint.assignedTechnicianId
+    : null;
+  const newSlaDueAt = new Date(
+    Date.now() + complaint.category.slaHours * 60 * 60 * 1000,
+  );
+  const now = new Date();
+
+  const updatedComplaint = await prisma.$transaction(async (tx) => {
+    const result = await tx.complaint.updateMany({
+      where: {
+        id,
+        citizenId: user.userId,
+        status: ComplaintStatus.RESOLVED,
+        deletedAt: null,
+      },
+      data: {
+        status: newStatus,
+        assignedTechnicianId: newAssignedTechnicianId,
+        resolvedAt: null,
+        reopenedAt: now,
+        reopenCount: { increment: 1 },
+        slaDueAt: newSlaDueAt,
+        overdueNotifiedAt: null,
+      },
+    });
+
+    if (result.count === 0) {
+      throw new AppError(
+        "Complaint status was modified by another request",
+        409,
+      );
+    }
+
+    await tx.auditLog.create({
+      data: {
+        actorId: user.userId,
+        action: "COMPLAINT_REOPENED",
+        entityType: "Complaint",
+        entityId: id,
+        metadata: {
+          fromStatus: ComplaintStatus.RESOLVED,
+          toStatus: newStatus,
+          reason: input.reason,
+          assignedTechnicianId: newAssignedTechnicianId,
+        },
+      },
+    });
+
+    return await tx.complaint.findUnique({
+      where: { id },
+      include: {
+        category: { select: { id: true, name: true } },
+        department: { select: { id: true, name: true } },
+        assignedTechnician: { select: { id: true, name: true, email: true } },
+      },
+    });
+  });
+
+  if (newAssignedTechnicianId) {
+    await createNotification({
+      userId: newAssignedTechnicianId,
+      type: "COMPLAINT_REOPENED",
+      message: `Complaint "${complaint.title}" was reopened by citizen: ${input.reason}`,
+      relatedEntityType: "Complaint",
+      relatedEntityId: id,
+    });
+  } else {
+    const managers = await prisma.user.findMany({
+      where: {
+        role: Role.MANAGER,
+        departmentId: complaint.departmentId,
+        deletedAt: null,
+      },
+      select: { id: true },
+    });
+    await Promise.all(
+      managers.map((mgr) =>
+        createNotification({
+          userId: mgr.id,
+          type: "COMPLAINT_REOPENED",
+          message: `Complaint "${complaint.title}" was reopened and needs technician assignment: ${input.reason}`,
+          relatedEntityType: "Complaint",
+          relatedEntityId: id,
+        }),
+      ),
+    );
+  }
+
+  return updatedComplaint;
+};

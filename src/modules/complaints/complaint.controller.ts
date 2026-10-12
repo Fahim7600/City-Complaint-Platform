@@ -222,3 +222,20 @@ export const softDeleteComplaintHandler = async (
     next(error);
   }
 };
+
+export const reopenComplaintHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    if (!req.user) throw new AppError("Unauthorized", 401);
+    const id = getParamId(req);
+    const result = await reopenComplaint(req.user, id, req.body);
+    res
+      .status(200)
+      .json(successResponse("Complaint reopened successfully", result));
+  } catch (error) {
+    next(error);
+  }
+};
