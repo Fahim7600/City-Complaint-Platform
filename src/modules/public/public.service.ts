@@ -3,6 +3,17 @@ import { config } from "../../config/env";
 import { prisma } from "../../config/prisma";
 import { stripe } from "../../config/stripe";
 import { AppError } from "../auth/auth.service";
+import {
+  CALLS_TO_ACTION,
+  FAQS,
+  FREE_BENEFITS,
+  PLAN_COMPARISON,
+  PLATFORM_HIGHLIGHTS,
+  PLATFORM_INFO,
+  PREMIUM_BENEFITS,
+  ROLES_INFO,
+  getHowItWorksSteps,
+} from "./public.content";
 
 interface CacheEntry<T> {
   data: T;
@@ -204,6 +215,36 @@ export const getPublicStats = async () => {
   return stats;
 };
 
+export const getCachedStripePrice = async (): Promise<{
+  amount: number;
+  currency: string;
+  interval: string | null;
+} | null> => {
+  if (
+    !config.STRIPE_PREMIUM_PRICE_ID ||
+    config.STRIPE_PREMIUM_PRICE_ID.trim() === ""
+  ) {
+    return null;
+  }
+
+  try {
+    const stripePrice = await stripe.prices.retrieve(
+      config.STRIPE_PREMIUM_PRICE_ID,
+    );
+    return {
+      amount: (stripePrice.unit_amount || 0) / 100,
+      currency: stripePrice.currency,
+      interval: stripePrice.recurring?.interval || null,
+    };
+  } catch (err) {
+    console.warn(
+      "[Public Service] Could not retrieve Stripe price for premium info, returning price: null",
+      err,
+    );
+    return null;
+  }
+};
+
 export const getPublicPremiumInfo = async () => {
   const cacheKey = "public_premium_info";
   const cached = getCached<{
@@ -216,45 +257,80 @@ export const getPublicPremiumInfo = async () => {
   }>(cacheKey);
   if (cached) return cached;
 
-  const benefits = [
-    "Automatic HIGH priority on every new complaint for expedited triage",
-    `Higher monthly complaint limit (${config.MONTHLY_COMPLAINT_LIMIT_PREMIUM} complaints/month instead of ${config.MONTHLY_COMPLAINT_LIMIT_FREE})`,
-    "Direct priority resolution queue across municipal departments",
-  ];
-
-  let price: {
-    amount: number;
-    currency: string;
-    interval: string | null;
-  } | null = null;
-
-  if (
-    config.STRIPE_PREMIUM_PRICE_ID &&
-    config.STRIPE_PREMIUM_PRICE_ID.trim() !== ""
-  ) {
-    try {
-      const stripePrice = await stripe.prices.retrieve(
-        config.STRIPE_PREMIUM_PRICE_ID,
-      );
-      price = {
-        amount: (stripePrice.unit_amount || 0) / 100,
-        currency: stripePrice.currency,
-        interval: stripePrice.recurring?.interval || null,
-      };
-    } catch (err) {
-      console.warn(
-        "[Public Service] Could not retrieve Stripe price for premium info, returning price: null",
-        err,
-      );
-      price = null;
-    }
-  }
+  const price = await getCachedStripePrice();
 
   const result = {
-    benefits,
+    benefits: PREMIUM_BENEFITS,
     price,
   };
 
   setCached(cacheKey, result);
   return result;
+};
+
+export const getPublicOverview = async () => {
+  const cacheKey = "public_overview";
+  const cached = getCached<Record<string, unknown>>(cacheKey);
+  if (cached) return cached;
+
+  const [departmentsResult, categoriesResult, statsResult, stripePrice] =
+    await Promise.allSettled([
+      getPublicDepartments(),
+      getPublicCategories(),
+      getPublicStats(),
+      getCachedStripePrice(),
+    ]);
+
+  const departments =
+    departmentsResult.status === "fulfilled"
+      ? departmentsResult.value.map((d) => ({
+          id: d.id,
+          name: d.name,
+          description: d.description,
+        }))
+      : [];
+
+  const categories =
+    categoriesResult.status === "fulfilled"
+      ? categoriesResult.value.map((c) => ({
+          id: c.id,
+          name: c.name,
+          departmentId: c.departmentId,
+          slaHours: c.slaHours,
+        }))
+      : [];
+
+  const stats = statsResult.status === "fulfilled" ? statsResult.value : null;
+
+  const price = stripePrice.status === "fulfilled" ? stripePrice.value : null;
+
+  const overview = {
+    platform: PLATFORM_INFO,
+    highlights: PLATFORM_HIGHLIGHTS,
+    howItWorks: getHowItWorksSteps(),
+    roles: ROLES_INFO,
+    plans: {
+      free: {
+        monthlyComplaintLimit: config.MONTHLY_COMPLAINT_LIMIT_FREE,
+        priority: "Standard",
+        price: 0,
+        benefits: FREE_BENEFITS,
+      },
+      premium: {
+        monthlyComplaintLimit: config.MONTHLY_COMPLAINT_LIMIT_PREMIUM,
+        priority: "HIGH on every new complaint",
+        price,
+        benefits: PREMIUM_BENEFITS,
+      },
+      comparison: PLAN_COMPARISON,
+    },
+    faqs: FAQS,
+    callsToAction: CALLS_TO_ACTION,
+    stats,
+    departments,
+    categories,
+  };
+
+  setCached(cacheKey, overview);
+  return overview;
 };

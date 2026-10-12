@@ -3,6 +3,7 @@ import {
   getDepartmentTechniciansController,
   getPublicCategoriesController,
   getPublicDepartmentsController,
+  getPublicOverviewController,
   getPublicPremiumInfoController,
   getPublicStatsController,
 } from "./public.controller";
@@ -54,5 +55,14 @@ router.get("/stats", getPublicStatsController);
  *     responses: {200: {description: Premium tier benefits and Stripe price info}}
  */
 router.get("/premium-info", getPublicPremiumInfoController);
+
+/** @swagger
+ * /public/overview:
+ *   get:
+ *     summary: Get complete public landing page overview content and statistics
+ *     tags: [Public]
+ *     responses: {200: {description: Landing page content, FAQs, plans, departments, categories, and live statistics}}
+ */
+router.get("/overview", getPublicOverviewController);
 
 export default router;

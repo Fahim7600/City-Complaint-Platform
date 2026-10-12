@@ -5,6 +5,7 @@ import {
   getDepartmentTechnicians,
   getPublicCategories,
   getPublicDepartments,
+  getPublicOverview,
   getPublicPremiumInfo,
   getPublicStats,
 } from "./public.service";
@@ -98,6 +99,24 @@ export const getPublicPremiumInfoController = async (
           "Premium tier information retrieved successfully",
           premiumInfo,
         ),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getPublicOverviewController = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const overview = await getPublicOverview();
+    res.setHeader("Cache-Control", "public, max-age=300");
+    res
+      .status(200)
+      .json(
+        successResponse("Public overview retrieved successfully", overview),
       );
   } catch (error) {
     next(error);
