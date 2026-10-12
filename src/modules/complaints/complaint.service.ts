@@ -1,4 +1,5 @@
 import { ComplaintStatus, Priority, type Prisma, Role } from "@prisma/client";
+import { config } from "../../config/env";
 import { prisma } from "../../config/prisma";
 import { AppError } from "../auth/auth.service";
 import { createNotification } from "../notifications/notification.service";
@@ -7,9 +8,12 @@ import {
   verifyComplaintAccess,
 } from "./complaint.access";
 import type {
+  ClearEscalationInput,
   CreateComplaintInput,
+  EscalateComplaintInput,
   ListQueryInput,
   ReTriageInput,
+  ReopenComplaintInput,
   StatusUpdateInput,
   UpdateComplaintInput,
 } from "./complaint.validation";
@@ -53,6 +57,42 @@ export const createComplaint = async (
   citizenId: string,
   data: CreateComplaintInput,
 ) => {
+  const now = new Date();
+  const startOfMonth = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1, 0, 0, 0, 0),
+  );
+  const startOfNextMonth = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1, 0, 0, 0, 0),
+  );
+
+  const citizen = await prisma.user.findUnique({
+    where: { id: citizenId },
+    select: { isPremium: true },
+  });
+
+  const isPremium = Boolean(citizen?.isPremium);
+  const limit = isPremium
+    ? config.MONTHLY_COMPLAINT_LIMIT_PREMIUM
+    : config.MONTHLY_COMPLAINT_LIMIT_FREE;
+
+  const monthlyCount = await prisma.complaint.count({
+    where: {
+      citizenId,
+      deletedAt: null,
+      createdAt: {
+        gte: startOfMonth,
+        lt: startOfNextMonth,
+      },
+    },
+  });
+
+  if (monthlyCount >= limit) {
+    const message = isPremium
+      ? `Premium monthly limit reached (${limit}).`
+      : `Monthly complaint limit reached (${limit}). Upgrade to Premium for a higher limit.`;
+    throw new AppError(message, 429);
+  }
+
   const category = await prisma.category.findUnique({
     where: { id: data.categoryId },
   });
@@ -63,10 +103,6 @@ export const createComplaint = async (
 
   const departmentId = category.departmentId;
   const slaDueAt = new Date(Date.now() + category.slaHours * 60 * 60 * 1000);
-  const citizen = await prisma.user.findUnique({
-    where: { id: citizenId },
-    select: { isPremium: true },
-  });
 
   const complaint = await prisma.complaint.create({
     data: {
@@ -723,6 +759,44 @@ export const softDeleteComplaint = async (user: UserContext, id: string) => {
   });
 
   return { message: "Complaint soft-deleted successfully" };
+};
+
+export const getComplaintUsage = async (citizenId: string) => {
+  const now = new Date();
+  const startOfMonth = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1, 0, 0, 0, 0),
+  );
+  const startOfNextMonth = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1, 0, 0, 0, 0),
+  );
+
+  const citizen = await prisma.user.findUnique({
+    where: { id: citizenId },
+    select: { isPremium: true },
+  });
+
+  const isPremium = Boolean(citizen?.isPremium);
+  const limit = isPremium
+    ? config.MONTHLY_COMPLAINT_LIMIT_PREMIUM
+    : config.MONTHLY_COMPLAINT_LIMIT_FREE;
+
+  const used = await prisma.complaint.count({
+    where: {
+      citizenId,
+      deletedAt: null,
+      createdAt: {
+        gte: startOfMonth,
+        lt: startOfNextMonth,
+      },
+    },
+  });
+
+  return {
+    used,
+    limit,
+    isPremium,
+    resetsAt: startOfNextMonth.toISOString(),
+  };
 };
 
 export const reopenComplaint = async (

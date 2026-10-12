@@ -72,13 +72,6 @@ export const listQuerySchema = z.object({
   q: z.string().trim().optional(),
 });
 
-export type CreateComplaintInput = z.infer<typeof createComplaintSchema>;
-export type UpdateComplaintInput = z.infer<typeof updateComplaintSchema>;
-export type ReTriageInput = z.infer<typeof reTriageSchema>;
-export type AssignInput = z.infer<typeof assignSchema>;
-export type StatusUpdateInput = z.infer<typeof statusUpdateSchema>;
-export type ListQueryInput = z.infer<typeof listQuerySchema>;
-
 export const reopenComplaintSchema = z.object({
   reason: z
     .string()
@@ -86,8 +79,6 @@ export const reopenComplaintSchema = z.object({
     .min(5, "Reopen reason must be at least 5 characters long")
     .max(500, "Reopen reason cannot exceed 500 characters"),
 });
-
-export type ReopenComplaintInput = z.infer<typeof reopenComplaintSchema>;
 
 export const escalateComplaintSchema = z.object({
   reason: z
@@ -105,5 +96,12 @@ export const clearEscalationSchema = z.object({
     .optional(),
 });
 
+export type CreateComplaintInput = z.infer<typeof createComplaintSchema>;
+export type UpdateComplaintInput = z.infer<typeof updateComplaintSchema>;
+export type ReTriageInput = z.infer<typeof reTriageSchema>;
+export type AssignInput = z.infer<typeof assignSchema>;
+export type StatusUpdateInput = z.infer<typeof statusUpdateSchema>;
+export type ListQueryInput = z.infer<typeof listQuerySchema>;
+export type ReopenComplaintInput = z.infer<typeof reopenComplaintSchema>;
 export type EscalateComplaintInput = z.infer<typeof escalateComplaintSchema>;
 export type ClearEscalationInput = z.infer<typeof clearEscalationSchema>;

@@ -8,8 +8,10 @@ import {
   createComplaintHandler,
   escalateComplaintHandler,
   getComplaintByIdHandler,
+  getComplaintUsageHandler,
   listComplaintsHandler,
   listMyAssignedHandler,
+  reopenComplaintHandler,
   searchComplaintsHandler,
   softDeleteComplaintHandler,
   updateComplaintHandler,
@@ -19,6 +21,7 @@ import {
   assignSchema,
   createComplaintSchema,
   escalateComplaintSchema,
+  reopenComplaintSchema,
   statusUpdateSchema,
 } from "./complaint.validation";
 
@@ -29,10 +32,11 @@ const router = Router();
  * /complaints/:
  *   post:
  *     summary: Create a complaint
+ *     description: Submit a new complaint. Subject to monthly limit (default 5 for free tier, 20 for premium tier). Upgrade to premium for higher limits.
  *     tags: [Complaints]
  *     security: [{bearerAuth: []}]
  *     requestBody: {required: true, content: {application/json: {schema: {type: object, required: [title, description, categoryId, location], properties: {title: {type: string}, description: {type: string}, categoryId: {type: string, format: uuid}, location: {type: string}, priority: {type: string, enum: [LOW, MEDIUM, HIGH]}}}}}}
- *     responses: {201: {description: Created}, 400: {description: Validation failure}, 401: {description: Unauthorized}, 403: {description: Forbidden}}
+ *     responses: {201: {description: Created}, 400: {description: Validation failure}, 401: {description: Unauthorized}, 403: {description: Forbidden}, 429: {description: Monthly complaint limit reached}}
  */
 router.post(
   "/",
@@ -82,7 +86,23 @@ router.get(
   listMyAssignedHandler,
 );
 
-// 5. Get complaint by ID
+// 5. Get citizen monthly complaint usage (MUST be defined before /:id)
+/** @swagger
+ * /complaints/usage:
+ *   get:
+ *     summary: Get citizen monthly complaint usage and limit
+ *     tags: [Complaints]
+ *     security: [{bearerAuth: []}]
+ *     responses: {200: {description: Usage statistics}, 401: {description: Unauthorized}, 403: {description: Citizen access required}}
+ */
+router.get(
+  "/usage",
+  authenticate,
+  authorize(Role.CITIZEN),
+  getComplaintUsageHandler,
+);
+
+// 6. Get complaint by ID
 /** @swagger
  * /complaints/{id}:
  *   get:

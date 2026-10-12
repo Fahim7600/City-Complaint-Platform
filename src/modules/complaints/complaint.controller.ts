@@ -8,7 +8,9 @@ import {
   createComplaint,
   escalateComplaint,
   getComplaintById,
+  getComplaintUsage,
   listComplaints,
+  reopenComplaint,
   searchComplaints,
   softDeleteComplaint,
   updateComplaint,
@@ -219,6 +221,22 @@ export const softDeleteComplaintHandler = async (
     res
       .status(200)
       .json(successResponse("Complaint deleted successfully", result));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getComplaintUsageHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    if (!req.user) throw new AppError("Unauthorized", 401);
+    const result = await getComplaintUsage(req.user.userId);
+    res
+      .status(200)
+      .json(successResponse("Complaint usage retrieved successfully", result));
   } catch (error) {
     next(error);
   }
