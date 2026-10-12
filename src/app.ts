@@ -6,7 +6,7 @@ import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import { config } from "./config/env";
 import { swaggerSpec } from "./config/swagger";
-import { errorHandler } from "./middlewares/errorHandler";
+import { type CustomError, errorHandler } from "./middlewares/errorHandler";
 import { notFoundHandler } from "./middlewares/notFound";
 import { globalLimiter } from "./middlewares/rateLimit.middleware";
 import { webhookHandler } from "./modules/payments/payment.controller";
@@ -44,7 +44,10 @@ app.use(
         callback(null, true);
         return;
       }
-      callback(new Error(`Origin ${origin} is not allowed by CORS`));
+      const corsError: CustomError = new Error("Origin not allowed by CORS");
+      corsError.statusCode = 403;
+      corsError.stack = undefined;
+      callback(corsError);
     },
     credentials: true,
   }),
