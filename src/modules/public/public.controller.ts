@@ -75,7 +75,9 @@ export const getPublicStatsController = async (
     res.setHeader("Cache-Control", "public, max-age=300");
     res
       .status(200)
-      .json(successResponse("Platform statistics retrieved successfully", stats));
+      .json(
+        successResponse("Platform statistics retrieved successfully", stats),
+      );
   } catch (error) {
     next(error);
   }
@@ -92,7 +94,10 @@ export const getPublicPremiumInfoController = async (
     res
       .status(200)
       .json(
-        successResponse("Premium tier information retrieved successfully", premiumInfo),
+        successResponse(
+          "Premium tier information retrieved successfully",
+          premiumInfo,
+        ),
       );
   } catch (error) {
     next(error);

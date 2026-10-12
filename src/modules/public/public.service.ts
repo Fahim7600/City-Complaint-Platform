@@ -21,13 +21,20 @@ export const getCached = <T>(key: string): T | null => {
   return entry.data as T;
 };
 
-export const setCached = <T>(key: string, data: T, ttlMs = 5 * 60 * 1000): void => {
+export const setCached = <T>(
+  key: string,
+  data: T,
+  ttlMs = 5 * 60 * 1000,
+): void => {
   cache.set(key, { data, expiresAt: Date.now() + ttlMs });
 };
 
 export const getPublicDepartments = async () => {
   const cacheKey = "public_departments";
-  const cached = getCached<Array<{ id: string; name: string; description: string | null }>>(cacheKey);
+  const cached =
+    getCached<Array<{ id: string; name: string; description: string | null }>>(
+      cacheKey,
+    );
   if (cached) return cached;
 
   const departments = await prisma.department.findMany({
@@ -76,7 +83,10 @@ export const getDepartmentTechnicians = async (departmentId: string) => {
 
   return technicians.map((tech) => {
     const reviewCount = tech.reviewsReceived.length;
-    const sumRatings = tech.reviewsReceived.reduce((acc, r) => acc + r.rating, 0);
+    const sumRatings = tech.reviewsReceived.reduce(
+      (acc, r) => acc + r.rating,
+      0,
+    );
     const averageRating =
       reviewCount > 0 ? Number((sumRatings / reviewCount).toFixed(2)) : 0;
 
@@ -93,9 +103,15 @@ export const getDepartmentTechnicians = async (departmentId: string) => {
 
 export const getPublicCategories = async () => {
   const cacheKey = "public_categories";
-  const cached = getCached<
-    Array<{ id: string; name: string; departmentId: string; slaHours: number }>
-  >(cacheKey);
+  const cached =
+    getCached<
+      Array<{
+        id: string;
+        name: string;
+        departmentId: string;
+        slaHours: number;
+      }>
+    >(cacheKey);
   if (cached) return cached;
 
   const categories = await prisma.category.findMany({
@@ -158,9 +174,12 @@ export const getPublicStats = async () => {
     totalComplaints += group._count;
   }
 
-  const resolvedCount = (countsByStatus.RESOLVED || 0) + (countsByStatus.CLOSED || 0);
+  const resolvedCount =
+    (countsByStatus.RESOLVED || 0) + (countsByStatus.CLOSED || 0);
   const resolutionRate =
-    totalComplaints > 0 ? Number(((resolvedCount / totalComplaints) * 100).toFixed(2)) : 0;
+    totalComplaints > 0
+      ? Number(((resolvedCount / totalComplaints) * 100).toFixed(2))
+      : 0;
 
   let averageResolutionHours = 0;
   if (resolvedComplaints.length > 0) {
@@ -168,7 +187,9 @@ export const getPublicStats = async () => {
       const diffMs = (c.resolvedAt?.getTime() ?? 0) - c.createdAt.getTime();
       return acc + Math.max(0, diffMs / (1000 * 60 * 60));
     }, 0);
-    averageResolutionHours = Number((totalHours / resolvedComplaints.length).toFixed(2));
+    averageResolutionHours = Number(
+      (totalHours / resolvedComplaints.length).toFixed(2),
+    );
   }
 
   const stats = {
@@ -207,9 +228,14 @@ export const getPublicPremiumInfo = async () => {
     interval: string | null;
   } | null = null;
 
-  if (config.STRIPE_PREMIUM_PRICE_ID && config.STRIPE_PREMIUM_PRICE_ID.trim() !== "") {
+  if (
+    config.STRIPE_PREMIUM_PRICE_ID &&
+    config.STRIPE_PREMIUM_PRICE_ID.trim() !== ""
+  ) {
     try {
-      const stripePrice = await stripe.prices.retrieve(config.STRIPE_PREMIUM_PRICE_ID);
+      const stripePrice = await stripe.prices.retrieve(
+        config.STRIPE_PREMIUM_PRICE_ID,
+      );
       price = {
         amount: (stripePrice.unit_amount || 0) / 100,
         currency: stripePrice.currency,

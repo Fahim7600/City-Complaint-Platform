@@ -44,10 +44,10 @@ The **City Complaint & Service Request Platform** is a production-ready municipa
 
 | Role | Key Capabilities & Permissions |
 |---|---|
-| **🧍 Citizen** | <ul><li>Register and log in via email/password or Google OAuth ID token.</li><li>Create, view, update, and search personal complaints with photo attachments.</li><li>Cancel personal complaints while in `PENDING` status.</li><li>Submit one immutable review & rating (1–5 stars) after a complaint is `RESOLVED`.</li><li>View technician ratings and department listings.</li><li>Manage an in-app notification inbox with read tracking.</li><li>Apply for staff roles (`TECHNICIAN` or `MANAGER`).</li><li>**Premium Subscription Benefit:** Subscribed citizens automatically have all newly submitted complaints elevated to **`HIGH` Priority**, fast-tracking them ahead of standard queues.</li></ul> |
-| **🔧 Technician** | <ul><li>Access dedicated list of assigned complaints (`/complaints/my-assigned`).</li><li>Upload before-work and after-work photographic evidence.</li><li>Transition complaints: `ASSIGNED → IN_PROGRESS → RESOLVED` (mandatory resolution note).</li><li>View personal rating metrics.</li></ul> |
-| **🗂️ Manager** | <ul><li>Scoped strictly to their assigned department.</li><li>Triage and re-prioritize incoming department complaints (`LOW`, `MEDIUM`, `HIGH`).</li><li>Assign/reassign active department technicians to pending complaints (`PENDING → ASSIGNED`).</li><li>Reject complaints with a required reason (`PENDING → REJECTED`).</li><li>Close resolved complaints (`RESOLVED → CLOSED`).</li><li>Reopen complaints back to work order with a required reason (`RESOLVED → IN_PROGRESS`).</li><li>Review and approve/reject department `TECHNICIAN` staff applications.</li><li>Receive automated `SLA_OVERDUE` alerts when complaints exceed resolution deadlines.</li></ul> |
-| **👑 Admin** | <ul><li>Platform-wide visibility and administrative authority.</li><li>Full CRUD on municipal Departments and Service Categories.</li><li>Review and decide `MANAGER` staff applications across all departments.</li><li>Override user roles and departmental assignments (capped: cannot self-grant `ADMIN`).</li><li>Deactivate/reactivate user accounts (guarded against self-lockout and last-admin deletion).</li><li>Trigger manual on-demand SLA overdue sweeps (`POST /admin/jobs/check-overdue-slas`).</li><li>View high-level platform statistics and audit log timeline with filtering.</li><li>View platform-wide payment and subscription history (`GET /admin/payments`).</li><li>Soft-delete complaints if required.</li></ul> |
+| **🧍 Citizen** | <ul><li>Register and log in via email/password or Google OAuth ID token.</li><li>Create, view, update, and search personal complaints with photo attachments.</li><li>Track monthly complaint usage and remaining quota (`GET /complaints/usage`).</li><li>Reopen personal resolved complaints within the reopen window (`PATCH /complaints/:id/reopen`).</li><li>Cancel personal complaints while in `PENDING` status.</li><li>Submit one immutable review & rating (1–5 stars) after a complaint is `RESOLVED`.</li><li>View public department listings, categories, stats, and technician ratings.</li><li>Manage an in-app notification inbox with read tracking.</li><li>Apply for staff roles (`TECHNICIAN` or `MANAGER`).</li><li>**Premium Subscription Benefit:** Subscribed citizens get automatic **`HIGH` Priority** on all new complaints and an elevated monthly complaint limit (20 vs 5).</li></ul> |
+| **🔧 Technician** | <ul><li>Access dedicated list of assigned complaints (`/complaints/my-assigned`).</li><li>Toggle availability for incoming complaint assignments (`PATCH /technicians/me/availability`).</li><li>View live computed performance metrics and ratings (`GET /technicians/me/performance`).</li><li>Upload before-work and after-work photographic evidence.</li><li>Transition complaints: `ASSIGNED → IN_PROGRESS → RESOLVED` (mandatory resolution note).</li></ul> |
+| **🗂️ Manager** | <ul><li>Scoped strictly to their assigned department.</li><li>Triage and re-prioritize incoming department complaints (`LOW`, `MEDIUM`, `HIGH`).</li><li>Assign/reassign active department technicians to pending complaints (with availability checks).</li><li>Escalate critical unresolvable department complaints to the admin queue (`PATCH /complaints/:id/escalate`).</li><li>Reject complaints with a required reason (`PENDING → REJECTED`).</li><li>Close resolved complaints (`RESOLVED → CLOSED`).</li><li>Reopen complaints back to work order with a required reason (`RESOLVED → IN_PROGRESS`).</li><li>Review and approve/reject department `TECHNICIAN` staff applications.</li><li>Receive automated `SLA_OVERDUE` alerts when complaints exceed resolution deadlines.</li></ul> |
+| **👑 Admin** | <ul><li>Platform-wide visibility and administrative authority.</li><li>Manage the escalated complaints queue (`GET /admin/escalated-complaints`) and clear escalations (`PATCH /admin/complaints/:id/clear-escalation`).</li><li>Directly reassign or resolve escalated complaints across all municipal departments.</li><li>Inspect Stripe premium subscription pricing details (`GET /admin/premium-pricing`).</li><li>Full CRUD on municipal Departments and Service Categories.</li><li>Review and decide `MANAGER` staff applications across all departments.</li><li>Override user roles and departmental assignments (capped: cannot self-grant `ADMIN`).</li><li>Deactivate/reactivate user accounts (guarded against self-lockout and last-admin deletion).</li><li>Trigger manual on-demand SLA overdue sweeps (`POST /admin/jobs/check-overdue-slas`).</li><li>View high-level platform statistics and audit log timeline with filtering.</li><li>View platform-wide payment and subscription history (`GET /admin/payments`).</li><li>Soft-delete complaints if required.</li></ul> |
 
 ---
 
@@ -296,7 +296,16 @@ All routes are mounted under `/api/v1` (except the root discovery route and Swag
 | `GET` | `/` | Public | API root discovery with links to docs and health |
 | `GET` | `/api/v1/health` | Public | Server uptime and health verification |
 
-### 2. Authentication (`/api/v1/auth`)
+### 2. Public Portal (`/api/v1/public`)
+| Method | Path | Auth / Role | Description |
+|---|---|---|---|
+| `GET` | `/public/departments` | Public | List active departments (cached 5 min, `Cache-Control: public, max-age=300`) |
+| `GET` | `/public/departments/:id/technicians` | Public | List active technicians with rating and review count only (no emails/phones) |
+| `GET` | `/public/categories` | Public | List active categories and SLA target hours (cached 5 min) |
+| `GET` | `/public/stats` | Public | Total complaints, resolved count, resolution rate, and avg hours (cached 5 min) |
+| `GET` | `/public/premium-info` | Public | Premium subscription benefits and live Stripe pricing (cached 5 min) |
+
+### 3. Authentication (`/api/v1/auth`)
 | Method | Path | Auth / Role | Description |
 |---|---|---|---|
 | `POST` | `/auth/register` | Public (10/15m) | Register a citizen or submit staff application |
@@ -305,30 +314,33 @@ All routes are mounted under `/api/v1` (except the root discovery route and Swag
 | `POST` | `/auth/refresh-token` | Public (30/15m) | Rotates refresh token and issues new access token |
 | `POST` | `/auth/logout` | Authenticated | Revokes refresh token in DB and clears cookie |
 
-### 3. Users (`/api/v1/users`)
+### 4. Users (`/api/v1/users`)
 | Method | Path | Auth / Role | Description |
 |---|---|---|---|
 | `GET` | `/users/me` | Authenticated | Fetch current user profile |
 | `PATCH` | `/users/me` | Authenticated | Update profile (name, phone, avatar) |
 | `POST` | `/users/me/password` | Authenticated | Change password and invalidate existing refresh tokens |
 
-### 4. Staff Applications (`/api/v1/staff-applications`)
+### 5. Staff Applications (`/api/v1/staff-applications`)
 | Method | Path | Auth / Role | Description |
 |---|---|---|---|
 | `GET` | `/staff-applications` | `MANAGER`, `ADMIN` | List pending staff applications (scoped by dept) |
 | `PATCH` | `/staff-applications/:id` | `MANAGER`, `ADMIN` | Approve or reject a staff promotion application |
 
-### 5. Complaints (`/api/v1/complaints`)
+### 6. Complaints (`/api/v1/complaints`)
 | Method | Path | Auth / Role | Description |
 |---|---|---|---|
-| `POST` | `/complaints` | `CITIZEN` | Create a new complaint (auto-assigned priority & SLA) |
+| `GET` | `/complaints/usage` | `CITIZEN` | Check monthly complaint quota, used count, and reset date |
+| `POST` | `/complaints` | `CITIZEN` | Create a new complaint (subject to monthly limit: 5 free, 20 premium) |
 | `GET` | `/complaints` | Authenticated | List complaints (scoped by role & department) |
 | `GET` | `/complaints/search` | Authenticated | Full-text search across visible complaints |
 | `GET` | `/complaints/my-assigned` | `TECHNICIAN` | List complaints assigned to the calling technician |
 | `GET` | `/complaints/:id` | Authenticated | Get complaint details (scoped by access permissions) |
 | `PATCH` | `/complaints/:id` | Authenticated | Citizen edits details or Manager re-triages priority |
-| `POST` | `/complaints/:id/assign` | `MANAGER`, `ADMIN` | Assign a technician from the same department |
+| `POST` | `/complaints/:id/assign` | `MANAGER`, `ADMIN` | Assign a technician from the same department (guard on availability) |
 | `PATCH` | `/complaints/:id/status` | Authenticated | Perform a validated complaint status transition |
+| `PATCH` | `/complaints/:id/reopen` | `CITIZEN` | Reopen personal resolved complaint within reopen window |
+| `PATCH` | `/complaints/:id/escalate` | `MANAGER` | Escalate department complaint to central admin queue |
 | `POST` | `/complaints/:id/cancel` | `CITIZEN` | Cancel personal complaint while in `PENDING` |
 | `DELETE` | `/complaints/:id` | `ADMIN` | Soft-delete a complaint record |
 
@@ -371,7 +383,13 @@ All routes are mounted under `/api/v1` (except the root discovery route and Swag
 | `PATCH` | `/notifications/:id/read` | Authenticated | Mark a single notification as read |
 | `PATCH` | `/notifications/read-all` | Authenticated | Mark all notifications as read |
 
-### 11. Payments & Subscriptions (`/api/v1/payments`)
+### 11. Technicians (`/api/v1/technicians`)
+| Method | Path | Auth / Role | Description |
+|---|---|---|---|
+| `PATCH` | `/technicians/me/availability` | `TECHNICIAN` | Update technician availability for complaint assignment |
+| `GET` | `/technicians/me/performance` | `TECHNICIAN` | Live computed performance metrics (assigned, resolved, overdue, ratings) |
+
+### 12. Payments & Subscriptions (`/api/v1/payments`)
 | Method | Path | Auth / Role | Description |
 |---|---|---|---|
 | `POST` | `/payments/checkout-session` | `CITIZEN` (10/15m) | Create a Stripe recurring checkout session |
@@ -381,7 +399,7 @@ All routes are mounted under `/api/v1` (except the root discovery route and Swag
 | `GET` | `/payments/:id` | Authenticated | Get specific payment record details |
 | `POST` | `/payments/webhook` | Stripe (Unthrottled)| Raw webhook listener verifying Stripe signature |
 
-### 12. Administration (`/api/v1/admin`)
+### 13. Administration (`/api/v1/admin`)
 | Method | Path | Auth / Role | Description |
 |---|---|---|---|
 | `GET` | `/admin/users` | `ADMIN` | Paginated user directory with role and status filtering |
@@ -390,6 +408,9 @@ All routes are mounted under `/api/v1` (except the root discovery route and Swag
 | `PATCH` | `/admin/users/:id/reactivate` | `ADMIN` | Reactivate a deactivated account |
 | `GET` | `/admin/dashboard-stats` | `ADMIN` | Platform statistics (complaints by status, overdue, tech loads) |
 | `GET` | `/admin/audit-logs` | `ADMIN` | Paginated audit trail with actor and entity filters |
+| `GET` | `/admin/escalated-complaints` | `ADMIN` | Paginated escalated complaint queue (oldest first) |
+| `PATCH` | `/admin/complaints/:id/clear-escalation` | `ADMIN` | Clear complaint escalation status with optional audit note |
+| `GET` | `/admin/premium-pricing` | `ADMIN` | View Stripe subscription price and recurring plan metadata |
 | `POST` | `/admin/jobs/check-overdue-slas` | `ADMIN` | Trigger manual on-demand overdue SLA scan |
 | `GET` | `/admin/payments` | `ADMIN` | Paginated subscription list with user info and payment history |
 
@@ -438,6 +459,9 @@ cp .env.example .env
 | `STRIPE_SECRET_KEY` | **Required** | Stripe Secret Key | `sk_test_...` |
 | `STRIPE_WEBHOOK_SECRET`| **Required** | Stripe Webhook Signing Secret | `whsec_...` |
 | `STRIPE_PREMIUM_PRICE_ID`| **Required** | Stripe recurring Price ID for premium plan | `price_...` |
+| `REOPEN_WINDOW_DAYS` | Optional | Reopen window duration in days (defaults to 7) | `7` |
+| `MONTHLY_COMPLAINT_LIMIT_FREE` | Optional | Monthly complaint cap for free tier citizens (defaults to 5) | `5` |
+| `MONTHLY_COMPLAINT_LIMIT_PREMIUM` | Optional | Monthly complaint cap for premium tier citizens (defaults to 20) | `20` |
 | `RATE_LIMIT_DISABLED` | Optional | Set to `true` to disable rate limiting in dev/test | `false` |
 
 ### 3. Database Migration & Seeding
