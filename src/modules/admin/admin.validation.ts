@@ -54,16 +54,15 @@ export const listPaymentsQuerySchema = z.object({
   userId: z.string().uuid("Invalid user ID format").optional(),
 });
 
-export type OverrideRoleInput = z.infer<typeof overrideRoleSchema>;
-export type ListUsersQuery = z.infer<typeof listUsersQuerySchema>;
-export type AuditLogQuery = z.infer<typeof auditLogQuerySchema>;
-export type ListPaymentsQuery = z.infer<typeof listPaymentsQuerySchema>;
-
 export const listEscalatedComplaintsQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(50).default(10),
 });
 
+export type OverrideRoleInput = z.infer<typeof overrideRoleSchema>;
+export type ListUsersQuery = z.infer<typeof listUsersQuerySchema>;
+export type AuditLogQuery = z.infer<typeof auditLogQuerySchema>;
+export type ListPaymentsQuery = z.infer<typeof listPaymentsQuerySchema>;
 export type ListEscalatedComplaintsQuery = z.infer<
   typeof listEscalatedComplaintsQuerySchema
 >;

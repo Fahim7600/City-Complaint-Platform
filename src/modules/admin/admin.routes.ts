@@ -5,9 +5,12 @@ import { validate } from "../../middlewares/validate";
 import { clearEscalationSchema } from "../complaints/complaint.validation";
 import {
   checkOverdueSlasController,
+  clearEscalationController,
   deactivateUserController,
+  getAdminPremiumPricingController,
   getDashboardStatsController,
   listAuditLogsController,
+  listEscalatedComplaintsController,
   listPaymentsController,
   listUsersController,
   overrideUserRoleAndDepartmentController,
@@ -15,6 +18,7 @@ import {
 } from "./admin.controller";
 import {
   auditLogQuerySchema,
+  listEscalatedComplaintsQuerySchema,
   listPaymentsQuerySchema,
   listUsersQuerySchema,
   overrideRoleSchema,
@@ -185,5 +189,19 @@ router.patch(
   validate(clearEscalationSchema),
   clearEscalationController,
 );
+
+/** @swagger
+ * /admin/premium-pricing:
+ *   get:
+ *     summary: Get premium subscription pricing from Stripe
+ *     tags: [Admin]
+ *     security: [{bearerAuth: []}]
+ *     responses:
+ *       200: {description: Premium pricing details retrieved successfully}
+ *       401: {description: Unauthorized}
+ *       403: {description: Admin access required}
+ *       502: {description: Failed to retrieve pricing from Stripe}
+ */
+router.get("/premium-pricing", getAdminPremiumPricingController);
 
 export default router;

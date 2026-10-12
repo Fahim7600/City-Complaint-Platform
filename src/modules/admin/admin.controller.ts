@@ -4,7 +4,13 @@ import { checkOverdueSlas } from "../../jobs/checkOverdueSla.job";
 import { errorResponse, successResponse } from "../../utils/response";
 import { AppError } from "../auth/auth.service";
 import {
+  clearEscalation,
+  listEscalatedComplaints,
+} from "../complaints/complaint.service";
+import { clearEscalationSchema } from "../complaints/complaint.validation";
+import {
   deactivateUser,
+  getAdminPremiumPricing,
   getDashboardStats,
   listAuditLogs,
   listSubscriptions,
@@ -14,6 +20,7 @@ import {
 } from "./admin.service";
 import {
   auditLogQuerySchema,
+  listEscalatedComplaintsQuerySchema,
   listPaymentsQuerySchema,
   listUsersQuerySchema,
 } from "./admin.validation";
@@ -204,6 +211,21 @@ export const clearEscalationController = async (
       .json(
         successResponse("Complaint escalation cleared successfully", result),
       );
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAdminPremiumPricingController = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const result = await getAdminPremiumPricing();
+    res
+      .status(200)
+      .json(successResponse("Premium pricing retrieved successfully", result));
   } catch (error) {
     next(error);
   }

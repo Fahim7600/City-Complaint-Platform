@@ -5,7 +5,10 @@ import {
   type Prisma,
   Role,
 } from "@prisma/client";
+import type Stripe from "stripe";
+import { config } from "../../config/env";
 import { prisma } from "../../config/prisma";
+import { stripe } from "../../config/stripe";
 import { sanitizeUser } from "../../utils/sanitizeUser";
 import { AppError } from "../auth/auth.service";
 import type {
@@ -403,4 +406,52 @@ export const listSubscriptions = async (query: ListPaymentsQuery) => {
       totalPages: Math.ceil(total / query.limit) || 1,
     },
   };
+};
+
+export const getAdminPremiumPricing = async () => {
+  if (
+    !config.STRIPE_PREMIUM_PRICE_ID ||
+    config.STRIPE_PREMIUM_PRICE_ID.trim() === ""
+  ) {
+    throw new AppError("Stripe premium price ID is not configured", 502);
+  }
+
+  try {
+    const stripePrice = await stripe.prices.retrieve(
+      config.STRIPE_PREMIUM_PRICE_ID,
+      {
+        expand: ["product"],
+      },
+    );
+
+    let productName = "Premium Subscription";
+    if (
+      stripePrice.product &&
+      typeof stripePrice.product === "object" &&
+      !("deleted" in stripePrice.product && stripePrice.product.deleted)
+    ) {
+      productName = (stripePrice.product as Stripe.Product).name;
+    }
+
+    return {
+      priceId: stripePrice.id,
+      productName,
+      amount: (stripePrice.unit_amount || 0) / 100,
+      currency: stripePrice.currency,
+      interval: stripePrice.recurring?.interval || null,
+      active: stripePrice.active,
+    };
+  } catch (error) {
+    const rawMessage =
+      error instanceof Error
+        ? error.message
+        : "Failed to retrieve price from Stripe";
+    const sanitizedMessage = config.STRIPE_SECRET_KEY
+      ? rawMessage.replaceAll(config.STRIPE_SECRET_KEY, "[REDACTED]")
+      : rawMessage;
+    throw new AppError(
+      `Failed to retrieve premium pricing from Stripe: ${sanitizedMessage}`,
+      502,
+    );
+  }
 };
