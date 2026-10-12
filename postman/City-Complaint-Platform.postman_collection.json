@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "b302d55c-e740-43e3-9c27-600b0f110b3d",
+      "id": "22c25fab-ae85-4312-8553-43a0afa1705d",
       "name": "Users",
       "description": {
         "content": "",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "59a34ff8-f9bc-44c2-8662-f983fc6f952f",
+          "id": "c942499a-14af-48fc-8aa7-4be4751d31a1",
           "name": "{{baseUrl}}/users/me",
           "request": {
             "name": "{{baseUrl}}/users/me",
@@ -33,7 +33,7 @@
           },
           "response": [
             {
-              "id": "06a005cd-7570-43bc-a355-c5ea3da6e463",
+              "id": "9a31d5e3-e71b-491c-9df7-adbb1e111d84",
               "name": "Profile",
               "originalRequest": {
                 "url": {
@@ -68,7 +68,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "64d00a68-a4dd-4a60-a389-338ea107c6bb",
+              "id": "85781d9a-50e5-41a0-a327-984329502053",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -103,7 +103,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f18b921f-da92-4dfe-ab8a-61fe1becf542",
+              "id": "bcf7a55d-5bd2-4a74-941a-e1918f5a17bc",
               "name": "User not found",
               "originalRequest": {
                 "url": {
@@ -144,7 +144,7 @@
           }
         },
         {
-          "id": "0d557698-721d-4926-9f30-f7270e5be7bb",
+          "id": "c4c401c4-a69d-417e-b82e-e36fca4a38e4",
           "name": "{{baseUrl}}/users/me",
           "request": {
             "name": "{{baseUrl}}/users/me",
@@ -183,7 +183,7 @@
           },
           "response": [
             {
-              "id": "154df3dc-5189-4846-96cd-c8524dbc54c7",
+              "id": "2c4dd9b0-6127-4169-ae8b-7af1b727d67d",
               "name": "Updated profile",
               "originalRequest": {
                 "url": {
@@ -226,7 +226,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "cc65806d-69d4-48ef-a992-8aef5c1abdb1",
+              "id": "7cc06a17-2a0d-4a9b-a200-f749cabef763",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -269,7 +269,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7020d820-fa27-41ef-b343-67efeba85979",
+              "id": "fe6a373a-3038-42d4-886c-60cf7b05c459",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -318,7 +318,7 @@
           }
         },
         {
-          "id": "00424ae0-0425-4b0b-be00-8f38756fb423",
+          "id": "4608e3df-5a87-465b-a3b1-55a2b31d318c",
           "name": "{{baseUrl}}/users/me/password",
           "request": {
             "name": "{{baseUrl}}/users/me/password",
@@ -357,7 +357,7 @@
           },
           "response": [
             {
-              "id": "2a380f19-c1cf-4a4e-976f-37c2d886a552",
+              "id": "6c0e27ef-24fe-40d8-b02c-a58b94bdc49c",
               "name": "Password changed",
               "originalRequest": {
                 "url": {
@@ -400,7 +400,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "26879abb-ac28-45ad-b702-f9321b6fc43c",
+              "id": "d9827965-1f87-4a2c-9c61-c3cdf20dae25",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -443,7 +443,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c4e29520-e0cf-442b-8210-75fa9df3d96e",
+              "id": "4272e68f-46eb-4673-81f9-803327e0c0e3",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -492,7 +492,7 @@
           }
         },
         {
-          "id": "d21437b9-5169-4cc6-8226-1eb319f7bf12",
+          "id": "2205a8bf-0786-442d-a77b-ca4bd57f420d",
           "name": "{{baseUrl}}/users/me/staff-application",
           "request": {
             "name": "{{baseUrl}}/users/me/staff-application",
@@ -531,7 +531,7 @@
           },
           "response": [
             {
-              "id": "36081edf-807a-46f1-8a70-eaa5d35c7af0",
+              "id": "e2fc2900-0d71-4593-bc0d-307d7e7ba682",
               "name": "Application submitted",
               "originalRequest": {
                 "url": {
@@ -574,7 +574,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d2e94e49-fe7e-4517-8745-9c7c9b7aa2b0",
+              "id": "3dcf209b-6a4e-4614-aea5-817f1c6d937b",
               "name": "Invalid application",
               "originalRequest": {
                 "url": {
@@ -617,7 +617,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c8da8587-9a04-45f6-9f8f-49924ee1208c",
+              "id": "b1e59236-9de5-4990-9460-c6b4c9526c34",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -660,7 +660,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "6aa36fec-58fb-4484-a7a6-94931bb75efb",
+              "id": "0bcb436c-7467-400f-a492-8802c962b00a",
               "name": "Citizen access required",
               "originalRequest": {
                 "url": {
@@ -712,7 +712,7 @@
       "event": []
     },
     {
-      "id": "2a9d1396-bbf4-4242-9b50-646a2a685a8e",
+      "id": "fc8bde82-6574-405e-bbe6-39e29f93f428",
       "name": "Technicians",
       "description": {
         "content": "",
@@ -720,7 +720,7 @@
       },
       "item": [
         {
-          "id": "f5a7d27c-2b70-4639-ad01-67e1905b218a",
+          "id": "66362779-2768-4080-84c3-37f2911461dd",
           "name": "{{baseUrl}}/technicians/me/availability",
           "request": {
             "name": "{{baseUrl}}/technicians/me/availability",
@@ -759,7 +759,7 @@
           },
           "response": [
             {
-              "id": "5d8ffa21-2d9e-4bab-8696-69d85975113c",
+              "id": "9a6564cf-cce0-4097-9a57-cc0ea5800cdd",
               "name": "Availability updated successfully",
               "originalRequest": {
                 "url": {
@@ -802,7 +802,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "84a14484-edf0-4ac6-aecb-256381574c97",
+              "id": "247fd36a-1152-4ee8-9012-b44357aad8fc",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -845,7 +845,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "2404c78d-50b7-41b2-928d-572b387b1dd2",
+              "id": "707154f0-9a74-4bd3-9596-1e075af70467",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -888,7 +888,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "022eaa61-c575-4a14-bc5f-e3c3de436580",
+              "id": "dedd887f-a670-4659-a36f-c90a23ae8bf8",
               "name": "Technician access required",
               "originalRequest": {
                 "url": {
@@ -937,7 +937,7 @@
           }
         },
         {
-          "id": "14b172e8-8e7e-4c48-be67-12a6bf702529",
+          "id": "e36df05d-f170-45e6-b1ce-852940587b33",
           "name": "{{baseUrl}}/technicians/me/performance",
           "request": {
             "name": "{{baseUrl}}/technicians/me/performance",
@@ -961,7 +961,7 @@
           },
           "response": [
             {
-              "id": "bea286b4-ceee-409a-b487-69554cd06b61",
+              "id": "f0d38e58-6ce1-446f-a273-a7dfedb9382b",
               "name": "Performance metrics retrieved successfully",
               "originalRequest": {
                 "url": {
@@ -996,7 +996,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "6168e6da-517f-4e52-aeff-31bb3d6c0880",
+              "id": "ed691c71-d6b2-4c26-96ab-a64677def5d4",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -1031,7 +1031,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b4e5399d-22bd-4084-abca-74a5b1b4bd04",
+              "id": "330570ae-35e3-4908-b1f9-836ec383aff1",
               "name": "Technician access required",
               "originalRequest": {
                 "url": {
@@ -1075,7 +1075,7 @@
       "event": []
     },
     {
-      "id": "c40ccd2d-39fc-4cf0-a387-02a088287718",
+      "id": "f4a73d18-4855-4ab4-a8fe-0ef332f49f36",
       "name": "Staff Applications",
       "description": {
         "content": "",
@@ -1083,7 +1083,7 @@
       },
       "item": [
         {
-          "id": "31a3acf8-9b32-4c90-97e2-86dea187b22b",
+          "id": "cdbc3844-8738-4d78-b026-4d87cd4ce64a",
           "name": "{{baseUrl}}/staff-applications/",
           "request": {
             "name": "{{baseUrl}}/staff-applications/",
@@ -1107,7 +1107,7 @@
           },
           "response": [
             {
-              "id": "0aac2782-3679-4f83-b8bc-a70eb70d93e7",
+              "id": "51c1e602-14d0-42fe-b343-6c06166b1ae7",
               "name": "Pending applications",
               "originalRequest": {
                 "url": {
@@ -1142,7 +1142,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "9ab136c5-8792-4a08-811f-58de1f661028",
+              "id": "e8d69772-092d-4883-a145-59996d050d0c",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -1177,7 +1177,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "07abc2ee-9b55-4929-ad4d-61ef002ba8ae",
+              "id": "b3f1c9b0-1fbd-49f6-8861-e9a4ae2c71cc",
               "name": "Manager or admin access required",
               "originalRequest": {
                 "url": {
@@ -1218,7 +1218,7 @@
           }
         },
         {
-          "id": "572c69d2-5a20-41ea-90ce-bec81104dc2f",
+          "id": "1d663548-073c-411a-a50b-2ad3540af4d1",
           "name": "{{baseUrl}}/staff-applications/:id",
           "request": {
             "name": "{{baseUrl}}/staff-applications/:id",
@@ -1265,7 +1265,7 @@
           },
           "response": [
             {
-              "id": "977acc6e-93fb-45df-ab7a-47b8b2398bea",
+              "id": "66cb64c0-de68-4e41-b2d8-b16de998d3ff",
               "name": "Decision saved",
               "originalRequest": {
                 "url": {
@@ -1316,7 +1316,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "0517970c-b31f-40f9-aead-da9e6addbc02",
+              "id": "022c1635-66ea-49ec-aa0b-cef18fdbd4fd",
               "name": "Invalid decision",
               "originalRequest": {
                 "url": {
@@ -1367,7 +1367,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "6358c9d8-a47f-4eca-8a54-d5bca03a7b05",
+              "id": "300b4983-1845-413c-aae6-78f448693fdb",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -1418,7 +1418,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a5f7cf7b-44ac-4f6c-8ec5-e95b14c4a121",
+              "id": "137e72d0-3675-48fe-abb3-504de12fd97b",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -1469,7 +1469,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "00165856-2a46-4dea-89fd-a7e9bebbd436",
+              "id": "5b2a6063-d6dc-4466-95b7-d01af5124eea",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -1529,7 +1529,7 @@
       "event": []
     },
     {
-      "id": "f0b9dece-1e30-4655-9045-00ecee786f98",
+      "id": "8eabce03-a265-4764-95be-1d8bfcd5a75f",
       "name": "Reviews",
       "description": {
         "content": "",
@@ -1537,7 +1537,7 @@
       },
       "item": [
         {
-          "id": "89f98345-bdc5-40ab-bfd4-d5e1e79177cd",
+          "id": "28f4bd93-b43d-4522-b2ce-e1460468049e",
           "name": "{{baseUrl}}/complaints/:complaintId/review",
           "request": {
             "name": "{{baseUrl}}/complaints/:complaintId/review",
@@ -1584,7 +1584,7 @@
           },
           "response": [
             {
-              "id": "40a38181-82a3-46bb-88c8-35591e744ef7",
+              "id": "99c445e9-a581-4ec8-bbcf-a707026b1170",
               "name": "Review submitted",
               "originalRequest": {
                 "url": {
@@ -1635,7 +1635,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "9b3ae3ab-d274-40af-806e-27aa92811f4e",
+              "id": "3c7e474b-ac05-48b2-8e4f-2541b285ffbd",
               "name": "Invalid review",
               "originalRequest": {
                 "url": {
@@ -1686,7 +1686,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3c901c78-204c-4ea2-86f7-2cc2a26b3367",
+              "id": "33d381a4-4aec-44f0-a976-51f8fff40d24",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -1737,7 +1737,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c8747565-dedc-4d9c-acad-635e3c66dc15",
+              "id": "f6107c52-cfc6-4cf9-b745-eb8792cd3d06",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -1788,7 +1788,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e81a069b-995f-4ba3-a3b5-76c0ac679958",
+              "id": "760ff509-b3c3-447c-9537-6fb031ac8dd1",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -1845,7 +1845,7 @@
           }
         },
         {
-          "id": "bbe74b78-79e7-4fa6-ab62-981d963af53c",
+          "id": "c014bf24-2225-4b0c-8564-836b972d0827",
           "name": "{{baseUrl}}/complaints/:complaintId/review",
           "request": {
             "name": "{{baseUrl}}/complaints/:complaintId/review",
@@ -1877,7 +1877,7 @@
           },
           "response": [
             {
-              "id": "c94988f2-2a58-46dc-a40f-69cf3d6c5b6c",
+              "id": "01f54d5b-a97d-4880-81a5-efa6eff1a962",
               "name": "Review",
               "originalRequest": {
                 "url": {
@@ -1920,7 +1920,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "9fee8be0-9ba4-4201-9ade-8db4d5dbd75f",
+              "id": "32d82ba8-9bae-46d7-8835-55a92048d1a6",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -1963,7 +1963,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a920c132-431b-4b97-a809-35ce7fe2c2a8",
+              "id": "8c73f76c-6dc2-49b5-a3cf-477dfe80966b",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -2006,7 +2006,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "83f2dccc-230a-4fd4-a868-8e4f1f27c96f",
+              "id": "b463b908-e512-4e7c-b548-d09e492d8144",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -2055,7 +2055,7 @@
           }
         },
         {
-          "id": "6f73b849-f694-4e5c-b531-ca8029743295",
+          "id": "3c017824-814e-449e-8bd1-c55da5610ddf",
           "name": "{{baseUrl}}/technicians/:id/rating",
           "request": {
             "name": "{{baseUrl}}/technicians/:id/rating",
@@ -2087,7 +2087,7 @@
           },
           "response": [
             {
-              "id": "61feb26d-e965-4614-a747-bb7404f73d96",
+              "id": "4ea3ceed-10fe-42d1-8da3-5aa0a9f83e1c",
               "name": "Rating",
               "originalRequest": {
                 "url": {
@@ -2130,7 +2130,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "aabe2ede-70fa-43b5-8fd1-61b84a9b2fae",
+              "id": "0099e761-0cc4-425a-aa3f-37a9b6104e98",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -2173,7 +2173,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "542cf034-bcd3-4cc6-b1ff-e29dc7639167",
+              "id": "7096c328-8837-4267-a90a-a30e827bb612",
               "name": "Technician not found",
               "originalRequest": {
                 "url": {
@@ -2225,7 +2225,7 @@
       "event": []
     },
     {
-      "id": "26ac2bef-931c-45bb-abdb-85ca51c3d69c",
+      "id": "d76365d9-7a49-4750-9b0a-d4a8ec2af662",
       "name": "Public",
       "description": {
         "content": "",
@@ -2233,7 +2233,7 @@
       },
       "item": [
         {
-          "id": "637174ba-e34d-4861-8f95-c381dc6a571e",
+          "id": "22d78301-8c11-4c4d-97e9-eec57512a633",
           "name": "{{baseUrl}}/public/departments",
           "request": {
             "name": "{{baseUrl}}/public/departments",
@@ -2249,7 +2249,7 @@
           },
           "response": [
             {
-              "id": "3dae95f8-09c8-4786-b56b-9a2a5e61184e",
+              "id": "51c9ff8f-25f3-4cac-92b0-1298080f2ca3",
               "name": "Active departments",
               "originalRequest": {
                 "url": {
@@ -2280,7 +2280,7 @@
           }
         },
         {
-          "id": "d480d7a4-0196-4437-a404-3d77c6639cdc",
+          "id": "1c5521e7-eb30-4096-b816-365bb981e806",
           "name": "{{baseUrl}}/public/departments/:id/technicians",
           "request": {
             "name": "{{baseUrl}}/public/departments/:id/technicians",
@@ -2304,7 +2304,7 @@
           },
           "response": [
             {
-              "id": "07f124c0-8da1-45f0-a863-1674c98c5eaa",
+              "id": "f1ac44b2-c838-4cfe-aba6-21b47866be7e",
               "name": "Department technicians with ratings",
               "originalRequest": {
                 "url": {
@@ -2337,7 +2337,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "270ba1d0-4d6d-41e8-961d-6b9f8dc7b285",
+              "id": "7f0d58f9-2696-4908-80a8-ed13d65d9263",
               "name": "Department not found",
               "originalRequest": {
                 "url": {
@@ -2376,7 +2376,7 @@
           }
         },
         {
-          "id": "5b95e53b-d17c-4a75-af29-4ba8f744109a",
+          "id": "61d3d77b-5a24-4ad7-935b-e1fbe28def86",
           "name": "{{baseUrl}}/public/categories",
           "request": {
             "name": "{{baseUrl}}/public/categories",
@@ -2392,7 +2392,7 @@
           },
           "response": [
             {
-              "id": "7457e3a6-c5ca-449b-9507-06a0bcf6ec31",
+              "id": "25afe27e-2fed-42ec-9501-95b83bde208f",
               "name": "Active categories",
               "originalRequest": {
                 "url": {
@@ -2423,7 +2423,7 @@
           }
         },
         {
-          "id": "3525bb59-ac0e-41ef-bc38-d8cdd518d60e",
+          "id": "7b403874-2a91-4afa-b4cb-eeef7d9eb75c",
           "name": "{{baseUrl}}/public/stats",
           "request": {
             "name": "{{baseUrl}}/public/stats",
@@ -2439,7 +2439,7 @@
           },
           "response": [
             {
-              "id": "5ac9ebdc-593c-4fa3-8210-875b46b3db1c",
+              "id": "4498d890-189c-4c2c-b13e-da8e4d087c65",
               "name": "Platform statistics",
               "originalRequest": {
                 "url": {
@@ -2470,7 +2470,7 @@
           }
         },
         {
-          "id": "46938cfa-8434-42eb-9df0-5a621607ae7c",
+          "id": "dba10a46-1631-44a4-996f-820e9b86e5c8",
           "name": "{{baseUrl}}/public/premium-info",
           "request": {
             "name": "{{baseUrl}}/public/premium-info",
@@ -2486,11 +2486,58 @@
           },
           "response": [
             {
-              "id": "5fe2a2ae-4905-426e-ae50-dec0352e0b30",
+              "id": "a48413bb-3f2d-4c1e-8e8a-63f762d45408",
               "name": "Premium tier benefits and Stripe price info",
               "originalRequest": {
                 "url": {
                   "path": ["public", "premium-info"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c1c20be-e0eb-4d16-9449-8ae8b99eba1f",
+          "name": "{{baseUrl}}/public/overview",
+          "request": {
+            "name": "{{baseUrl}}/public/overview",
+            "description": {},
+            "url": {
+              "path": ["public", "overview"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4988af10-1145-4395-b90f-4fe0826d9a1e",
+              "name": "Landing page content",
+              "originalRequest": {
+                "url": {
+                  "path": ["public", "overview"],
                   "host": ["{{baseUrl}}"],
                   "query": [],
                   "variable": []
@@ -2520,7 +2567,7 @@
       "event": []
     },
     {
-      "id": "83e3c05b-e166-4ed4-8c7b-8aa70bbf5561",
+      "id": "a81c583a-73a1-4f8b-98de-d9ce6fa68d2a",
       "name": "Payments",
       "description": {
         "content": "",
@@ -2528,7 +2575,7 @@
       },
       "item": [
         {
-          "id": "845719aa-6e57-48c7-afa3-b047bddeda58",
+          "id": "bc365c1a-3b39-452b-ba11-a342d6e44dac",
           "name": "{{baseUrl}}/payments/checkout-session",
           "request": {
             "name": "{{baseUrl}}/payments/checkout-session",
@@ -2552,7 +2599,7 @@
           },
           "response": [
             {
-              "id": "8a0a5049-bd30-4831-83f6-abfae669ae33",
+              "id": "984c18aa-9d2a-4861-90b3-4518a39d3b5c",
               "name": "Checkout URL",
               "originalRequest": {
                 "url": {
@@ -2587,7 +2634,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "2d217277-b099-4b9a-b55c-d52a5cc78ccd",
+              "id": "ff186c5a-5628-4514-8da8-a794abdddd89",
               "name": "Already subscribed",
               "originalRequest": {
                 "url": {
@@ -2622,7 +2669,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a9f86cca-9322-4eaa-8851-759b62813bb3",
+              "id": "5fc22012-86cd-4fac-8475-b945dbb74577",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -2657,7 +2704,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "08f5a2a4-5524-443c-b0ae-def90e3b9cd9",
+              "id": "2dd20a90-aa6b-47b0-86e1-d111757cf6eb",
               "name": "Citizen access required",
               "originalRequest": {
                 "url": {
@@ -2698,7 +2745,7 @@
           }
         },
         {
-          "id": "1a74f267-f943-4632-bdde-231c9dca52b0",
+          "id": "4ece3e9b-2762-47df-95df-fa5dfa0cfdf6",
           "name": "{{baseUrl}}/payments/cancel",
           "request": {
             "name": "{{baseUrl}}/payments/cancel",
@@ -2722,7 +2769,7 @@
           },
           "response": [
             {
-              "id": "3ca9a87e-531e-4238-9c02-e267dbf75043",
+              "id": "12b08a4f-b20e-4542-bad8-18fd04ff4edc",
               "name": "Cancellation scheduled",
               "originalRequest": {
                 "url": {
@@ -2757,7 +2804,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "275cb10f-b21a-41ff-b25f-5464207804a4",
+              "id": "3e60c959-ae55-4900-81c6-572df599aba1",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -2792,7 +2839,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "24fb8cef-fb7c-425e-9fb3-abe2319f42f3",
+              "id": "df27f3b0-8232-432e-be1a-3b91dec6dfa8",
               "name": "Active subscription not found",
               "originalRequest": {
                 "url": {
@@ -2833,7 +2880,7 @@
           }
         },
         {
-          "id": "e6f8a994-3363-4b6b-bfd2-36deff3f2ad7",
+          "id": "134dbe47-adbd-42b2-8f0e-db987bf59cbd",
           "name": "{{baseUrl}}/payments/subscription",
           "request": {
             "name": "{{baseUrl}}/payments/subscription",
@@ -2857,7 +2904,7 @@
           },
           "response": [
             {
-              "id": "98d4c1f8-0a86-4ca4-a4fc-5ba79bc5a196",
+              "id": "f44a3706-d2c5-487c-8974-1e4333286704",
               "name": "Subscription",
               "originalRequest": {
                 "url": {
@@ -2892,7 +2939,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "acc6a1ee-744c-4ca3-bdaf-931018814057",
+              "id": "8336916a-ead5-4628-9449-aa8a2ca8efed",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -2933,7 +2980,7 @@
           }
         },
         {
-          "id": "c84ee2cf-2426-40bd-a8c6-8d2142ee6871",
+          "id": "7c73838e-574d-4c70-9648-e1f1a28ee014",
           "name": "{{baseUrl}}/payments/checkout-success",
           "request": {
             "name": "{{baseUrl}}/payments/checkout-success",
@@ -2955,7 +3002,7 @@
           },
           "response": [
             {
-              "id": "dbf0fa31-e110-443c-af81-eba58262a057",
+              "id": "3ae547a9-400e-4f49-8e39-4973c2c449f6",
               "name": "Payment successful",
               "originalRequest": {
                 "url": {
@@ -2991,7 +3038,7 @@
           }
         },
         {
-          "id": "64bcecd5-bf0a-4df6-befe-99c7a16ca6b9",
+          "id": "65f54963-9693-4252-8576-a227d744ac65",
           "name": "{{baseUrl}}/payments/checkout-cancel",
           "request": {
             "name": "{{baseUrl}}/payments/checkout-cancel",
@@ -3007,7 +3054,7 @@
           },
           "response": [
             {
-              "id": "033fe450-a0e3-4072-a48a-484bed61425c",
+              "id": "230d581a-d0f0-45c0-84e7-4ac999074683",
               "name": "Checkout cancelled",
               "originalRequest": {
                 "url": {
@@ -3038,7 +3085,7 @@
           }
         },
         {
-          "id": "fe350d25-1636-4eaa-92a3-70522b9d79ed",
+          "id": "89dbf62b-ae93-49fb-a7e3-414e6f535ce3",
           "name": "{{baseUrl}}/payments/confirm-session",
           "request": {
             "name": "{{baseUrl}}/payments/confirm-session",
@@ -3077,7 +3124,7 @@
           },
           "response": [
             {
-              "id": "a9df3790-e74d-4594-8338-4eb3dc2b4400",
+              "id": "b7c9d911-e804-4596-9579-e178e887adaf",
               "name": "Payment status checked",
               "originalRequest": {
                 "url": {
@@ -3120,7 +3167,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3cd83771-ae17-41d2-b0d9-a2cb7753ed0d",
+              "id": "97517960-e75d-461b-bd35-d94ebd3a2bba",
               "name": "Validation failed",
               "originalRequest": {
                 "url": {
@@ -3163,7 +3210,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "29c30c22-f1c0-4546-b58f-dc90b7a59fb0",
+              "id": "dcc10a65-0dd0-4304-ac11-cf43d7a1f41b",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -3206,7 +3253,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3f48cee0-2df0-4f9b-b1b3-0e293d08e75e",
+              "id": "ff83a492-ecb3-4aaf-9fbd-cfdd5459c5a2",
               "name": "Citizen access required",
               "originalRequest": {
                 "url": {
@@ -3249,7 +3296,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "af2e537f-4b62-43e6-adcc-540406646888",
+              "id": "2675f643-6e64-4b77-b6a5-9ba6b6102cb5",
               "name": "Checkout session not found",
               "originalRequest": {
                 "url": {
@@ -3298,7 +3345,7 @@
           }
         },
         {
-          "id": "cf521091-6491-4117-ac9f-36305011f715",
+          "id": "3ff06645-f515-4be7-9e84-dc01cdc8121b",
           "name": "{{baseUrl}}/payments/:id",
           "request": {
             "name": "{{baseUrl}}/payments/:id",
@@ -3330,7 +3377,7 @@
           },
           "response": [
             {
-              "id": "87a05d77-94d4-402a-97eb-79218ea335ac",
+              "id": "ada0932e-cbdc-4e1a-8619-dbb7bc0f1900",
               "name": "Payment",
               "originalRequest": {
                 "url": {
@@ -3373,7 +3420,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "014cbc98-0904-447a-ab47-f41c5a008ef9",
+              "id": "de11ac98-52fd-4a8a-9c0c-2423ee5672e8",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -3416,7 +3463,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "bbea41d3-b142-49f9-aa84-8a06aa33b6f9",
+              "id": "30454d0f-1dc4-46a9-a2a7-1301d7168edf",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -3459,7 +3506,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ef3d3060-dd10-45f8-a11f-3afb39b7b9b4",
+              "id": "a05b88c8-5517-42c2-9198-fb8ebb3edabc",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -3508,7 +3555,7 @@
           }
         },
         {
-          "id": "eb858085-969d-4d74-a674-3e39c732b5d3",
+          "id": "efc69ee2-d307-45e1-a469-9f252b6c86cf",
           "name": "{{baseUrl}}/payments/webhook",
           "request": {
             "name": "{{baseUrl}}/payments/webhook",
@@ -3539,7 +3586,7 @@
           },
           "response": [
             {
-              "id": "323739c7-705b-4c23-9131-d066a8cda202",
+              "id": "abab9c25-9419-4422-9c60-9b64dca39292",
               "name": "Webhook acknowledged",
               "originalRequest": {
                 "url": {
@@ -3572,7 +3619,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "fd46ffd0-ac10-4476-b892-b83159870016",
+              "id": "944a18e1-cfcc-42ae-8a52-6c4d8a08254f",
               "name": "Invalid signature",
               "originalRequest": {
                 "url": {
@@ -3605,7 +3652,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a1d06ca2-515a-4eb2-ad09-74490dc93e16",
+              "id": "956299a7-41a3-40ab-8be4-61ce8d76409a",
               "name": "Processing failure",
               "originalRequest": {
                 "url": {
@@ -3647,7 +3694,7 @@
       "event": []
     },
     {
-      "id": "b394f9d6-ed1a-43dd-b277-d5c5d51adf6d",
+      "id": "99e57d93-2b42-4ee8-8429-cb748279782b",
       "name": "Notifications",
       "description": {
         "content": "",
@@ -3655,7 +3702,7 @@
       },
       "item": [
         {
-          "id": "e14a81a0-2579-4389-9b28-7fc71f7c2e3f",
+          "id": "008b42e8-4e80-4e82-b346-51445a822bb0",
           "name": "{{baseUrl}}/notifications/",
           "request": {
             "name": "{{baseUrl}}/notifications/",
@@ -3695,7 +3742,7 @@
           },
           "response": [
             {
-              "id": "8b7a7c4a-feb5-465e-afcb-edc23fa53259",
+              "id": "d20133f5-f4d1-40f2-99a2-3fe6b25b84d6",
               "name": "Notifications",
               "originalRequest": {
                 "url": {
@@ -3743,7 +3790,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ee7c2db9-f48f-4e5a-bb20-44579ed7d50c",
+              "id": "959626bf-7d7c-4249-96da-7634a1d6d910",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -3797,7 +3844,7 @@
           }
         },
         {
-          "id": "220e613c-519d-4a77-98fe-abe8567b8185",
+          "id": "91fe2ac2-2091-4137-aea2-b548c61cf975",
           "name": "{{baseUrl}}/notifications/read-all",
           "request": {
             "name": "{{baseUrl}}/notifications/read-all",
@@ -3821,7 +3868,7 @@
           },
           "response": [
             {
-              "id": "0d50375d-301d-4d89-bbc4-65a0e8fddc72",
+              "id": "74c1c6e3-9ea5-463f-bf77-182cdb7055de",
               "name": "Updated count",
               "originalRequest": {
                 "url": {
@@ -3856,7 +3903,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "6f4b7fc1-4c4e-42b4-aa88-1dc06b9e89c2",
+              "id": "76b7cfac-d076-43af-ac44-47feb6836769",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -3897,7 +3944,7 @@
           }
         },
         {
-          "id": "3b56aab7-37e4-469e-80c0-3cc4d6311ccf",
+          "id": "435a7df2-d55a-4b8c-8318-8cbef555a111",
           "name": "{{baseUrl}}/notifications/:id/read",
           "request": {
             "name": "{{baseUrl}}/notifications/:id/read",
@@ -3929,7 +3976,7 @@
           },
           "response": [
             {
-              "id": "3d053593-177b-43e8-89d9-49894200d646",
+              "id": "e310f84e-0f59-456c-9474-c1dd5c671797",
               "name": "Notification",
               "originalRequest": {
                 "url": {
@@ -3972,7 +4019,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "48a3bcef-3a06-4ee9-a81b-facab4b045dd",
+              "id": "282b82ab-b1c8-4b9a-af3a-27b19fd577e6",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -4015,7 +4062,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3f5ca910-90d8-4260-a22a-53c6b30a1f3a",
+              "id": "8c9d7cd9-b99f-4eb3-937b-794780f78e06",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -4067,7 +4114,7 @@
       "event": []
     },
     {
-      "id": "f633fd1e-8cdc-42f9-af15-fd33d241926c",
+      "id": "a62ce6ad-2296-4dec-93c4-6c846806182a",
       "name": "Departments",
       "description": {
         "content": "",
@@ -4075,7 +4122,7 @@
       },
       "item": [
         {
-          "id": "8d0761df-b40e-4f58-8586-e88063e39ba3",
+          "id": "bdb0d2aa-f882-4182-95c8-17f6781b1e31",
           "name": "{{baseUrl}}/departments/",
           "request": {
             "name": "{{baseUrl}}/departments/",
@@ -4091,7 +4138,7 @@
           },
           "response": [
             {
-              "id": "6e6ccaca-64a9-4b71-9fbc-8626a0d9b0bd",
+              "id": "4b31d513-3abc-46f4-9f92-63ce86ee9471",
               "name": "Department id and name list",
               "originalRequest": {
                 "url": {
@@ -4122,7 +4169,7 @@
           }
         },
         {
-          "id": "3e024988-0982-4abd-8d88-08c640af5865",
+          "id": "601ba6c2-87d5-4b3e-ab41-843c73653122",
           "name": "{{baseUrl}}/admin/departments",
           "request": {
             "name": "{{baseUrl}}/admin/departments",
@@ -4161,7 +4208,7 @@
           },
           "response": [
             {
-              "id": "5f1bf66c-5c70-45e7-8899-80e197ec7973",
+              "id": "d8d6ee2e-a289-4936-b148-8bdea35a200f",
               "name": "Created",
               "originalRequest": {
                 "url": {
@@ -4204,7 +4251,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c2ac5788-8559-49c2-b8f9-01859e0dc77c",
+              "id": "f91ec09d-7734-4ad9-bf09-1f816cd8670c",
               "name": "Duplicate or invalid name",
               "originalRequest": {
                 "url": {
@@ -4247,7 +4294,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "fa57b634-064a-4c22-9d33-0ecc07c98e02",
+              "id": "9524a207-c575-46d5-882b-73ba439d94f1",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -4290,7 +4337,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "629d5c31-363f-4a59-ba69-0e8d2fe3bf5c",
+              "id": "a63e3a03-01c5-4987-935a-a3af37f7a7c2",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -4339,7 +4386,7 @@
           }
         },
         {
-          "id": "3b100780-47e0-43d6-9cde-300cc230393d",
+          "id": "1476b079-2c5b-48a6-b298-e247b3788315",
           "name": "{{baseUrl}}/admin/departments",
           "request": {
             "name": "{{baseUrl}}/admin/departments",
@@ -4369,7 +4416,7 @@
           },
           "response": [
             {
-              "id": "2e8cb510-db37-4533-a224-89191cfd9cf3",
+              "id": "43e1114b-144d-4896-b813-28f9ecbcb421",
               "name": "Departments",
               "originalRequest": {
                 "url": {
@@ -4409,7 +4456,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c6ff39e5-cfb1-4b8f-bd0a-6bd26570a621",
+              "id": "7978f7ba-a6e4-405b-ad01-56936ce2b350",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -4449,7 +4496,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ea96126d-482f-470e-a85e-8ba0be2ce496",
+              "id": "c90a7c23-b80f-4da2-b7b1-3f43115625db",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -4495,7 +4542,7 @@
           }
         },
         {
-          "id": "10241d19-529d-4dcf-8a74-97fc9318ef89",
+          "id": "8c2af273-e54f-48f6-a3da-e73d29148845",
           "name": "{{baseUrl}}/admin/departments/:id",
           "request": {
             "name": "{{baseUrl}}/admin/departments/:id",
@@ -4527,7 +4574,7 @@
           },
           "response": [
             {
-              "id": "3100aa10-47fd-4319-816a-236c0f950545",
+              "id": "f59e161b-7c3f-4f94-9a71-5e34a302ad92",
               "name": "Department",
               "originalRequest": {
                 "url": {
@@ -4570,7 +4617,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f86dca54-3b8d-484a-82b8-9d16e1347281",
+              "id": "9a514ae5-7994-4aa8-8888-c4bad8aada02",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -4613,7 +4660,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "bd69d7fa-c0e8-4ba7-9b14-c1e4abd6c33a",
+              "id": "d2b7af5c-2615-42e2-9d6c-d6b2bf1c03bc",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -4656,7 +4703,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7d7c5483-9669-4472-bb9e-2f991a6296d1",
+              "id": "62146b5b-9dd2-42f7-83ba-669528afd4bf",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -4705,7 +4752,7 @@
           }
         },
         {
-          "id": "b3a08f6b-7c36-4489-9fe2-1d6eb0591333",
+          "id": "2ca4fc75-92c9-4d79-a019-ebc51fc03a80",
           "name": "{{baseUrl}}/admin/departments/:id",
           "request": {
             "name": "{{baseUrl}}/admin/departments/:id",
@@ -4752,7 +4799,7 @@
           },
           "response": [
             {
-              "id": "6777659d-b3cd-465c-89ee-ad966dc0119c",
+              "id": "41dd807e-2008-463e-b88f-388cda12fb82",
               "name": "Updated",
               "originalRequest": {
                 "url": {
@@ -4803,7 +4850,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "dba0f75f-0276-4e41-b4a0-191b0247acd3",
+              "id": "2f3f2269-0d62-4064-b3c8-2dad3cfe1e47",
               "name": "Invalid update",
               "originalRequest": {
                 "url": {
@@ -4854,7 +4901,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ac6f6a6e-0b89-4860-9f88-a9cbad6aeca5",
+              "id": "807e3fc3-b77d-4344-93bc-c4838b4e7066",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -4905,7 +4952,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "6428445c-f827-4c06-8215-d8886a807aa9",
+              "id": "c42584f3-7354-431e-98a1-6768e2a6ef1d",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -4956,7 +5003,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "49b6852d-576c-491a-b96a-0f454e051f7f",
+              "id": "a0c3a1a3-a47a-41b1-bb82-1dced556cd45",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -5013,7 +5060,7 @@
           }
         },
         {
-          "id": "8d093348-329b-43f0-b92f-e0fc1ba8cf05",
+          "id": "59f8c06c-9156-4f85-a02c-33ad99dad5b6",
           "name": "{{baseUrl}}/admin/departments/:id",
           "request": {
             "name": "{{baseUrl}}/admin/departments/:id",
@@ -5045,7 +5092,7 @@
           },
           "response": [
             {
-              "id": "4f498fe8-c89c-4495-9516-82b58a84c6a8",
+              "id": "729cfc2c-6e59-4281-932b-b6d6d9f11186",
               "name": "Deleted",
               "originalRequest": {
                 "url": {
@@ -5088,7 +5135,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "5bbe8747-d689-402f-b0f8-c18f6412788c",
+              "id": "1602cd93-449a-4355-8a37-a858db10ea86",
               "name": "Active complaints prevent deletion",
               "originalRequest": {
                 "url": {
@@ -5131,7 +5178,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "086419e6-cacc-4776-a213-a0a7f3987216",
+              "id": "2cc3a1e9-c19e-4d01-b4fb-56a7bde7bbed",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -5174,7 +5221,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "bebc9f68-ca97-445c-b5f3-94950817854a",
+              "id": "eedac538-d2c3-4cb6-97aa-c56c991201bb",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -5217,7 +5264,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a5739481-25ea-4ff6-9bf7-80162a003e56",
+              "id": "0cff1b7a-af72-4cd9-8f43-3b51c19d131c",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -5269,7 +5316,7 @@
       "event": []
     },
     {
-      "id": "3120fff3-a956-4457-9559-8e41afe0d371",
+      "id": "57f856e3-7616-4bfb-af21-8495ff8530e9",
       "name": "Complaints",
       "description": {
         "content": "",
@@ -5277,7 +5324,7 @@
       },
       "item": [
         {
-          "id": "74bee8b0-ec23-4ae8-98e9-da892948fc98",
+          "id": "331e58ce-66fd-4462-9fb6-9c2ad5cba153",
           "name": "{{baseUrl}}/complaints/",
           "request": {
             "name": "{{baseUrl}}/complaints/",
@@ -5319,7 +5366,7 @@
           },
           "response": [
             {
-              "id": "4c9a03e9-ff0d-4b98-9569-3458f6b75b83",
+              "id": "c4a573e6-df05-4f29-8b0c-8f9895e82474",
               "name": "Created",
               "originalRequest": {
                 "url": {
@@ -5362,7 +5409,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "5f4e02f5-24dd-45cd-bec5-9c9211343b67",
+              "id": "16e8c550-35e4-4bbe-8221-a2f9542963df",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -5405,7 +5452,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e9040e1f-9192-44e2-b380-f0290b52a04b",
+              "id": "6e24f953-d3d7-4e09-ac77-4b25a399241f",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -5448,7 +5495,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "1e9314de-9ff6-4816-9131-3f00b653ed16",
+              "id": "3c37de70-348c-45a2-bd22-49d245bf78e5",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -5491,7 +5538,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a367d0c7-9a4f-48e1-ac1b-f7ff2d42d1c2",
+              "id": "15fea12e-6010-4a30-b5e8-8a118e9c2882",
               "name": "Monthly complaint limit reached",
               "originalRequest": {
                 "url": {
@@ -5540,7 +5587,7 @@
           }
         },
         {
-          "id": "be72e4db-8cd8-4289-a01b-b8a5529f57bc",
+          "id": "160a9d00-75c7-4910-a9f9-d9e482fa4b2b",
           "name": "{{baseUrl}}/complaints/",
           "request": {
             "name": "{{baseUrl}}/complaints/",
@@ -5600,7 +5647,7 @@
           },
           "response": [
             {
-              "id": "1f720d5c-a3b5-43eb-bbe0-dcfe7d945e81",
+              "id": "f7c37b9c-b559-4afd-b7a2-afafd73f17bf",
               "name": "Complaint list",
               "originalRequest": {
                 "url": {
@@ -5664,7 +5711,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c2ad0053-a3f7-4573-854e-970514010fd8",
+              "id": "dc9dd00a-e346-492a-a537-467ecbf62c9a",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -5734,7 +5781,7 @@
           }
         },
         {
-          "id": "f95ef4b3-1718-4ee9-862b-c977c4e5bece",
+          "id": "9f0b19f4-7bff-455e-89fc-43c695dd2d5b",
           "name": "{{baseUrl}}/complaints/search",
           "request": {
             "name": "{{baseUrl}}/complaints/search",
@@ -5765,7 +5812,7 @@
           },
           "response": [
             {
-              "id": "8f114570-15ea-4240-8a99-e3db8c8873e7",
+              "id": "f21305d9-a7ed-49e5-82e0-f62415dcc084",
               "name": "Search results",
               "originalRequest": {
                 "url": {
@@ -5805,7 +5852,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "2c4c0e95-7810-48af-8ed2-4818867846bd",
+              "id": "d0b0205b-8007-4b5d-89a0-48ff5da67cce",
               "name": "Missing query",
               "originalRequest": {
                 "url": {
@@ -5845,7 +5892,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c8039e3b-e82a-4415-9e70-f004cb6fc738",
+              "id": "e2af0f73-e854-4c96-888b-e702b1a0254f",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -5891,7 +5938,7 @@
           }
         },
         {
-          "id": "c483d4e8-f2da-44e5-9788-d1714f4ac1fd",
+          "id": "d7bb229c-39d6-4117-a0c2-53968787be6e",
           "name": "{{baseUrl}}/complaints/my-assigned",
           "request": {
             "name": "{{baseUrl}}/complaints/my-assigned",
@@ -5915,7 +5962,7 @@
           },
           "response": [
             {
-              "id": "e6346429-2cf8-4d65-9aad-f250232083e9",
+              "id": "680401f0-4672-410f-a21d-190a45e964ca",
               "name": "Assigned complaints",
               "originalRequest": {
                 "url": {
@@ -5950,7 +5997,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "bca15313-8190-421f-bbdc-c287acd8ea4e",
+              "id": "1b20f552-b756-4cc4-bad2-58aca3be0dd9",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -5985,7 +6032,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "4591c4ed-0027-453b-9db5-3852aacd5941",
+              "id": "7047176f-8052-40a5-927b-0af701f973ec",
               "name": "Technician access required",
               "originalRequest": {
                 "url": {
@@ -6026,7 +6073,7 @@
           }
         },
         {
-          "id": "304b98d4-eb5d-4540-aa0a-6366d4aa0ead",
+          "id": "62acc47b-8c18-413b-88c7-511f0c384a7f",
           "name": "{{baseUrl}}/complaints/usage",
           "request": {
             "name": "{{baseUrl}}/complaints/usage",
@@ -6050,7 +6097,7 @@
           },
           "response": [
             {
-              "id": "24ee3a33-38aa-4a6f-9300-fb9a3af2b059",
+              "id": "5a1f8caf-e78c-49ea-8d83-f38d5f8cc48b",
               "name": "Usage statistics",
               "originalRequest": {
                 "url": {
@@ -6085,7 +6132,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c435113e-e431-4536-bf49-d4f13e76f2f2",
+              "id": "f5cfa1ab-6924-4b3e-accc-0797a4732314",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -6120,7 +6167,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "6427b0c0-4ab3-4caf-8a20-7b80a8ac5283",
+              "id": "17e17352-23f1-4bcf-b034-1ab7cd3f3b13",
               "name": "Citizen access required",
               "originalRequest": {
                 "url": {
@@ -6161,7 +6208,7 @@
           }
         },
         {
-          "id": "386c0537-b04c-415f-80f7-63985de29ec5",
+          "id": "a20625e8-7463-402f-bf3d-eaf73503c059",
           "name": "{{baseUrl}}/complaints/:id",
           "request": {
             "name": "{{baseUrl}}/complaints/:id",
@@ -6193,7 +6240,7 @@
           },
           "response": [
             {
-              "id": "678a209b-9fa9-4500-9703-770c30f070ef",
+              "id": "fbd73d7b-836e-45dc-a353-165140f44a62",
               "name": "Complaint",
               "originalRequest": {
                 "url": {
@@ -6236,7 +6283,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ee7a2281-6399-4da8-9f3c-8ada9414f478",
+              "id": "f3358ae2-f380-4ba9-bb4c-15b84514d5b3",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -6279,7 +6326,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d3cafe99-706e-42a9-8464-2e61d7f642c9",
+              "id": "8662c5d0-ccc7-43c9-98d2-71c9c97f3c83",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -6322,7 +6369,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "5479ff37-f05a-408c-853f-19ee33f5d26b",
+              "id": "4a3c04d4-a5cf-40b1-9115-a898c79a114c",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -6371,7 +6418,7 @@
           }
         },
         {
-          "id": "40b1dfa9-bbd2-463e-9ef5-67d41bcafc89",
+          "id": "9b525016-3b83-4510-9f77-8e94c6add41d",
           "name": "{{baseUrl}}/complaints/:id",
           "request": {
             "name": "{{baseUrl}}/complaints/:id",
@@ -6418,7 +6465,7 @@
           },
           "response": [
             {
-              "id": "2ce9dc76-bfc6-4730-b70b-7a61c166d0b9",
+              "id": "549bb38b-bc91-432e-a5b3-38d875fb7901",
               "name": "Updated complaint",
               "originalRequest": {
                 "url": {
@@ -6469,7 +6516,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f817a63a-afb8-4583-b003-aaf87985bdc3",
+              "id": "d31c49fc-2744-4d85-a329-b778c4176a5d",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -6520,7 +6567,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c1c095fe-5491-4b5b-8238-697eeb5df492",
+              "id": "ad466644-a4ff-4918-bca1-3cfa7334cc33",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -6571,7 +6618,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "041c2fed-ea8f-4519-bd2c-bce74d706120",
+              "id": "e326354a-514d-4e2d-9f91-5eb49e5ba1c4",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -6622,7 +6669,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "833afb4a-e433-4bf8-82d8-49df919efc0e",
+              "id": "3aff29f2-696b-411f-a570-cb22ad80dd85",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -6679,7 +6726,7 @@
           }
         },
         {
-          "id": "c210e9e5-2a65-4782-91fb-9b0aec67add9",
+          "id": "b12252c6-ace3-4c93-8185-2e4b58d59bfa",
           "name": "{{baseUrl}}/complaints/:id",
           "request": {
             "name": "{{baseUrl}}/complaints/:id",
@@ -6711,7 +6758,7 @@
           },
           "response": [
             {
-              "id": "6b626ea8-2c81-4bae-ae6f-75e5bc3faef0",
+              "id": "95b38f6c-3ba3-43eb-92f9-b1933acf6fd8",
               "name": "Deleted",
               "originalRequest": {
                 "url": {
@@ -6754,7 +6801,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "1dca22df-e81d-4466-92c3-02e0f55d2710",
+              "id": "ad5abbb2-1cc4-4926-bc36-caf06af0d520",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -6797,7 +6844,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "4d3c3e6b-5d07-490c-b11a-a4a28d21cba0",
+              "id": "0365fbf9-2068-4227-a655-827caf5770c6",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -6840,7 +6887,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "11aba968-8217-4603-bca5-9d674b69228e",
+              "id": "5ec192a3-006d-4dc4-a0dc-0c55813d31ea",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -6889,7 +6936,7 @@
           }
         },
         {
-          "id": "2545e6ba-d818-44fd-ad7f-297fb09514e0",
+          "id": "9150d4ef-89eb-4c99-a655-e34a2a279d36",
           "name": "{{baseUrl}}/complaints/:id/assign",
           "request": {
             "name": "{{baseUrl}}/complaints/:id/assign",
@@ -6936,7 +6983,7 @@
           },
           "response": [
             {
-              "id": "d8352c56-5a7a-4b1c-9f88-b81718bda57d",
+              "id": "76458def-fe21-4c04-83c0-22cc55437511",
               "name": "Assigned complaint",
               "originalRequest": {
                 "url": {
@@ -6987,7 +7034,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "38d7a92f-a7e8-4086-b005-6f69c86631ee",
+              "id": "ca602267-2021-43f4-b02e-aa2c557a9fc2",
               "name": "Invalid assignment",
               "originalRequest": {
                 "url": {
@@ -7038,7 +7085,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "2e8e6ad3-4d15-47c3-bf87-7acb9e08cbe6",
+              "id": "933aa8bc-502c-40c7-b51b-12b25a7f272c",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -7089,7 +7136,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c33e35f2-a614-42b9-b91f-45c19ff57c10",
+              "id": "0aef5547-2388-4fbd-9364-b8fa8fc24e14",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -7140,7 +7187,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d6545767-67db-44b4-a722-69b83a49f496",
+              "id": "ca748969-27de-4010-9067-9d675e5a2fa7",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -7197,7 +7244,7 @@
           }
         },
         {
-          "id": "7e9e90ce-55ee-4aa4-b79e-e54dc3374f87",
+          "id": "86b30fb2-3a44-457f-ab6c-40cfce270497",
           "name": "{{baseUrl}}/complaints/:id/status",
           "request": {
             "name": "{{baseUrl}}/complaints/:id/status",
@@ -7244,7 +7291,7 @@
           },
           "response": [
             {
-              "id": "a09a3383-34d4-41af-b06e-e466bd3af2c3",
+              "id": "a0f6731d-4c11-44e1-b916-e6248ca06494",
               "name": "Updated complaint",
               "originalRequest": {
                 "url": {
@@ -7295,7 +7342,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8ed0c7dd-c57e-47e2-8868-ba109911ab70",
+              "id": "5ae3e592-98b7-417f-ab60-43ae2945aeb9",
               "name": "Invalid transition",
               "originalRequest": {
                 "url": {
@@ -7346,7 +7393,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b5fd80e9-3d7f-4ef5-ba01-53a414179bd5",
+              "id": "9db67508-9511-4b85-9ccf-08158a85ba3e",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -7397,7 +7444,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e5714e8e-dad7-4263-9510-2862791dd0dc",
+              "id": "a09f70c3-139e-4724-970c-0b0c9452781c",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -7448,7 +7495,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e05282d5-5e07-436b-8889-e462cd986b17",
+              "id": "c252687c-193e-4bf1-ae80-c5e2695b7bfc",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -7505,7 +7552,7 @@
           }
         },
         {
-          "id": "8fd030a3-aa8a-494d-988b-403a9b4b9ef0",
+          "id": "aa705bc5-fd68-47b3-832f-818c579caa0d",
           "name": "{{baseUrl}}/complaints/:id/cancel",
           "request": {
             "name": "{{baseUrl}}/complaints/:id/cancel",
@@ -7537,7 +7584,7 @@
           },
           "response": [
             {
-              "id": "c5339816-d3a2-48b1-b75e-01cbcd2ac8d5",
+              "id": "c8d0493f-1dc4-4985-be2e-a93ef4c4a99e",
               "name": "Cancelled",
               "originalRequest": {
                 "url": {
@@ -7580,7 +7627,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "2979c4f6-41e9-4b45-b951-4f547144629a",
+              "id": "7c789171-5f2e-4ba8-8a12-648c3eea5c68",
               "name": "Cannot cancel",
               "originalRequest": {
                 "url": {
@@ -7623,7 +7670,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d87656e8-8b4a-47d6-8f26-720783087eb9",
+              "id": "1f797abb-dcf7-4006-ad67-d5f3c8caa7d8",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -7666,7 +7713,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "71522294-471f-4785-8618-f360bf5a0dd7",
+              "id": "db0076bd-fe61-44e7-8dc4-e0a82477dd16",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -7709,7 +7756,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "4fe92232-52a1-4ea3-8a7e-dde100f0ba2f",
+              "id": "c86c68ea-a86d-49ca-a9bc-b1ad9a174cff",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -7758,7 +7805,7 @@
           }
         },
         {
-          "id": "09a2ef97-3bee-4d88-b94c-3c103871ef11",
+          "id": "6b439b39-41d0-4818-94eb-d9681bfe4741",
           "name": "{{baseUrl}}/complaints/:id/reopen",
           "request": {
             "name": "{{baseUrl}}/complaints/:id/reopen",
@@ -7805,7 +7852,7 @@
           },
           "response": [
             {
-              "id": "f99099ba-af1b-4487-bebe-ceeeb849a4da",
+              "id": "ab2498df-daee-47a7-b989-f8fd62e68f2e",
               "name": "Reopened complaint",
               "originalRequest": {
                 "url": {
@@ -7856,7 +7903,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "74479acc-ebf3-4ae5-8eea-9fa27832ec8a",
+              "id": "f4b76a9d-6edc-47cb-8baa-6355fc05aac4",
               "name": "Expired or invalid status",
               "originalRequest": {
                 "url": {
@@ -7907,7 +7954,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "66f0d1ab-b44a-4a1c-9552-48f0555cbb2c",
+              "id": "45daff36-bea0-4ffd-b55b-63f824a38a29",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -7958,7 +8005,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f616727e-628d-4be4-89e8-696311248c1d",
+              "id": "0e98148c-271a-49e4-9b2d-6247a78d77a6",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -8009,7 +8056,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e8d310e6-5660-49f3-a8b6-71e21ea0a1e1",
+              "id": "fa5c88ee-7450-4935-8ba2-2cc2c7fac56e",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -8066,7 +8113,7 @@
           }
         },
         {
-          "id": "f6c9c23d-d65a-47d8-aeb6-ba17037c1f70",
+          "id": "4e0f14b3-b1a0-479b-8e6d-c57c45b57ac7",
           "name": "{{baseUrl}}/complaints/:id/escalate",
           "request": {
             "name": "{{baseUrl}}/complaints/:id/escalate",
@@ -8113,7 +8160,7 @@
           },
           "response": [
             {
-              "id": "8ce518ee-ca41-4956-9f4b-ac62a0d0e4f8",
+              "id": "80ac9efe-c40d-4d0c-8871-484d414b3594",
               "name": "Escalated complaint",
               "originalRequest": {
                 "url": {
@@ -8164,7 +8211,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "364d0cb4-99a5-478b-9e82-fcdfc0a78bae",
+              "id": "3f71f7be-2b10-4528-a16a-a5a42bb92f24",
               "name": "Cannot escalate",
               "originalRequest": {
                 "url": {
@@ -8215,7 +8262,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "fefc2140-b396-47eb-a1e0-30d1a60d24fb",
+              "id": "a7e418fc-63d8-4445-b5b7-e181e2fa2797",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -8266,7 +8313,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "04e373bb-1171-4d98-8554-ee2c02fe7c7a",
+              "id": "3f8e9f92-257b-4914-a819-cb2a8b8378e4",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -8317,7 +8364,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "146b42a2-54f9-4168-97b8-7d6393bb0f0f",
+              "id": "d4dbe11f-e8d3-4a70-835a-cd4a2d653d49",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -8377,7 +8424,7 @@
       "event": []
     },
     {
-      "id": "929815a1-bc8b-499f-aeda-4005362e7dce",
+      "id": "c8a7f42c-26c6-4160-9298-0567224de1f3",
       "name": "Categories",
       "description": {
         "content": "",
@@ -8385,7 +8432,7 @@
       },
       "item": [
         {
-          "id": "675f6fa0-ddc9-4beb-9e07-8cb1c2f36afa",
+          "id": "1123818c-c236-4a01-9bb7-f247b0d94516",
           "name": "{{baseUrl}}/admin/departments/:departmentId/categories",
           "request": {
             "name": "{{baseUrl}}/admin/departments/:departmentId/categories",
@@ -8432,7 +8479,7 @@
           },
           "response": [
             {
-              "id": "fbb6dda8-18c9-492f-8ae3-5957622df8e9",
+              "id": "08a8252e-a869-470b-85eb-d8f68e496af3",
               "name": "Created",
               "originalRequest": {
                 "url": {
@@ -8488,7 +8535,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "907d8641-c8e5-4e16-b375-9aa4c195a715",
+              "id": "4c1f9bd5-715e-4614-9253-54a6fbd476de",
               "name": "Duplicate or invalid category",
               "originalRequest": {
                 "url": {
@@ -8544,7 +8591,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c77d7aef-04cb-4643-a098-158079679482",
+              "id": "225c245b-a97c-4b7d-91da-5cd96dc60b64",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -8600,7 +8647,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "96e98148-4566-41c0-9448-617ffc43a4ea",
+              "id": "8fe6bce6-74fe-47d7-9410-6ee7ac2153c8",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -8656,7 +8703,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "48546007-b4d7-42f9-8cf0-674f45e705e6",
+              "id": "46375714-648a-4064-ad1d-597a1d51d073",
               "name": "Department not found",
               "originalRequest": {
                 "url": {
@@ -8718,7 +8765,7 @@
           }
         },
         {
-          "id": "64e04b04-c261-40eb-83ca-d3ee71f91b25",
+          "id": "688eed94-66b1-4363-a359-b381b8b13ca6",
           "name": "{{baseUrl}}/admin/departments/:departmentId/categories",
           "request": {
             "name": "{{baseUrl}}/admin/departments/:departmentId/categories",
@@ -8750,7 +8797,7 @@
           },
           "response": [
             {
-              "id": "dd0a3412-b465-4339-a95a-002fc083fe7a",
+              "id": "3c8558b0-ce1e-461f-962c-b9f6e9cdd81f",
               "name": "Categories",
               "originalRequest": {
                 "url": {
@@ -8798,7 +8845,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d30090c3-1a7d-4ef3-abab-32f9a01d3061",
+              "id": "3ece20bb-435b-49ff-950e-7106da561994",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -8846,7 +8893,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "6f53a8b0-55c7-42ad-8622-a4be9927ffec",
+              "id": "94184e74-f51c-4a9a-9c4d-d3374ecd9c97",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -8894,7 +8941,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7b074894-26a1-429b-a238-951cbcec9f38",
+              "id": "f9728534-ac91-4fa4-af60-f72b8d0a0040",
               "name": "Department not found",
               "originalRequest": {
                 "url": {
@@ -8948,7 +8995,7 @@
           }
         },
         {
-          "id": "8edb9349-05b4-4b4e-9bf2-8dc4d1ef2f1e",
+          "id": "66b9c64f-93ff-44c3-8538-5cfcdb49a4ef",
           "name": "{{baseUrl}}/admin/categories/:id",
           "request": {
             "name": "{{baseUrl}}/admin/categories/:id",
@@ -8995,7 +9042,7 @@
           },
           "response": [
             {
-              "id": "41ba6570-51dd-4f10-b9f3-e6512fee10f3",
+              "id": "7c2d324a-f177-4e6b-b4b7-af3e2f83b62a",
               "name": "Updated",
               "originalRequest": {
                 "url": {
@@ -9046,7 +9093,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e5904b22-59fe-43f2-834e-851abd08dd4c",
+              "id": "f6b81c4c-5704-4869-ab2e-d14b9a5c0783",
               "name": "Invalid update",
               "originalRequest": {
                 "url": {
@@ -9097,7 +9144,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "4ea21553-4374-4b71-9f6f-ba4bb793eba7",
+              "id": "6314af6d-6cc5-4b66-a9fc-b71f96b12630",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -9148,7 +9195,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f353a8d6-88d2-4bb2-a4e3-4a90a4f580b6",
+              "id": "22fddb47-d5f1-4f9a-b4b0-dbe6f7242e12",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -9199,7 +9246,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "aa4fb7e0-46f1-490f-93f1-8bb4266441fd",
+              "id": "c2beba56-1141-4079-b93c-428f5e4af589",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -9256,7 +9303,7 @@
           }
         },
         {
-          "id": "07f43901-7737-4f8d-af69-4b09523f60a0",
+          "id": "d1b373cc-e1da-4b2f-9e46-c9b280722ac1",
           "name": "{{baseUrl}}/admin/categories/:id",
           "request": {
             "name": "{{baseUrl}}/admin/categories/:id",
@@ -9288,7 +9335,7 @@
           },
           "response": [
             {
-              "id": "a13910a9-65bc-47ae-a040-3966cc302357",
+              "id": "a8e2aebe-8536-485f-b42c-0a70c365dbd0",
               "name": "Deleted",
               "originalRequest": {
                 "url": {
@@ -9331,7 +9378,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "fcd99159-5318-409b-b6fe-2eb4fbc30118",
+              "id": "aa1c3b31-2ded-4d3a-bc55-df4d88f98273",
               "name": "Active complaints prevent deletion",
               "originalRequest": {
                 "url": {
@@ -9374,7 +9421,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3f2c53cb-e54b-4e3a-9a16-e97040c21751",
+              "id": "4f8d0edb-e774-4034-bc92-02701eea58cc",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -9417,7 +9464,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e7e7006b-02d3-4ef3-b555-cab57c1eebdf",
+              "id": "cdfa3735-e5cb-4730-bf51-015bbb34e4d8",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -9460,7 +9507,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "63a41a24-3eff-4ee7-ad76-65cce4036778",
+              "id": "321197b0-4276-4446-8629-83b555fa0852",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -9512,7 +9559,7 @@
       "event": []
     },
     {
-      "id": "8a3d0dfb-3f94-40d1-8c22-0a27703a6c74",
+      "id": "d80f4929-83f2-412e-9259-bc5bc078291d",
       "name": "Auth",
       "description": {
         "content": "",
@@ -9520,7 +9567,7 @@
       },
       "item": [
         {
-          "id": "12ea6c4f-37a8-4d9d-a967-00062b0ac408",
+          "id": "ef95d847-577d-4a6e-a711-e5fd09109046",
           "name": "{{baseUrl}}/auth/register",
           "request": {
             "name": "{{baseUrl}}/auth/register",
@@ -9551,7 +9598,7 @@
           },
           "response": [
             {
-              "id": "47ee69e4-7459-4de7-af00-ba1c56266ecb",
+              "id": "18ee4915-ed89-4081-b9b5-838e227744cb",
               "name": "Registered",
               "originalRequest": {
                 "url": {
@@ -9584,7 +9631,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "fbf62051-d31c-4680-a1e2-b264cd872cf2",
+              "id": "8934fe32-f1bb-44eb-aa8f-854e1b04f2c9",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -9623,7 +9670,7 @@
           }
         },
         {
-          "id": "4b7ed309-0adc-4c6d-a8b4-e4ed7dd8f317",
+          "id": "6e78f82c-3c4f-492c-966b-7410a3267552",
           "name": "{{baseUrl}}/auth/login",
           "request": {
             "name": "{{baseUrl}}/auth/login",
@@ -9654,7 +9701,7 @@
           },
           "response": [
             {
-              "id": "49ddda92-4354-47ee-938e-32296012f0bc",
+              "id": "f8067326-30b8-421f-a5b0-cf1dba15229e",
               "name": "Login successful",
               "originalRequest": {
                 "url": {
@@ -9687,7 +9734,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f2bf0706-6a9a-428f-830e-ab5fd635a0e2",
+              "id": "d5df0bb7-b0c1-4775-8caf-6c8179115a80",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -9720,7 +9767,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "824e8f13-604e-487e-8cc9-0316070111cb",
+              "id": "b776c3fa-e975-457f-ac7b-83d1850e062b",
               "name": "Invalid credentials",
               "originalRequest": {
                 "url": {
@@ -9759,7 +9806,7 @@
           }
         },
         {
-          "id": "ecf9059f-0729-4e3b-aa45-751ad468349a",
+          "id": "a87c46e5-0826-4ee5-9238-bbb511499e97",
           "name": "{{baseUrl}}/auth/google",
           "request": {
             "name": "{{baseUrl}}/auth/google",
@@ -9790,7 +9837,7 @@
           },
           "response": [
             {
-              "id": "4772e051-612f-4921-b6f1-0aaebff039c9",
+              "id": "1126ea21-096d-4949-985d-1af3f0371ef1",
               "name": "Login successful",
               "originalRequest": {
                 "url": {
@@ -9823,7 +9870,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "48366d1a-0f05-4e4a-9235-109094ebb69d",
+              "id": "a32d8049-a668-4099-b00e-245e75c9d8c6",
               "name": "Invalid token",
               "originalRequest": {
                 "url": {
@@ -9862,7 +9909,7 @@
           }
         },
         {
-          "id": "0ae66d64-fca0-40c5-adb4-5200ffaed150",
+          "id": "b3662786-bbe9-47b7-baac-99c21b55e1ef",
           "name": "{{baseUrl}}/auth/refresh-token",
           "request": {
             "name": "{{baseUrl}}/auth/refresh-token",
@@ -9878,7 +9925,7 @@
           },
           "response": [
             {
-              "id": "b44400ea-62df-4d3c-a878-b5f1a71d22aa",
+              "id": "09778022-166c-4c97-a276-4fd656195028",
               "name": "Token refreshed",
               "originalRequest": {
                 "url": {
@@ -9903,7 +9950,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c8b233c4-d645-43ff-a162-218541cc25de",
+              "id": "7316ba40-3558-463d-a9db-19e4e023f39a",
               "name": "Invalid refresh token",
               "originalRequest": {
                 "url": {
@@ -9934,7 +9981,7 @@
           }
         },
         {
-          "id": "6f1cab09-090e-4e65-88d3-40213810b97f",
+          "id": "ae5c688f-8a6c-4738-a63e-5d6fcfec144b",
           "name": "{{baseUrl}}/auth/logout",
           "request": {
             "name": "{{baseUrl}}/auth/logout",
@@ -9950,7 +9997,7 @@
           },
           "response": [
             {
-              "id": "5bd608b3-2417-4a14-8fcc-e261bf2bb58a",
+              "id": "01d7ef70-a713-4bbf-9d98-bdb1d8075976",
               "name": "Logged out",
               "originalRequest": {
                 "url": {
@@ -9984,7 +10031,7 @@
       "event": []
     },
     {
-      "id": "57a9360c-405c-471f-a1d7-3627a3c376b4",
+      "id": "a0478355-d019-4c50-b41c-19734a9fc2da",
       "name": "Attachments",
       "description": {
         "content": "",
@@ -9992,7 +10039,7 @@
       },
       "item": [
         {
-          "id": "9ab96eb0-0b50-4722-8194-4c8868b6c3b5",
+          "id": "d0986654-d47b-49e0-b7ab-c05ea7173189",
           "name": "{{baseUrl}}/complaints/:complaintId/attachments",
           "request": {
             "name": "{{baseUrl}}/complaints/:complaintId/attachments",
@@ -10047,7 +10094,7 @@
           },
           "response": [
             {
-              "id": "981571ba-fc89-4c03-8aae-e9d987cc61a7",
+              "id": "4387b29a-a64b-46f3-b8e1-a44d52cbaca1",
               "name": "Uploaded",
               "originalRequest": {
                 "url": {
@@ -10112,7 +10159,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b3ae4558-be09-4c1f-89fd-408134997864",
+              "id": "c397f3af-3575-4b17-bc8d-6ea50bb934d4",
               "name": "Upload or validation failure",
               "originalRequest": {
                 "url": {
@@ -10177,7 +10224,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f42628c5-4381-4e7b-860c-3be278c0584a",
+              "id": "69088c48-05f1-42ae-a046-c74c65c7e41e",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -10242,7 +10289,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "2ff2e693-7d17-4562-8539-081bb3747e79",
+              "id": "fa48cc44-4700-41a8-af33-50b9711ed8bf",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -10307,7 +10354,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "fc06d0d3-0e05-49ff-b8ad-bb7b0ae508c2",
+              "id": "eef22be9-cd8b-4eaf-8f6e-517b5fa632ff",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -10378,7 +10425,7 @@
           }
         },
         {
-          "id": "baf06b66-7533-4699-a195-acfe532392f6",
+          "id": "1c787fe4-e238-4a98-9430-18f23063b80f",
           "name": "{{baseUrl}}/complaints/:complaintId/attachments",
           "request": {
             "name": "{{baseUrl}}/complaints/:complaintId/attachments",
@@ -10410,7 +10457,7 @@
           },
           "response": [
             {
-              "id": "a17da08f-3222-44ff-a019-701bbae1cc36",
+              "id": "57dee740-0f91-4695-becd-2e8a6a467368",
               "name": "Attachments",
               "originalRequest": {
                 "url": {
@@ -10453,7 +10500,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "94ce9764-98a8-4098-a284-4298ab639b62",
+              "id": "73a5d494-e0a5-46d0-bc5f-b3591fc82dce",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -10496,7 +10543,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "565dd8db-6600-4c9b-8b7b-141189a5d652",
+              "id": "f8bc1366-d15d-410f-9f8c-3664abb7ead6",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -10539,7 +10586,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b451a834-2dd2-48b7-8b8b-1f7c7a34b73d",
+              "id": "edb0a904-3216-4d57-aa7f-937a69180c6c",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -10588,7 +10635,7 @@
           }
         },
         {
-          "id": "5d2dbac3-d252-4202-a2b0-ead4836e057f",
+          "id": "a6e44a70-15ad-40fe-bd79-5df73197ccb3",
           "name": "{{baseUrl}}/attachments/:id",
           "request": {
             "name": "{{baseUrl}}/attachments/:id",
@@ -10620,7 +10667,7 @@
           },
           "response": [
             {
-              "id": "b5e03e38-7e87-487a-85fc-0cacf1c40e00",
+              "id": "334a53f1-5200-4412-99a7-b32b74f0af57",
               "name": "Deleted",
               "originalRequest": {
                 "url": {
@@ -10663,7 +10710,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "bbb2e304-896f-4355-9a91-15e17acb665b",
+              "id": "64e7ae05-b1ad-460d-a7f2-49427993d790",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -10706,7 +10753,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e370493f-0085-40f6-8b56-0a96cedefee3",
+              "id": "8a5f4061-c569-4df7-9f52-6aa2b93b39db",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -10749,7 +10796,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "759f06af-2603-4458-af24-3c5e1776a822",
+              "id": "f8e0f555-b294-4dae-976b-9c2e10dabba8",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -10801,7 +10848,7 @@
       "event": []
     },
     {
-      "id": "212c2e82-af4c-43b0-9319-e107f82b8591",
+      "id": "c5dc399b-4ddf-4439-bd93-969cba7d1d6e",
       "name": "Admin",
       "description": {
         "content": "",
@@ -10809,7 +10856,7 @@
       },
       "item": [
         {
-          "id": "69873d80-f32a-4044-a8b5-39ddc4cdb58f",
+          "id": "ff727751-7e3a-4227-9dcf-e550cd10e351",
           "name": "{{baseUrl}}/admin/jobs/check-overdue-slas",
           "request": {
             "name": "{{baseUrl}}/admin/jobs/check-overdue-slas",
@@ -10833,7 +10880,7 @@
           },
           "response": [
             {
-              "id": "cdf66d2c-aeb0-46e5-9c6f-558caff465ab",
+              "id": "07007f78-acc3-43d5-8c3b-b26456bf3920",
               "name": "SLA scan summary",
               "originalRequest": {
                 "url": {
@@ -10868,7 +10915,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "0e3cacc7-501c-4960-b03d-b81a533e86db",
+              "id": "3cf661e3-b38e-45e5-baea-d55bc2fd753b",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -10903,7 +10950,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7950cfde-054a-49d7-a18f-3e10a92bb053",
+              "id": "d666b2d5-e334-4d23-ae35-4a36b70b7a08",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -10944,7 +10991,7 @@
           }
         },
         {
-          "id": "184e7f3a-a489-4f68-ab46-264abc5ab361",
+          "id": "77227baf-e7b2-4de5-843b-c8d77bfd2200",
           "name": "{{baseUrl}}/admin/users",
           "request": {
             "name": "{{baseUrl}}/admin/users",
@@ -11004,7 +11051,7 @@
           },
           "response": [
             {
-              "id": "c91821f6-17f3-42ac-88a6-3b0804cae066",
+              "id": "1265f004-e736-412d-98b3-da673ac9a9d4",
               "name": "Users",
               "originalRequest": {
                 "url": {
@@ -11068,7 +11115,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "26dba357-0e18-4656-8e29-459ae378783c",
+              "id": "e56e2ade-01f6-40b5-95d3-f418dca28e69",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -11132,7 +11179,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "40cab60d-1aba-4bce-b64d-38387157963c",
+              "id": "b41e78c0-66ae-4de5-90bd-92f5bfad2ccc",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -11202,7 +11249,7 @@
           }
         },
         {
-          "id": "b1faefa6-8ae6-43eb-a1e0-94b1a3c0649f",
+          "id": "9c4199bf-ef12-45b8-b99f-dd6d48bc281f",
           "name": "{{baseUrl}}/admin/users/:id/role",
           "request": {
             "name": "{{baseUrl}}/admin/users/:id/role",
@@ -11249,7 +11296,7 @@
           },
           "response": [
             {
-              "id": "43cdcf28-748d-45f0-a4a7-ffddb5a13f1b",
+              "id": "49fd3fd6-21b0-4270-aee7-cc1464baff60",
               "name": "Updated user",
               "originalRequest": {
                 "url": {
@@ -11300,7 +11347,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7e431b64-4794-434f-9a41-1bf1fac631e5",
+              "id": "70c6cf64-4a05-4a3a-ab8b-1d3a1515f612",
               "name": "Invalid role",
               "originalRequest": {
                 "url": {
@@ -11351,7 +11398,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "89022d21-f84e-4c35-80c7-ae9c6d6f1925",
+              "id": "39638bbf-9bfa-4da5-8ac4-b4782cb2da75",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -11402,7 +11449,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "cef6ef50-7b3c-4a8f-9e26-750f933c0de8",
+              "id": "7da461a7-286e-4b6b-be61-4aa034bd4a82",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -11453,7 +11500,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "93c6dae9-09ee-47a0-a260-e71a5a2c2f47",
+              "id": "3591d7f7-d395-46ce-896c-a9913bc00055",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -11510,7 +11557,7 @@
           }
         },
         {
-          "id": "a95b2ba8-5dbc-4260-96d0-f89f8c725c63",
+          "id": "b3093a90-e3fb-4a1b-a3a2-6de1303bdf53",
           "name": "{{baseUrl}}/admin/users/:id/deactivate",
           "request": {
             "name": "{{baseUrl}}/admin/users/:id/deactivate",
@@ -11542,7 +11589,7 @@
           },
           "response": [
             {
-              "id": "ee8d4fe9-ddb6-4bea-b45d-42afc8831dcd",
+              "id": "4b8d4954-6b10-4e95-9ea0-a7f31f4cf8fe",
               "name": "Deactivated",
               "originalRequest": {
                 "url": {
@@ -11585,7 +11632,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "6f4b7da1-4c49-4cf2-8109-466137f0443f",
+              "id": "12ea12b6-d8cf-47e4-99c0-5bcb94d56357",
               "name": "Last admin protection",
               "originalRequest": {
                 "url": {
@@ -11628,7 +11675,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "51d6672e-3168-4cce-9b61-5f7d140510c6",
+              "id": "3ef77b11-a8a1-4591-adcb-b8c84fbf419d",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -11671,7 +11718,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "575643b3-024a-491a-98e2-11672fc58c4a",
+              "id": "93cbc569-c1bd-4289-a9a3-528742dcca79",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -11714,7 +11761,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b6aaea99-15da-4264-a441-3be2dc8ce59b",
+              "id": "beed1e59-0dc4-47af-9531-b9631f2bc169",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -11763,7 +11810,7 @@
           }
         },
         {
-          "id": "1e2d98d2-9177-4b1d-b9f7-dbf830acd020",
+          "id": "f7a48f22-5945-4a95-925c-08e2479cbbb6",
           "name": "{{baseUrl}}/admin/users/:id/reactivate",
           "request": {
             "name": "{{baseUrl}}/admin/users/:id/reactivate",
@@ -11795,7 +11842,7 @@
           },
           "response": [
             {
-              "id": "bfe3e59c-61c3-4712-98ea-2ef520f17ac8",
+              "id": "c9865259-3df7-48ec-b086-1325d48fcc93",
               "name": "Reactivated",
               "originalRequest": {
                 "url": {
@@ -11838,7 +11885,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b0ee9f4f-1092-4a52-8cb7-fa06ee4da450",
+              "id": "d97e2853-222f-41fe-bec1-069b063e6ae8",
               "name": "User is active",
               "originalRequest": {
                 "url": {
@@ -11881,7 +11928,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f17cec14-418e-43af-9234-6a8f29ac0522",
+              "id": "87b8485e-070b-416c-bc34-9ecea32a9f95",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -11924,7 +11971,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c9ae6f55-2c30-4ec9-a71d-f8e420998d87",
+              "id": "66e9a278-8527-4ae8-8d09-4ff5aad7bb14",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -11967,7 +12014,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a531b16e-3945-48ca-a364-a5a58199f14d",
+              "id": "c3286386-0676-49c1-9f81-8d11b416e215",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -12016,7 +12063,7 @@
           }
         },
         {
-          "id": "1b3522d3-a0f0-4229-a014-fc54f03a80ea",
+          "id": "05b0012f-7923-4cdf-b051-c02478f156fd",
           "name": "{{baseUrl}}/admin/dashboard-stats",
           "request": {
             "name": "{{baseUrl}}/admin/dashboard-stats",
@@ -12040,7 +12087,7 @@
           },
           "response": [
             {
-              "id": "46b2e637-2945-47ab-8d34-d1aaef975f00",
+              "id": "6f8561b2-5aa3-4b59-947c-bf8c5a80334d",
               "name": "Dashboard statistics",
               "originalRequest": {
                 "url": {
@@ -12075,7 +12122,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "0eddfc3b-3f1f-4c44-816c-1a98980f4640",
+              "id": "3c113de2-3285-41c1-b0b4-672e01648459",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -12110,7 +12157,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "868fd142-70a3-438b-92a2-af02cece5891",
+              "id": "bea4f2b7-1a33-43ea-816d-862c120843e9",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -12151,7 +12198,7 @@
           }
         },
         {
-          "id": "87e6fb7c-222c-44c5-93b3-d2e6a4a38942",
+          "id": "09ee0920-5993-430a-a79e-b02489407613",
           "name": "{{baseUrl}}/admin/audit-logs",
           "request": {
             "name": "{{baseUrl}}/admin/audit-logs",
@@ -12175,7 +12222,7 @@
           },
           "response": [
             {
-              "id": "70e2297f-67c9-4f7b-be3a-bc6ad3e26015",
+              "id": "5b886cac-e510-484b-9a9c-e7a7e4b45666",
               "name": "Audit logs",
               "originalRequest": {
                 "url": {
@@ -12210,7 +12257,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "17d74a7e-99a3-44c9-b98f-3a517be55b1d",
+              "id": "22abe88d-50c8-4838-bc44-a646b0682404",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -12245,7 +12292,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8fbafb90-7369-40e2-974f-5330b28fc80a",
+              "id": "613f1a3c-e506-4fd3-80d4-8b1f03536644",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -12286,7 +12333,7 @@
           }
         },
         {
-          "id": "2d2dc69b-ae3f-469f-92bd-1d765437a2fb",
+          "id": "fbf0c7c2-43ed-4e5f-b027-aa17d4eb5bab",
           "name": "{{baseUrl}}/admin/payments",
           "request": {
             "name": "{{baseUrl}}/admin/payments",
@@ -12331,7 +12378,7 @@
           },
           "response": [
             {
-              "id": "69f8916c-dde1-46ab-ae59-d1a9db954d35",
+              "id": "53dd883d-bbc3-4001-83c7-2bf396454328",
               "name": "Subscriptions and payments retrieved successfully",
               "originalRequest": {
                 "url": {
@@ -12383,7 +12430,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e362418a-92be-4fdb-bde5-5c5f0afcda4c",
+              "id": "c38ca1e1-f0eb-4846-a036-aab6b47409ae",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -12435,7 +12482,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c1bd75cc-1117-4e86-a28b-e7e0da9e0e83",
+              "id": "0fd6a440-304a-4988-a48d-770d9ed79577",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -12487,7 +12534,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "5f6abc81-3d80-4c18-99c6-6abb77948f69",
+              "id": "963107a6-14de-49e8-9468-ca0abaa959e8",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -12545,7 +12592,7 @@
           }
         },
         {
-          "id": "9bf16887-f6a4-4773-abb5-6eef3413fd68",
+          "id": "6ce75d67-189f-46d8-8c3d-8763deb8eecf",
           "name": "{{baseUrl}}/admin/escalated-complaints",
           "request": {
             "name": "{{baseUrl}}/admin/escalated-complaints",
@@ -12580,7 +12627,7 @@
           },
           "response": [
             {
-              "id": "5a5920f6-68ac-4dcd-9587-19b02bece647",
+              "id": "7163efa8-7b9f-4f90-820e-28f6f1318240",
               "name": "Escalated complaints retrieved successfully",
               "originalRequest": {
                 "url": {
@@ -12624,7 +12671,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3497de5a-6d30-4461-a498-bc43087a7734",
+              "id": "b525bb0a-caef-4b2a-8de5-a23d65000f01",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -12668,7 +12715,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "61cf5fe9-bb10-4a35-bfc2-b993ff59bff5",
+              "id": "4b545969-24b2-4ccc-9779-2558354f6a3a",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -12712,7 +12759,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "1b5fd17c-96fe-4905-9d07-37a7c140201a",
+              "id": "024cae6c-e376-4499-8eca-f92e49ba8151",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -12762,7 +12809,7 @@
           }
         },
         {
-          "id": "5a9a8b00-fa5b-4241-868c-2d6a125a6f8d",
+          "id": "14c0b5e5-2eb1-4ac4-9bca-29a1abfce356",
           "name": "{{baseUrl}}/admin/complaints/:id/clear-escalation",
           "request": {
             "name": "{{baseUrl}}/admin/complaints/:id/clear-escalation",
@@ -12809,7 +12856,7 @@
           },
           "response": [
             {
-              "id": "ed78ea39-3cab-4177-8ea0-bdec411ab084",
+              "id": "1287d7a5-f612-4396-ae8f-6ffc548186ad",
               "name": "Escalation cleared successfully",
               "originalRequest": {
                 "url": {
@@ -12860,7 +12907,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c22f5640-3561-4443-bcc7-be3e4f4aaece",
+              "id": "974a7607-b42b-40fd-8277-5356d6373690",
               "name": "Complaint is not escalated or invalid ID",
               "originalRequest": {
                 "url": {
@@ -12911,7 +12958,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "92d540f7-063c-4629-9ba6-3283d1144b4a",
+              "id": "9db9c23a-ea46-45a6-b29a-83dcd43eef0f",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -12962,7 +13009,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "6eb8b80f-7246-46a9-9136-afe21d16648f",
+              "id": "96cb5aca-a415-4916-bb85-b56cfc946552",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -13013,7 +13060,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ca9d5df0-acc1-471d-8e0d-283070429304",
+              "id": "14e434be-5058-4d2e-9d95-3337dae2909d",
               "name": "Complaint not found",
               "originalRequest": {
                 "url": {
@@ -13070,7 +13117,7 @@
           }
         },
         {
-          "id": "8d99b271-4a6c-4659-af6d-4be51a4b3abb",
+          "id": "a0828539-57c7-40f3-aa74-ae5543b97b6b",
           "name": "{{baseUrl}}/admin/premium-pricing",
           "request": {
             "name": "{{baseUrl}}/admin/premium-pricing",
@@ -13094,7 +13141,7 @@
           },
           "response": [
             {
-              "id": "1e0a32fd-0c12-49df-bbf3-153f489e3bc2",
+              "id": "5c8ef519-b892-4fa9-b07f-a3ccece95f46",
               "name": "Premium pricing details retrieved successfully",
               "originalRequest": {
                 "url": {
@@ -13129,7 +13176,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "bab261d5-0bc6-49c9-967b-912dce16681d",
+              "id": "30d03c8d-de2d-4643-82c6-ef6c219caf78",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -13164,7 +13211,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "423c53ba-4b84-42b9-9f7b-4e18bf7cd2ef",
+              "id": "96f1fa3b-a001-4832-83c6-b6d10ab7ef7a",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -13199,7 +13246,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "49f6a534-bc6d-4fff-801d-3ceee7bdf43f",
+              "id": "8faadd25-52dc-42ba-ae57-80369b8f0933",
               "name": "Failed to retrieve pricing from Stripe",
               "originalRequest": {
                 "url": {
@@ -13243,7 +13290,7 @@
       "event": []
     },
     {
-      "id": "6437bc6f-ae79-4eac-81b5-dab0a42d51ff",
+      "id": "a878cab1-827f-41c5-8f02-3edeb6c98b34",
       "name": "System",
       "description": {
         "content": "",
@@ -13251,7 +13298,7 @@
       },
       "item": [
         {
-          "id": "7229076a-6535-4bb6-9326-ec26a6e32232",
+          "id": "610c8700-0fa3-49ba-9ba8-1cf328311d8a",
           "name": "{{baseUrl}}/health",
           "request": {
             "name": "{{baseUrl}}/health",
@@ -13267,7 +13314,7 @@
           },
           "response": [
             {
-              "id": "388a6366-902c-46c2-bebf-d6d1f76e42bb",
+              "id": "a0f8e866-4f29-4334-bcd7-d93a8168c0f3",
               "name": "Server health",
               "originalRequest": {
                 "url": {
@@ -13310,7 +13357,7 @@
     }
   ],
   "info": {
-    "_postman_id": "ab196b2c-89b2-4d5a-aa5c-7e489210f4e2",
+    "_postman_id": "9f025282-0bc4-4084-9bba-0e3e608a929a",
     "name": "City Complaint & Service Request Platform API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {

@@ -36,6 +36,7 @@ The **City Complaint & Service Request Platform** is a production-ready municipa
 - **Stripe Recurring Subscriptions:** Premium tier enabling priority complaint dispatching and expedited handling.
 - **Evidence Management:** Multi-file Cloudinary integration with categorized evidence attachments (initial proof, before-work, after-work).
 - **Citizen Feedback Loop:** Immutable 1-to-5 star ratings and reviews upon resolution with aggregated technician performance metrics.
+- **Public Landing Overview:** Single-call public endpoint aggregates platform highlights, how-it-works workflow, role guides, tier comparisons, FAQs, calls-to-action, active departments, and live platform statistics.
 - **Enterprise Security:** Tiered in-memory rate limiting, cross-site SameSite=None refresh token cookies, Helmet security headers, CORS allowlists, Zod validation, soft deletes, and complete audit logging.
 
 ---
@@ -304,6 +305,7 @@ All routes are mounted under `/api/v1` (except the root discovery route and Swag
 | `GET` | `/public/categories` | Public | List active categories and SLA target hours (cached 5 min) |
 | `GET` | `/public/stats` | Public | Total complaints, resolved count, resolution rate, and avg hours (cached 5 min) |
 | `GET` | `/public/premium-info` | Public | Premium subscription benefits and live Stripe pricing (cached 5 min) |
+| `GET` | `/public/overview` | Public | Full landing page overview (highlights, workflow, roles, plans, FAQs, live stats, cached 5 min) |
 
 ### 3. Authentication (`/api/v1/auth`)
 | Method | Path | Auth / Role | Description |
