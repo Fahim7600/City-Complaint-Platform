@@ -6,6 +6,7 @@ model User {
   googleId     String?   @unique
   role         Role      @default(CITIZEN)
   isPremium    Boolean   @default(false)
+  isAvailable  Boolean   @default(true)
   phone        String?
   avatarUrl    String?
   departmentId String?

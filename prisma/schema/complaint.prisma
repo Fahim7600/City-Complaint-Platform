@@ -12,6 +12,11 @@ model Complaint {
   slaDueAt             DateTime?
   overdueNotifiedAt    DateTime?
   resolvedAt           DateTime?
+  isEscalated          Boolean         @default(false)
+  escalatedAt          DateTime?
+  escalationReason     String?
+  reopenedAt           DateTime?
+  reopenCount          Int             @default(0)
   createdAt            DateTime        @default(now())
   updatedAt            DateTime        @updatedAt
   deletedAt            DateTime?
@@ -28,5 +33,6 @@ model Complaint {
   @@index([citizenId])
   @@index([assignedTechnicianId])
   @@index([departmentId, status])
+  @@index([isEscalated])
   @@map("complaints")
 }
