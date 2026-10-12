@@ -6,6 +6,7 @@ import {
   assignTechnicianHandler,
   cancelComplaintHandler,
   createComplaintHandler,
+  escalateComplaintHandler,
   getComplaintByIdHandler,
   listComplaintsHandler,
   listMyAssignedHandler,
@@ -17,6 +18,7 @@ import {
 import {
   assignSchema,
   createComplaintSchema,
+  escalateComplaintSchema,
   statusUpdateSchema,
 } from "./complaint.validation";
 
@@ -178,7 +180,26 @@ router.patch(
   reopenComplaintHandler,
 );
 
-// 11. Soft delete complaint (Admin only)
+// 11. Escalate complaint (Manager only)
+/** @swagger
+ * /complaints/{id}/escalate:
+ *   patch:
+ *     summary: Escalate a department complaint to admin queue
+ *     tags: [Complaints]
+ *     security: [{bearerAuth: []}]
+ *     parameters: [{in: path, name: id, required: true, schema: {type: string, format: uuid}}]
+ *     requestBody: {required: true, content: {application/json: {schema: {type: object, required: [reason], properties: {reason: {type: string, minLength: 5, maxLength: 500}}}}}}
+ *     responses: {200: {description: Escalated complaint}, 400: {description: Cannot escalate}, 401: {description: Unauthorized}, 403: {description: Forbidden}, 404: {description: Not found}}
+ */
+router.patch(
+  "/:id/escalate",
+  authenticate,
+  authorize(Role.MANAGER),
+  validate(escalateComplaintSchema),
+  escalateComplaintHandler,
+);
+
+// 12. Soft delete complaint (Admin only)
 /** @swagger
  * /complaints/{id}:
  *   delete:

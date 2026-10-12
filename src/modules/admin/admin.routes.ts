@@ -2,6 +2,7 @@ import { Role } from "@prisma/client";
 import { Router } from "express";
 import { authenticate, authorize } from "../../middlewares/auth.middleware";
 import { validate } from "../../middlewares/validate";
+import { clearEscalationSchema } from "../complaints/complaint.validation";
 import {
   checkOverdueSlasController,
   deactivateUserController,
@@ -127,5 +128,62 @@ router.get(
  *       403: {description: Admin access required}
  */
 router.get("/payments", listPaymentsController);
+
+/** @swagger
+ * /admin/escalated-complaints:
+ *   get:
+ *     summary: List escalated complaints queue
+ *     tags: [Admin]
+ *     security: [{bearerAuth: []}]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema: {type: integer, default: 1}
+ *       - in: query
+ *         name: limit
+ *         schema: {type: integer, maximum: 50, default: 10}
+ *     responses:
+ *       200: {description: Escalated complaints retrieved successfully}
+ *       400: {description: Validation failure}
+ *       401: {description: Unauthorized}
+ *       403: {description: Admin access required}
+ */
+router.get(
+  "/escalated-complaints",
+  validate(listEscalatedComplaintsQuerySchema),
+  listEscalatedComplaintsController,
+);
+
+/** @swagger
+ * /admin/complaints/{id}/clear-escalation:
+ *   patch:
+ *     summary: Clear complaint escalation
+ *     tags: [Admin]
+ *     security: [{bearerAuth: []}]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: {type: string, format: uuid}
+ *     requestBody:
+ *       required: false
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               note: {type: string}
+ *     responses:
+ *       200: {description: Escalation cleared successfully}
+ *       400: {description: Complaint is not escalated or invalid ID}
+ *       401: {description: Unauthorized}
+ *       403: {description: Admin access required}
+ *       404: {description: Complaint not found}
+ */
+router.patch(
+  "/complaints/:id/clear-escalation",
+  validate(clearEscalationSchema),
+  clearEscalationController,
+);
 
 export default router;

@@ -6,6 +6,7 @@ import {
   assignTechnician,
   cancelComplaint,
   createComplaint,
+  escalateComplaint,
   getComplaintById,
   listComplaints,
   searchComplaints,
@@ -235,6 +236,23 @@ export const reopenComplaintHandler = async (
     res
       .status(200)
       .json(successResponse("Complaint reopened successfully", result));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const escalateComplaintHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    if (!req.user) throw new AppError("Unauthorized", 401);
+    const id = getParamId(req);
+    const result = await escalateComplaint(req.user, id, req.body);
+    res
+      .status(200)
+      .json(successResponse("Complaint escalated successfully", result));
   } catch (error) {
     next(error);
   }

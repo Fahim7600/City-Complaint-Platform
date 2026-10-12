@@ -1,3 +1,4 @@
+import type { Role } from "@prisma/client";
 import type { NextFunction, Request, Response } from "express";
 import { checkOverdueSlas } from "../../jobs/checkOverdueSla.job";
 import { errorResponse, successResponse } from "../../utils/response";
@@ -161,6 +162,47 @@ export const listPaymentsController = async (
       .status(200)
       .json(
         successResponse("Payment subscriptions retrieved successfully", result),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const listEscalatedComplaintsController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const query = listEscalatedComplaintsQuerySchema.parse(req.query);
+    const result = await listEscalatedComplaints(query);
+    res
+      .status(200)
+      .json(
+        successResponse("Escalated complaints retrieved successfully", result),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const clearEscalationController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const adminUser = requireAdmin(req);
+    const body = clearEscalationSchema.parse(req.body);
+    const result = await clearEscalation(
+      { userId: adminUser.userId, role: adminUser.role as Role },
+      getParamId(req),
+      body,
+    );
+    res
+      .status(200)
+      .json(
+        successResponse("Complaint escalation cleared successfully", result),
       );
   } catch (error) {
     next(error);

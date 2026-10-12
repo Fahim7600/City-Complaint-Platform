@@ -25,12 +25,14 @@ const TRANSITION_MAP: Record<
 > = {
   [ComplaintStatus.PENDING]: {
     [ComplaintStatus.REJECTED]: [Role.MANAGER, Role.ADMIN],
+    [ComplaintStatus.RESOLVED]: [Role.ADMIN],
   },
   [ComplaintStatus.ASSIGNED]: {
-    [ComplaintStatus.IN_PROGRESS]: [Role.TECHNICIAN],
+    [ComplaintStatus.IN_PROGRESS]: [Role.TECHNICIAN, Role.ADMIN],
+    [ComplaintStatus.RESOLVED]: [Role.ADMIN],
   },
   [ComplaintStatus.IN_PROGRESS]: {
-    [ComplaintStatus.RESOLVED]: [Role.TECHNICIAN],
+    [ComplaintStatus.RESOLVED]: [Role.TECHNICIAN, Role.ADMIN],
   },
   [ComplaintStatus.RESOLVED]: {
     [ComplaintStatus.CLOSED]: [Role.MANAGER, Role.ADMIN],
@@ -406,10 +408,19 @@ export const assignTechnician = async (
 
   // Atomic conditional update in transaction to avoid race conditions
   const assignedComplaint = await prisma.$transaction(async (tx) => {
+    const allowedStatuses =
+      user.role === Role.ADMIN
+        ? [
+            ComplaintStatus.PENDING,
+            ComplaintStatus.ASSIGNED,
+            ComplaintStatus.IN_PROGRESS,
+          ]
+        : [ComplaintStatus.PENDING];
+
     const result = await tx.complaint.updateMany({
       where: {
         id,
-        status: ComplaintStatus.PENDING,
+        status: { in: allowedStatuses },
         deletedAt: null,
       },
       data: {
@@ -858,4 +869,183 @@ export const reopenComplaint = async (
   }
 
   return updatedComplaint;
+};
+
+export const escalateComplaint = async (
+  user: UserContext,
+  id: string,
+  input: EscalateComplaintInput,
+) => {
+  if (user.role !== Role.MANAGER) {
+    throw new AppError("Forbidden: Only managers can escalate complaints", 403);
+  }
+
+  const departmentId = await getManagerDepartmentId(user.userId);
+  const complaint = await prisma.complaint.findUnique({ where: { id } });
+
+  if (!complaint || complaint.deletedAt) {
+    throw new AppError("Complaint not found", 404);
+  }
+
+  if (complaint.departmentId !== departmentId) {
+    throw new AppError(
+      "Forbidden: Complaint belongs to a different department",
+      403,
+    );
+  }
+
+  const terminalStatuses: ComplaintStatus[] = [
+    ComplaintStatus.CLOSED,
+    ComplaintStatus.CANCELLED,
+    ComplaintStatus.REJECTED,
+  ];
+
+  if (terminalStatuses.includes(complaint.status)) {
+    throw new AppError(
+      `Cannot escalate complaint with status ${complaint.status}`,
+      400,
+    );
+  }
+
+  if (complaint.isEscalated) {
+    throw new AppError("Complaint is already escalated", 400);
+  }
+
+  const now = new Date();
+  const updated = await prisma.$transaction(async (tx) => {
+    const result = await tx.complaint.updateMany({
+      where: { id, isEscalated: false, deletedAt: null },
+      data: {
+        isEscalated: true,
+        escalatedAt: now,
+        escalationReason: input.reason,
+      },
+    });
+
+    if (result.count === 0) {
+      throw new AppError("Complaint was modified by another request", 409);
+    }
+
+    await tx.auditLog.create({
+      data: {
+        actorId: user.userId,
+        action: "COMPLAINT_ESCALATED",
+        entityType: "Complaint",
+        entityId: id,
+        metadata: { reason: input.reason },
+      },
+    });
+
+    return await tx.complaint.findUnique({
+      where: { id },
+      include: {
+        category: { select: { id: true, name: true } },
+        department: { select: { id: true, name: true } },
+      },
+    });
+  });
+
+  const admins = await prisma.user.findMany({
+    where: { role: Role.ADMIN, deletedAt: null },
+    select: { id: true },
+  });
+
+  await Promise.all(
+    admins.map((admin) =>
+      createNotification({
+        userId: admin.id,
+        type: "COMPLAINT_ESCALATED",
+        message: `Complaint "${complaint.title}" has been escalated: ${input.reason}`,
+        relatedEntityType: "Complaint",
+        relatedEntityId: id,
+      }),
+    ),
+  );
+
+  return updated;
+};
+
+export const listEscalatedComplaints = async (query: {
+  page: number;
+  limit: number;
+}) => {
+  const where: Prisma.ComplaintWhereInput = {
+    isEscalated: true,
+    deletedAt: null,
+  };
+
+  const total = await prisma.complaint.count({ where });
+  const items = await prisma.complaint.findMany({
+    where,
+    skip: (query.page - 1) * query.limit,
+    take: query.limit,
+    orderBy: { escalatedAt: "asc" },
+    include: {
+      citizen: { select: { id: true, name: true, email: true } },
+      category: { select: { id: true, name: true } },
+      department: { select: { id: true, name: true } },
+    },
+  });
+
+  return {
+    items,
+    total,
+    page: query.page,
+    limit: query.limit,
+    totalPages: Math.ceil(total / query.limit) || 1,
+  };
+};
+
+export const clearEscalation = async (
+  user: UserContext,
+  id: string,
+  input: ClearEscalationInput,
+) => {
+  if (user.role !== Role.ADMIN) {
+    throw new AppError("Forbidden: Only admins can clear escalations", 403);
+  }
+
+  const complaint = await prisma.complaint.findUnique({ where: { id } });
+  if (!complaint || complaint.deletedAt) {
+    throw new AppError("Complaint not found", 404);
+  }
+
+  if (!complaint.isEscalated) {
+    throw new AppError("Complaint is not escalated", 400);
+  }
+
+  const updated = await prisma.$transaction(async (tx) => {
+    const result = await tx.complaint.updateMany({
+      where: { id, isEscalated: true, deletedAt: null },
+      data: {
+        isEscalated: false,
+        escalatedAt: null,
+        escalationReason: null,
+      },
+    });
+
+    if (result.count === 0) {
+      throw new AppError("Complaint was modified by another request", 409);
+    }
+
+    await tx.auditLog.create({
+      data: {
+        actorId: user.userId,
+        action: "COMPLAINT_ESCALATION_CLEARED",
+        entityType: "Complaint",
+        entityId: id,
+        metadata: { note: input.note || null },
+      },
+    });
+
+    return await tx.complaint.findUnique({
+      where: { id },
+      include: {
+        category: { select: { id: true, name: true } },
+        department: { select: { id: true, name: true } },
+      },
+    });
+  });
+
+  return updated;
 };

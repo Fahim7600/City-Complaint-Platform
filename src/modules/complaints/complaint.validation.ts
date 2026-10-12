@@ -88,3 +88,22 @@ export const reopenComplaintSchema = z.object({
 });
 
 export type ReopenComplaintInput = z.infer<typeof reopenComplaintSchema>;
+
+export const escalateComplaintSchema = z.object({
+  reason: z
+    .string()
+    .trim()
+    .min(5, "Escalation reason must be at least 5 characters long")
+    .max(500, "Escalation reason cannot exceed 500 characters"),
+});
+
+export const clearEscalationSchema = z.object({
+  note: z
+    .string()
+    .trim()
+    .max(500, "Note cannot exceed 500 characters")
+    .optional(),
+});
+
+export type EscalateComplaintInput = z.infer<typeof escalateComplaintSchema>;
+export type ClearEscalationInput = z.infer<typeof clearEscalationSchema>;
