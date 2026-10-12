@@ -110,6 +110,28 @@ const stripePremiumPriceId = getRequiredEnvVar("STRIPE_PREMIUM_PRICE_ID");
 
 const rateLimitDisabled = process.env.RATE_LIMIT_DISABLED === "true";
 
+const parseOptionalPositiveInt = (key: string, defaultValue: number): number => {
+  const raw = process.env[key]?.trim();
+  if (!raw) return defaultValue;
+  const parsed = Number.parseInt(raw, 10);
+  if (Number.isNaN(parsed) || parsed <= 0) {
+    throw new Error(
+      `[Config Error] ${key} must be a positive integer, got: ${raw}`,
+    );
+  }
+  return parsed;
+};
+
+const reopenWindowDays = parseOptionalPositiveInt("REOPEN_WINDOW_DAYS", 7);
+const monthlyComplaintLimitFree = parseOptionalPositiveInt(
+  "MONTHLY_COMPLAINT_LIMIT_FREE",
+  5,
+);
+const monthlyComplaintLimitPremium = parseOptionalPositiveInt(
+  "MONTHLY_COMPLAINT_LIMIT_PREMIUM",
+  20,
+);
+
 export const config = {
   PORT: port,
   DATABASE_URL: databaseUrl,
@@ -129,4 +151,7 @@ export const config = {
   APP_BASE_URL: appBaseUrl,
   FRONTEND_BASE_URL: frontendBaseUrl,
   RATE_LIMIT_DISABLED: rateLimitDisabled,
+  REOPEN_WINDOW_DAYS: reopenWindowDays,
+  MONTHLY_COMPLAINT_LIMIT_FREE: monthlyComplaintLimitFree,
+  MONTHLY_COMPLAINT_LIMIT_PREMIUM: monthlyComplaintLimitPremium,
 };

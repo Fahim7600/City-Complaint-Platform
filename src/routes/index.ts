@@ -9,6 +9,7 @@ import departmentRoutes, {
 } from "../modules/departments/department.routes";
 import notificationRoutes from "../modules/notifications/notification.routes";
 import paymentRoutes from "../modules/payments/payment.routes";
+import publicRoutes from "../modules/public/public.routes";
 import reviewRoutes from "../modules/reviews/review.routes";
 import staffApplicationRoutes from "../modules/staffApplications/staffApplication.routes";
 import userRoutes from "../modules/users/user.routes";
@@ -32,6 +33,7 @@ router.get("/health", (_req, res) => {
   );
 });
 
+router.use("/public", publicRoutes);
 router.use("/auth", authRoutes);
 router.use("/admin", adminRoutes);
 router.use("/users", userRoutes);
