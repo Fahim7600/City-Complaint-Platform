@@ -108,6 +108,11 @@ const stripeSecretKey = getRequiredEnvVar("STRIPE_SECRET_KEY");
 const stripeWebhookSecret = getRequiredEnvVar("STRIPE_WEBHOOK_SECRET");
 const stripePremiumPriceId = getRequiredEnvVar("STRIPE_PREMIUM_PRICE_ID");
 
+const brevoApiKey = process.env.BREVO_API_KEY?.trim() || "";
+const mailFromEmail =
+  process.env.MAIL_FROM_EMAIL?.trim() || "noreply@citycomplaints.com";
+const mailFromName = process.env.MAIL_FROM_NAME?.trim() || "CityFix";
+
 const rateLimitDisabled = process.env.RATE_LIMIT_DISABLED === "true";
 
 const parseOptionalPositiveInt = (
@@ -151,6 +156,9 @@ export const config = {
   STRIPE_SECRET_KEY: stripeSecretKey,
   STRIPE_WEBHOOK_SECRET: stripeWebhookSecret,
   STRIPE_PREMIUM_PRICE_ID: stripePremiumPriceId,
+  BREVO_API_KEY: brevoApiKey,
+  MAIL_FROM_EMAIL: mailFromEmail,
+  MAIL_FROM_NAME: mailFromName,
   APP_BASE_URL: appBaseUrl,
   FRONTEND_BASE_URL: frontendBaseUrl,
   RATE_LIMIT_DISABLED: rateLimitDisabled,
