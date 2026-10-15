@@ -124,6 +124,17 @@ CityFix Municipal Operations Team
   return { subject, html, text };
 };
 
+export interface PasswordResetCodeParams {
+  name: string;
+  code: string;
+  expiresInMinutes?: number;
+}
+
+export interface GoogleAccountNoticeParams {
+  name: string;
+  loginUrl: string;
+}
+
 /**
  * Template for sending a security notification after a password has been changed.
  */
@@ -182,6 +193,156 @@ This is a confirmation that the password for your CityFix account has been succe
 All previous active sessions have been revoked for your security. Please sign in again with your new password.
 
 If you did NOT make this change, please contact system administration immediately to secure your account.
+
+--
+CityFix Security Team
+`;
+
+  return { subject, html, text };
+};
+
+/**
+ * Template for sending a 6-digit password reset verification code.
+ */
+export const passwordResetCode = (
+  params: PasswordResetCodeParams,
+): EmailContent => {
+  const safeName = escapeHtml(params.name);
+  const safeCode = escapeHtml(params.code);
+  const minutes = params.expiresInMinutes ?? 10;
+  const subject = "Your CityFix password reset code";
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escapeHtml(subject)}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 24px; color: #1e293b; }
+    .container { max-width: 580px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; }
+    .header { background: linear-gradient(135deg, #03604c 0%, #a855f7 100%); padding: 28px 24px; text-align: center; }
+    .header h1 { color: #ffffff; margin: 0; font-size: 24px; font-weight: 700; }
+    .header p { color: #f1f5f9; margin: 6px 0 0; font-size: 14px; opacity: 0.95; }
+    .content { padding: 32px 28px; line-height: 1.6; font-size: 15px; }
+    .greeting { font-size: 17px; font-weight: 600; color: #0f172a; margin-bottom: 16px; }
+    .code-container { text-align: center; margin: 28px 0; }
+    .code-box { display: inline-block; background: #f0fdf4; border: 2px dashed #03604c; border-radius: 10px; padding: 18px 28px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 32px; font-weight: 700; letter-spacing: 8px; color: #03604c; }
+    .notice { font-size: 13px; color: #64748b; background-color: #fefce8; border: 1px solid #fef08a; padding: 12px 14px; border-radius: 6px; margin: 20px 0; }
+    .ignore-note { font-size: 13px; color: #64748b; margin-top: 20px; line-height: 1.5; }
+    .footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 16px; text-align: center; font-size: 12px; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>CityFix</h1>
+      <p>Password Reset Verification</p>
+    </div>
+    <div class="content">
+      <div class="greeting">Hello ${safeName},</div>
+      <p>We received a request to reset the password for your CityFix account. Use the 6-digit verification code below to proceed:</p>
+      
+      <div class="code-container">
+        <div class="code-box">${safeCode}</div>
+      </div>
+
+      <div class="notice">
+        <strong>Important:</strong> This code expires in <strong>${minutes} minutes</strong>.
+      </div>
+
+      <p class="ignore-note">
+        If you didn't request this, you can ignore this email; your password won't change.
+      </p>
+    </div>
+    <div class="footer">
+      This is an automated security email from CityFix.
+    </div>
+  </div>
+</body>
+</html>`;
+
+  const text = `Hello ${params.name},
+
+We received a request to reset the password for your CityFix account.
+
+Your 6-digit verification code is: ${params.code}
+
+This code expires in ${minutes} minutes.
+
+If you didn't request this, you can ignore this email; your password won't change.
+
+--
+CityFix Security Team
+`;
+
+  return { subject, html, text };
+};
+
+/**
+ * Template informing Google-authenticated users that they don't have a password.
+ */
+export const googleAccountNotice = (
+  params: GoogleAccountNoticeParams,
+): EmailContent => {
+  const safeName = escapeHtml(params.name);
+  const safeLoginUrl = escapeHtml(params.loginUrl);
+  const subject = "Sign in to your CityFix account";
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escapeHtml(subject)}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 24px; color: #1e293b; }
+    .container { max-width: 580px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; }
+    .header { background: linear-gradient(135deg, #03604c 0%, #a855f7 100%); padding: 28px 24px; text-align: center; }
+    .header h1 { color: #ffffff; margin: 0; font-size: 24px; font-weight: 700; }
+    .content { padding: 32px 28px; line-height: 1.6; font-size: 15px; }
+    .greeting { font-size: 17px; font-weight: 600; color: #0f172a; margin-bottom: 16px; }
+    .info-box { background-color: #f0fdf4; border-left: 4px solid #03604c; padding: 14px 18px; border-radius: 4px; margin: 20px 0; color: #1e293b; }
+    .btn-container { text-align: center; margin: 28px 0 20px; }
+    .btn { display: inline-block; background: linear-gradient(135deg, #03604c 0%, #047857 100%); color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 15px; padding: 14px 28px; border-radius: 8px; box-shadow: 0 2px 4px rgba(3, 96, 76, 0.2); }
+    .footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 16px; text-align: center; font-size: 12px; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>CityFix</h1>
+    </div>
+    <div class="content">
+      <div class="greeting">Hello ${safeName},</div>
+      <p>We received a request to reset your password.</p>
+      
+      <div class="info-box">
+        Your CityFix account uses Google sign-in, so there's no password to reset. Use 'Continue with Google' on the login page.
+      </div>
+
+      <div class="btn-container">
+        <a href="${safeLoginUrl}" class="btn" target="_blank" rel="noopener noreferrer">Sign in to CityFix</a>
+      </div>
+
+      <p style="font-size: 13px; color: #64748b; margin-top: 24px;">
+        If you did not request this, you can safely ignore this email.
+      </p>
+    </div>
+    <div class="footer">
+      CityFix Municipal Platform Account Notification
+    </div>
+  </div>
+</body>
+</html>`;
+
+  const text = `Hello ${params.name},
+
+We received a request to reset your password.
+
+Your CityFix account uses Google sign-in, so there's no password to reset. Use 'Continue with Google' on the login page: ${params.loginUrl}
+
+If you did not request this, you can safely ignore this email.
 
 --
 CityFix Security Team
