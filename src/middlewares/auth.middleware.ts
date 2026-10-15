@@ -33,7 +33,7 @@ export const authenticate = (
     void prisma.user
       .findUnique({
         where: { id: decoded.userId },
-        select: { role: true, deletedAt: true },
+        select: { role: true, deletedAt: true, mustChangePassword: true },
       })
       .then((user) => {
         if (!user || user.deletedAt) {
@@ -44,7 +44,40 @@ export const authenticate = (
         req.user = {
           userId: decoded.userId,
           role: user.role,
+          mustChangePassword: user.mustChangePassword,
         };
+
+        if (user.mustChangePassword) {
+          const rawPath = (req.originalUrl || req.url || "")
+            .split("?")[0]
+            .replace(/\/+$/, "");
+          const method = req.method.toUpperCase();
+
+          const isAllowedGetMe =
+            method === "GET" && rawPath.endsWith("/users/me");
+          const isAllowedChangePassword =
+            (method === "POST" || method === "PATCH") &&
+            rawPath.endsWith("/users/me/password");
+          const isAllowedLogout =
+            method === "POST" && rawPath.endsWith("/auth/logout");
+          const isAllowedRefreshToken =
+            method === "POST" && rawPath.endsWith("/auth/refresh-token");
+
+          if (
+            !isAllowedGetMe &&
+            !isAllowedChangePassword &&
+            !isAllowedLogout &&
+            !isAllowedRefreshToken
+          ) {
+            res.status(403).json({
+              success: false,
+              message: "You must set a new password before continuing",
+              code: "PASSWORD_CHANGE_REQUIRED",
+            });
+            return;
+          }
+        }
+
         next();
       })
       .catch(() => {

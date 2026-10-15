@@ -1,3 +1,4 @@
+import { Role } from "@prisma/client";
 import type { NextFunction, Request, Response } from "express";
 import { successResponse } from "../../utils/response";
 import { AppError } from "../auth/auth.service";
@@ -11,8 +12,15 @@ import {
 } from "./department.service";
 import {
   createDepartmentSchema,
+  managerInviteTechnicianSchema,
   updateDepartmentSchema,
 } from "./department.validation";
+import {
+  inviteStaff,
+  listMyDepartmentTechnicians,
+  removeTechnician,
+  resendInvite,
+} from "./staffInvite.service";
 
 export const listDepartmentsController = async (
   _req: Request,
@@ -121,6 +129,104 @@ export const deleteDepartmentController = async (
     res
       .status(200)
       .json(successResponse("Department deleted successfully", result));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const inviteTechnicianController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const user = requireUser(req);
+    const input = managerInviteTechnicianSchema.parse(req.body);
+    const result = await inviteStaff({
+      inviter: user,
+      name: input.name,
+      email: input.email,
+      phone: input.phone,
+      role: Role.TECHNICIAN,
+    });
+    res
+      .status(201)
+      .json(successResponse("Technician invited successfully", result));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const removeTechnicianController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const user = requireUser(req);
+    const technicianId = getParamId(req, "id");
+    const result = await removeTechnician({
+      inviter: user,
+      technicianId,
+    });
+
+    if (result.blocked) {
+      res.status(409).json({
+        success: false,
+        message: "Reassign this technician's active complaints first",
+        data: {
+          blockingComplaintIds: result.blockingComplaintIds,
+        },
+      });
+      return;
+    }
+
+    res.status(200).json(
+      successResponse("Technician removed from department successfully", {
+        technicianId: result.technicianId,
+      }),
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const resendInviteManagerController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const user = requireUser(req);
+    const targetUserId = getParamId(req, "id");
+    const result = await resendInvite({
+      inviter: user,
+      userId: targetUserId,
+    });
+    res
+      .status(200)
+      .json(successResponse("Invitation email resent successfully", result));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const listMyDepartmentTechniciansController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const user = requireUser(req);
+    const result = await listMyDepartmentTechnicians(user.userId);
+    res
+      .status(200)
+      .json(
+        successResponse(
+          "Department technicians retrieved successfully",
+          result,
+        ),
+      );
   } catch (error) {
     next(error);
   }

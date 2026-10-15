@@ -8,6 +8,8 @@ import {
   listEscalatedComplaints,
 } from "../complaints/complaint.service";
 import { clearEscalationSchema } from "../complaints/complaint.validation";
+import { adminInviteStaffSchema } from "../departments/department.validation";
+import { inviteStaff, resendInvite } from "../departments/staffInvite.service";
 import {
   deactivateUser,
   getAdminPremiumPricing,
@@ -226,6 +228,48 @@ export const getAdminPremiumPricingController = async (
     res
       .status(200)
       .json(successResponse("Premium pricing retrieved successfully", result));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const inviteStaffAdminController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const adminUser = requireAdmin(req);
+    const input = adminInviteStaffSchema.parse(req.body);
+    const result = await inviteStaff({
+      inviter: { userId: adminUser.userId, role: adminUser.role as Role },
+      name: input.name,
+      email: input.email,
+      phone: input.phone,
+      role: input.role as Role,
+      departmentId: input.departmentId,
+    });
+    res.status(201).json(successResponse("Staff invited successfully", result));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const resendInviteAdminController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const adminUser = requireAdmin(req);
+    const targetUserId = getParamId(req);
+    const result = await resendInvite({
+      inviter: { userId: adminUser.userId, role: adminUser.role as Role },
+      userId: targetUserId,
+    });
+    res
+      .status(200)
+      .json(successResponse("Invitation email resent successfully", result));
   } catch (error) {
     next(error);
   }

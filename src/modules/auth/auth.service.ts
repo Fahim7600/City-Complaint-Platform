@@ -156,6 +156,17 @@ export const loginUser = async (input: LoginInput, res: Response) => {
     throw genericAuthError;
   }
 
+  if (
+    user.mustChangePassword &&
+    user.tempPasswordExpiresAt &&
+    user.tempPasswordExpiresAt < new Date()
+  ) {
+    throw new AppError(
+      "Your temporary password has expired. Ask your manager or admin to resend the invitation.",
+      401,
+    );
+  }
+
   // Audit Log
   await prisma.auditLog.create({
     data: {

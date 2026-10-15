@@ -61,3 +61,10 @@ export const checkoutLimiter = rateLimit({
   limit: 10,
   skip: shouldSkip,
 });
+
+export const staffInviteLimiter = rateLimit({
+  ...commonRateLimitOptions,
+  windowMs: 15 * 60 * 1000,
+  limit: 20,
+  skip: shouldSkip,
+});

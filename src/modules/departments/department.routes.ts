@@ -1,17 +1,23 @@
 import { Role } from "@prisma/client";
 import { Router } from "express";
 import { authenticate, authorize } from "../../middlewares/auth.middleware";
+import { staffInviteLimiter } from "../../middlewares/rateLimit.middleware";
 import { validate } from "../../middlewares/validate";
 import {
   createDepartmentController,
   deleteDepartmentController,
   getDepartmentByIdController,
+  inviteTechnicianController,
   listAllDepartmentsController,
   listDepartmentsController,
+  listMyDepartmentTechniciansController,
+  removeTechnicianController,
+  resendInviteManagerController,
   updateDepartmentController,
 } from "./department.controller";
 import {
   createDepartmentSchema,
+  managerInviteTechnicianSchema,
   updateDepartmentSchema,
 } from "./department.validation";
 
@@ -26,6 +32,114 @@ export const departmentAdminRoutes = Router();
  *     responses: {200: {description: Department id and name list}}
  */
 router.get("/", listDepartmentsController);
+
+/** @swagger
+ * /departments/my/technicians:
+ *   get:
+ *     summary: List technicians in the authenticated manager's department
+ *     tags: [Departments]
+ *     security: [{bearerAuth: []}]
+ *     responses:
+ *       200: {description: List of department technicians with invitePending status}
+ *       401: {description: Unauthorized}
+ *       403: {description: Manager access required}
+ */
+router.get(
+  "/my/technicians",
+  authenticate,
+  authorize(Role.MANAGER),
+  listMyDepartmentTechniciansController,
+);
+
+/** @swagger
+ * /departments/my/technicians:
+ *   post:
+ *     summary: Invite a technician to the authenticated manager's department
+ *     tags: [Departments]
+ *     security: [{bearerAuth: []}]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [name, email]
+ *             properties:
+ *               name: {type: string, minLength: 2, maxLength: 100}
+ *               email: {type: string, format: email}
+ *               phone: {type: string}
+ *     responses:
+ *       201: {description: Technician invited successfully with temporary password email sent}
+ *       400: {description: Validation failure}
+ *       401: {description: Unauthorized}
+ *       403: {description: Manager access required}
+ *       409: {description: User with email already exists}
+ *       429: {description: Too many requests}
+ *       502: {description: Failed to send invitation email}
+ */
+router.post(
+  "/my/technicians",
+  authenticate,
+  authorize(Role.MANAGER),
+  staffInviteLimiter,
+  validate(managerInviteTechnicianSchema),
+  inviteTechnicianController,
+);
+
+/** @swagger
+ * /departments/my/technicians/{id}:
+ *   delete:
+ *     summary: Remove a technician from the manager's department
+ *     tags: [Departments]
+ *     security: [{bearerAuth: []}]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: {type: string, format: uuid}
+ *     responses:
+ *       200: {description: Technician removed successfully}
+ *       400: {description: Invalid ID}
+ *       401: {description: Unauthorized}
+ *       403: {description: Manager access required}
+ *       404: {description: Technician not found in department}
+ *       409: {description: Blocked by active assigned or in-progress complaints}
+ */
+router.delete(
+  "/my/technicians/:id",
+  authenticate,
+  authorize(Role.MANAGER),
+  removeTechnicianController,
+);
+
+/** @swagger
+ * /departments/my/technicians/{id}/resend-invite:
+ *   post:
+ *     summary: Resend invitation email with new temporary password to a technician
+ *     tags: [Departments]
+ *     security: [{bearerAuth: []}]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: {type: string, format: uuid}
+ *     responses:
+ *       200: {description: Invitation resent successfully}
+ *       400: {description: Invalid ID}
+ *       401: {description: Unauthorized}
+ *       403: {description: Manager access required}
+ *       404: {description: Technician not found}
+ *       409: {description: User has already set their password}
+ *       429: {description: Too many requests}
+ *       502: {description: Failed to send invitation email}
+ */
+router.post(
+  "/my/technicians/:id/resend-invite",
+  authenticate,
+  authorize(Role.MANAGER),
+  staffInviteLimiter,
+  resendInviteManagerController,
+);
 
 departmentAdminRoutes.use(
   "/admin/departments",

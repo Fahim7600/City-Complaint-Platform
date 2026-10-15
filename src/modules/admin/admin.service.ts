@@ -54,6 +54,7 @@ export const listUsers = async (query: ListUsersQuery) => {
       isPremium: true,
       isAvailable: true,
       deletedAt: true,
+      mustChangePassword: true,
       createdAt: true,
     },
   });

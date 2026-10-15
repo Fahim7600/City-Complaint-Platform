@@ -1,20 +1,24 @@
 import { Role } from "@prisma/client";
 import { Router } from "express";
 import { authenticate, authorize } from "../../middlewares/auth.middleware";
+import { staffInviteLimiter } from "../../middlewares/rateLimit.middleware";
 import { validate } from "../../middlewares/validate";
 import { clearEscalationSchema } from "../complaints/complaint.validation";
+import { adminInviteStaffSchema } from "../departments/department.validation";
 import {
   checkOverdueSlasController,
   clearEscalationController,
   deactivateUserController,
   getAdminPremiumPricingController,
   getDashboardStatsController,
+  inviteStaffAdminController,
   listAuditLogsController,
   listEscalatedComplaintsController,
   listPaymentsController,
   listUsersController,
   overrideUserRoleAndDepartmentController,
   reactivateUserController,
+  resendInviteAdminController,
 } from "./admin.controller";
 import {
   auditLogQuerySchema,
@@ -203,5 +207,68 @@ router.patch(
  *       502: {description: Failed to retrieve pricing from Stripe}
  */
 router.get("/premium-pricing", getAdminPremiumPricingController);
+
+/** @swagger
+ * /admin/staff:
+ *   post:
+ *     summary: Invite a staff member (Technician or Manager)
+ *     tags: [Admin]
+ *     security: [{bearerAuth: []}]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [name, email, role, departmentId]
+ *             properties:
+ *               name: {type: string, minLength: 2, maxLength: 100}
+ *               email: {type: string, format: email}
+ *               phone: {type: string}
+ *               role: {type: string, enum: [TECHNICIAN, MANAGER]}
+ *               departmentId: {type: string, format: uuid}
+ *     responses:
+ *       201: {description: Staff invited successfully}
+ *       400: {description: Validation failure or cannot invite admin}
+ *       401: {description: Unauthorized}
+ *       403: {description: Admin access required}
+ *       404: {description: Department not found}
+ *       409: {description: User with email already exists}
+ *       429: {description: Too many requests}
+ *       502: {description: Failed to send invitation email}
+ */
+router.post(
+  "/staff",
+  staffInviteLimiter,
+  validate(adminInviteStaffSchema),
+  inviteStaffAdminController,
+);
+
+/** @swagger
+ * /admin/staff/{id}/resend-invite:
+ *   post:
+ *     summary: Resend invitation email with new temporary password to a staff member
+ *     tags: [Admin]
+ *     security: [{bearerAuth: []}]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: {type: string, format: uuid}
+ *     responses:
+ *       200: {description: Invitation email resent successfully}
+ *       400: {description: Invalid ID}
+ *       401: {description: Unauthorized}
+ *       403: {description: Admin access required}
+ *       404: {description: Staff user not found}
+ *       409: {description: User has already set their password}
+ *       429: {description: Too many requests}
+ *       502: {description: Failed to send invitation email}
+ */
+router.post(
+  "/staff/:id/resend-invite",
+  staffInviteLimiter,
+  resendInviteAdminController,
+);
 
 export default router;

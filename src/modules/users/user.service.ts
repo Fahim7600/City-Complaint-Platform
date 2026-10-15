@@ -2,6 +2,8 @@ import bcrypt from "bcrypt";
 import { prisma } from "../../config/prisma";
 import { sanitizeUser } from "../../utils/sanitizeUser";
 import { AppError, BCRYPT_SALT_ROUNDS } from "../auth/auth.service";
+import { sendEmail } from "../mail/mail.service";
+import { passwordChanged } from "../mail/mail.templates";
 import type {
   ChangePasswordInput,
   UpdateProfileInput,
@@ -100,10 +102,14 @@ export const changePassword = async (
   // Hash new password using shared BCRYPT_SALT_ROUNDS constant
   const newPasswordHash = await bcrypt.hash(newPassword, BCRYPT_SALT_ROUNDS);
 
-  // Update passwordHash
+  // Update passwordHash and clear mustChangePassword / tempPasswordExpiresAt
   await prisma.user.update({
     where: { id: userId },
-    data: { passwordHash: newPasswordHash },
+    data: {
+      passwordHash: newPasswordHash,
+      mustChangePassword: false,
+      tempPasswordExpiresAt: null,
+    },
   });
 
   // Revoke ALL active refresh token sessions for this user
@@ -121,6 +127,22 @@ export const changePassword = async (
       entityId: userId,
     },
   });
+
+  // Send security email notification (failure must NOT fail the request)
+  try {
+    const emailContent = passwordChanged({ name: user.name });
+    await sendEmail({
+      to: { email: user.email, name: user.name },
+      subject: emailContent.subject,
+      html: emailContent.html,
+      text: emailContent.text,
+    });
+  } catch (mailError) {
+    console.error(
+      "[User Service] Failed to send password changed notification email:",
+      mailError,
+    );
+  }
 
   return {
     message:

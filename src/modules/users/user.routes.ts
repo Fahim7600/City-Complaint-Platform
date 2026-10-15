@@ -39,13 +39,26 @@ router.get("/me", getMeHandler);
 router.patch("/me", validate(updateProfileSchema), updateProfileHandler);
 /** @swagger
  * /users/me/password:
- *   patch:
+ *   post:
  *     summary: Change the authenticated password
+ *     description: Changes user password, clears temporary password requirement, and revokes all active sessions. Client must sign in again afterwards.
  *     tags: [Users]
  *     security: [{bearerAuth: []}]
  *     requestBody: {required: true, content: {application/json: {schema: {type: object, required: [newPassword], properties: {currentPassword: {type: string}, newPassword: {type: string}}}}}}
- *     responses: {200: {description: Password changed}, 400: {description: Validation failure}, 401: {description: Unauthorized}}
+ *     responses: {200: {description: Password changed successfully. Client must sign in again.}, 400: {description: Validation failure}, 401: {description: Unauthorized}}
+ *   patch:
+ *     summary: Change the authenticated password
+ *     description: Changes user password, clears temporary password requirement, and revokes all active sessions. Client must sign in again afterwards.
+ *     tags: [Users]
+ *     security: [{bearerAuth: []}]
+ *     requestBody: {required: true, content: {application/json: {schema: {type: object, required: [newPassword], properties: {currentPassword: {type: string}, newPassword: {type: string}}}}}}
+ *     responses: {200: {description: Password changed successfully. Client must sign in again.}, 400: {description: Validation failure}, 401: {description: Unauthorized}}
  */
+router.post(
+  "/me/password",
+  validate(changePasswordSchema),
+  changePasswordHandler,
+);
 router.patch(
   "/me/password",
   validate(changePasswordSchema),
