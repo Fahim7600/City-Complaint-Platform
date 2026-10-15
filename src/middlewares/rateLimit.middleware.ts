@@ -68,3 +68,17 @@ export const staffInviteLimiter = rateLimit({
   limit: 20,
   skip: shouldSkip,
 });
+
+export const resetLimiter = rateLimit({
+  ...commonRateLimitOptions,
+  windowMs: 15 * 60 * 1000,
+  limit: 5,
+  skip: shouldSkip,
+});
+
+export const verifyResetLimiter = rateLimit({
+  ...commonRateLimitOptions,
+  windowMs: 15 * 60 * 1000,
+  limit: 15,
+  skip: shouldSkip,
+});
