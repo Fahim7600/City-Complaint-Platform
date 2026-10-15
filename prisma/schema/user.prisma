@@ -34,6 +34,7 @@ model User {
   subscription        Subscription?
   payments            Payment[]
   refreshTokens       RefreshToken[]
+  passwordResetCodes  PasswordResetCode[]
   staffApplicationsDecided User[] @relation("StaffApplicationDecisions")
   decidedBy User? @relation("StaffApplicationDecisions", fields: [decidedById], references: [id])
   staffInvited User[] @relation("UserInvitedStaff")
