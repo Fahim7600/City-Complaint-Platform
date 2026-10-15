@@ -47,8 +47,8 @@ The **City Complaint & Service Request Platform** is a production-ready municipa
 |---|---|
 | **🧍 Citizen** | <ul><li>Register and log in via email/password or Google OAuth ID token.</li><li>Create, view, update, and search personal complaints with photo attachments.</li><li>Track monthly complaint usage and remaining quota (`GET /complaints/usage`).</li><li>Reopen personal resolved complaints within the reopen window (`PATCH /complaints/:id/reopen`).</li><li>Cancel personal complaints while in `PENDING` status.</li><li>Submit one immutable review & rating (1–5 stars) after a complaint is `RESOLVED`.</li><li>View public department listings, categories, stats, and technician ratings.</li><li>Manage an in-app notification inbox with read tracking.</li><li>Apply for staff roles (`TECHNICIAN` or `MANAGER`).</li><li>**Premium Subscription Benefit:** Subscribed citizens get automatic **`HIGH` Priority** on all new complaints and an elevated monthly complaint limit (20 vs 5).</li></ul> |
 | **🔧 Technician** | <ul><li>Access dedicated list of assigned complaints (`/complaints/my-assigned`).</li><li>Toggle availability for incoming complaint assignments (`PATCH /technicians/me/availability`).</li><li>View live computed performance metrics and ratings (`GET /technicians/me/performance`).</li><li>Upload before-work and after-work photographic evidence.</li><li>Transition complaints: `ASSIGNED → IN_PROGRESS → RESOLVED` (mandatory resolution note).</li></ul> |
-| **🗂️ Manager** | <ul><li>Scoped strictly to their assigned department.</li><li>Triage and re-prioritize incoming department complaints (`LOW`, `MEDIUM`, `HIGH`).</li><li>Assign/reassign active department technicians to pending complaints (with availability checks).</li><li>Escalate critical unresolvable department complaints to the admin queue (`PATCH /complaints/:id/escalate`).</li><li>Reject complaints with a required reason (`PENDING → REJECTED`).</li><li>Close resolved complaints (`RESOLVED → CLOSED`).</li><li>Reopen complaints back to work order with a required reason (`RESOLVED → IN_PROGRESS`).</li><li>Review and approve/reject department `TECHNICIAN` staff applications.</li><li>Receive automated `SLA_OVERDUE` alerts when complaints exceed resolution deadlines.</li></ul> |
-| **👑 Admin** | <ul><li>Platform-wide visibility and administrative authority.</li><li>Manage the escalated complaints queue (`GET /admin/escalated-complaints`) and clear escalations (`PATCH /admin/complaints/:id/clear-escalation`).</li><li>Directly reassign or resolve escalated complaints across all municipal departments.</li><li>Inspect Stripe premium subscription pricing details (`GET /admin/premium-pricing`).</li><li>Full CRUD on municipal Departments and Service Categories.</li><li>Review and decide `MANAGER` staff applications across all departments.</li><li>Override user roles and departmental assignments (capped: cannot self-grant `ADMIN`).</li><li>Deactivate/reactivate user accounts (guarded against self-lockout and last-admin deletion).</li><li>Trigger manual on-demand SLA overdue sweeps (`POST /admin/jobs/check-overdue-slas`).</li><li>View high-level platform statistics and audit log timeline with filtering.</li><li>View platform-wide payment and subscription history (`GET /admin/payments`).</li><li>Soft-delete complaints if required.</li></ul> |
+| **🗂️ Manager** | <ul><li>Scoped strictly to their assigned department.</li><li>Triage and re-prioritize incoming department complaints (`LOW`, `MEDIUM`, `HIGH`).</li><li>Assign/reassign active department technicians to pending complaints (with availability checks).</li><li>Escalate critical unresolvable department complaints to the admin queue (`PATCH /complaints/:id/escalate`).</li><li>Reject complaints with a required reason (`PENDING → REJECTED`).</li><li>Close resolved complaints (`RESOLVED → CLOSED`).</li><li>Reopen complaints back to work order with a required reason (`RESOLVED → IN_PROGRESS`).</li><li>Review and approve/reject department `TECHNICIAN` staff applications.</li><li>Invite technicians to their department with a temporary password (`POST /departments/my/technicians`), resend invites (`POST /departments/my/technicians/:id/resend-invite`), and remove technicians with zero active complaints (`DELETE /departments/my/technicians/:id`).</li><li>Receive automated `SLA_OVERDUE` alerts when complaints exceed resolution deadlines.</li></ul> |
+| **👑 Admin** | <ul><li>Platform-wide visibility and administrative authority.</li><li>Manage the escalated complaints queue (`GET /admin/escalated-complaints`) and clear escalations (`PATCH /admin/complaints/:id/clear-escalation`).</li><li>Directly reassign or resolve escalated complaints across all municipal departments.</li><li>Inspect Stripe premium subscription pricing details (`GET /admin/premium-pricing`).</li><li>Full CRUD on municipal Departments and Service Categories.</li><li>Review and decide `MANAGER` staff applications across all departments.</li><li>Directly invite technicians and managers to any active department (`POST /admin/staff`) and resend invitations (`POST /admin/staff/:id/resend-invite`).</li><li>Override user roles and departmental assignments (capped: cannot self-grant `ADMIN`).</li><li>Deactivate/reactivate user accounts (guarded against self-lockout and last-admin deletion).</li><li>Trigger manual on-demand SLA overdue sweeps (`POST /admin/jobs/check-overdue-slas`).</li><li>View high-level platform statistics and audit log timeline with filtering.</li><li>View platform-wide payment and subscription history (`GET /admin/payments`).</li><li>Soft-delete complaints if required.</li></ul> |
 
 ---
 
@@ -221,8 +221,19 @@ stateDiagram-v2
   - Dynamic allowlist generated from `APP_BASE_URL`, `FRONTEND_BASE_URL`, and `ALLOWED_ORIGINS`.
   - Unauthorized origins return HTTP 403 `{ "success": false, "message": "Origin not allowed by CORS" }`.
   - Requests without origin headers (cURL, mobile apps, Stripe webhooks) continue to pass.
+- **Staff Invitations & Forced Password Change:**
+  - Managers can invite technicians into their own department (`POST /departments/my/technicians`).
+  - Administrators can invite technicians or managers into any department (`POST /admin/staff`).
+  - A secure, 12-character temporary password satisfying all complexity requirements is generated and hashed.
+  - Accounts are provisioned with `mustChangePassword: true` and a 7-day expiration (`tempPasswordExpiresAt`).
+  - An email with teal/violet responsive branding is dispatched containing login instructions and the temporary password.
+  - Upon logging in with an unexpired temporary password, the `authenticate` middleware strictly locks the user session: they are permitted to access only `GET /users/me`, `POST/PATCH /users/me/password`, `POST /auth/logout`, and `POST /auth/refresh-token`. All other endpoints return HTTP 403 with `code: "PASSWORD_CHANGE_REQUIRED"`.
+  - Calling `POST/PATCH /users/me/password` successfully resets `mustChangePassword` to `false`, revokes active refresh tokens, dispatches a security notification email, and writes an audit log.
+- **Transactional Email Delivery (Brevo HTTPS API):**
+  - **SMTP Port Blocking on Render:** Render's free tier restricts outbound SMTP ports (25, 465, 587). The platform intentionally avoids SMTP and Nodemailer, using Brevo's HTTPS transactional API (`POST https://api.brevo.com/v3/smtp/email`) via native `fetch` with a 10-second `AbortController` timeout.
+  - **Graceful Local Fallback:** When `BREVO_API_KEY` is omitted in non-production environments (`NODE_ENV !== "production"`), outgoing emails are logged to the console without crashing or failing requests, facilitating seamless local development.
 - **Audit Logging & Soft Deletes:**
-  - Critical actions (complaint status transitions, user role changes, account deactivations) create immutable records in `AuditLog`.
+  - Critical actions (complaint status transitions, user role changes, staff invitations, technician removals, account deactivations) create immutable records in `AuditLog`.
   - Deletions across users, departments, categories, and complaints use `deletedAt` timestamps to preserve referential integrity.
 
 ---
@@ -319,9 +330,9 @@ All routes are mounted under `/api/v1` (except the root discovery route and Swag
 ### 4. Users (`/api/v1/users`)
 | Method | Path | Auth / Role | Description |
 |---|---|---|---|
-| `GET` | `/users/me` | Authenticated | Fetch current user profile |
+| `GET` | `/users/me` | Authenticated | Fetch current user profile (includes `mustChangePassword`) |
 | `PATCH` | `/users/me` | Authenticated | Update profile (name, phone, avatar) |
-| `POST` | `/users/me/password` | Authenticated | Change password and invalidate existing refresh tokens |
+| `POST` / `PATCH` | `/users/me/password` | Authenticated | Change password, clear temporary password requirement, and invalidate existing refresh tokens |
 
 ### 5. Staff Applications (`/api/v1/staff-applications`)
 | Method | Path | Auth / Role | Description |
@@ -357,6 +368,10 @@ All routes are mounted under `/api/v1` (except the root discovery route and Swag
 | Method | Path | Auth / Role | Description |
 |---|---|---|---|
 | `GET` | `/departments` | Public | Public listing of active departments |
+| `GET` | `/departments/my/technicians` | `MANAGER` | List technicians in manager's department (with `invitePending` and rating) |
+| `POST` | `/departments/my/technicians` | `MANAGER` (20/15m) | Invite technician to manager's department with temporary password |
+| `DELETE` | `/departments/my/technicians/:id` | `MANAGER` | Remove technician from department (blocked with 409 if active complaints exist) |
+| `POST` | `/departments/my/technicians/:id/resend-invite` | `MANAGER` (20/15m) | Resend invitation email with new temporary password to technician |
 | `GET` | `/admin/departments` | `ADMIN` | List all departments (including deleted if requested) |
 | `POST` | `/admin/departments` | `ADMIN` | Create a new municipal department |
 | `GET` | `/admin/departments/:id` | `ADMIN` | Get department details and its active categories |
@@ -404,7 +419,9 @@ All routes are mounted under `/api/v1` (except the root discovery route and Swag
 ### 13. Administration (`/api/v1/admin`)
 | Method | Path | Auth / Role | Description |
 |---|---|---|---|
-| `GET` | `/admin/users` | `ADMIN` | Paginated user directory with role and status filtering |
+| `GET` | `/admin/users` | `ADMIN` | Paginated user directory with role, status, and `mustChangePassword` filtering |
+| `POST` | `/admin/staff` | `ADMIN` (20/15m) | Invite technician or manager to any active department with temporary password |
+| `POST` | `/admin/staff/:id/resend-invite` | `ADMIN` (20/15m) | Resend invitation email with new temporary password to a staff user |
 | `PATCH` | `/admin/users/:id/role` | `ADMIN` | Override user role & department assignment |
 | `PATCH` | `/admin/users/:id/deactivate` | `ADMIN` | Deactivate account (guarded against last admin) |
 | `PATCH` | `/admin/users/:id/reactivate` | `ADMIN` | Reactivate a deactivated account |
@@ -461,6 +478,9 @@ cp .env.example .env
 | `STRIPE_SECRET_KEY` | **Required** | Stripe Secret Key | `sk_test_...` |
 | `STRIPE_WEBHOOK_SECRET`| **Required** | Stripe Webhook Signing Secret | `whsec_...` |
 | `STRIPE_PREMIUM_PRICE_ID`| **Required** | Stripe recurring Price ID for premium plan | `price_...` |
+| `BREVO_API_KEY` | Optional (Prod Required) | Brevo HTTPS API key for transactional emails | `xkeysib-...` |
+| `MAIL_FROM_EMAIL` | Optional | Transactional email sender address (defaults to `noreply@cityfix.local`) | `noreply@citycomplaints.com` |
+| `MAIL_FROM_NAME` | Optional | Transactional email sender display name (defaults to `CityFix`) | `CityFix Municipal Services` |
 | `REOPEN_WINDOW_DAYS` | Optional | Reopen window duration in days (defaults to 7) | `7` |
 | `MONTHLY_COMPLAINT_LIMIT_FREE` | Optional | Monthly complaint cap for free tier citizens (defaults to 5) | `5` |
 | `MONTHLY_COMPLAINT_LIMIT_PREMIUM` | Optional | Monthly complaint cap for premium tier citizens (defaults to 20) | `20` |

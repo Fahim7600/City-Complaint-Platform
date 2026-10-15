@@ -1,7 +1,7 @@
 {
   "item": [
     {
-      "id": "22c25fab-ae85-4312-8553-43a0afa1705d",
+      "id": "c4fd64fc-b84f-4d89-b190-e1eabd3864a0",
       "name": "Users",
       "description": {
         "content": "",
@@ -9,7 +9,7 @@
       },
       "item": [
         {
-          "id": "c942499a-14af-48fc-8aa7-4be4751d31a1",
+          "id": "9fa7b97e-6e09-4f28-9a02-21a741a1306d",
           "name": "{{baseUrl}}/users/me",
           "request": {
             "name": "{{baseUrl}}/users/me",
@@ -33,7 +33,7 @@
           },
           "response": [
             {
-              "id": "9a31d5e3-e71b-491c-9df7-adbb1e111d84",
+              "id": "5711d462-cd97-415f-9ae3-87c5d4d98a5d",
               "name": "Profile",
               "originalRequest": {
                 "url": {
@@ -68,7 +68,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "85781d9a-50e5-41a0-a327-984329502053",
+              "id": "4224acaf-4e54-4eb5-8bb4-876a8cbde0ec",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -103,7 +103,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "bcf7a55d-5bd2-4a74-941a-e1918f5a17bc",
+              "id": "838fefcb-467a-4824-8d9e-4bebe3e2b7c8",
               "name": "User not found",
               "originalRequest": {
                 "url": {
@@ -144,7 +144,7 @@
           }
         },
         {
-          "id": "c4c401c4-a69d-417e-b82e-e36fca4a38e4",
+          "id": "2b61b4cd-80c1-4a19-8929-b6d6a694b824",
           "name": "{{baseUrl}}/users/me",
           "request": {
             "name": "{{baseUrl}}/users/me",
@@ -183,7 +183,7 @@
           },
           "response": [
             {
-              "id": "2c4dd9b0-6127-4169-ae8b-7af1b727d67d",
+              "id": "8b46074f-229b-4df6-89eb-9978fafd403c",
               "name": "Updated profile",
               "originalRequest": {
                 "url": {
@@ -226,7 +226,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7cc06a17-2a0d-4a9b-a200-f749cabef763",
+              "id": "7260140f-666d-4752-be49-e1ce98628695",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -269,7 +269,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "fe6a373a-3038-42d4-886c-60cf7b05c459",
+              "id": "157410e9-f0bd-464e-8fa8-db7efbbd1990",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -318,11 +318,191 @@
           }
         },
         {
-          "id": "4608e3df-5a87-465b-a3b1-55a2b31d318c",
+          "id": "477ebf00-40ea-4449-9ce7-826efdbc483b",
           "name": "{{baseUrl}}/users/me/password",
           "request": {
             "name": "{{baseUrl}}/users/me/password",
-            "description": {},
+            "description": {
+              "content": "Changes user password, clears temporary password requirement, and revokes all active sessions. Client must sign in again afterwards.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": ["users", "me", "password"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"newPassword\": \"<string>\",\n  \"currentPassword\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e7582fc-5150-4090-9ab0-f9297bf34539",
+              "name": "Password changed successfully. Client must sign in again.",
+              "originalRequest": {
+                "url": {
+                  "path": ["users", "me", "password"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newPassword\": \"<string>\",\n  \"currentPassword\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3970f4b1-68ea-4289-baa9-8dad054546d6",
+              "name": "Validation failure",
+              "originalRequest": {
+                "url": {
+                  "path": ["users", "me", "password"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newPassword\": \"<string>\",\n  \"currentPassword\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "402b6f4f-0643-47bc-9950-1f05adc127cb",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": ["users", "me", "password"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"newPassword\": \"<string>\",\n  \"currentPassword\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e5ff1bd2-b74e-408a-8149-7677b7714a0f",
+          "name": "{{baseUrl}}/users/me/password",
+          "request": {
+            "name": "{{baseUrl}}/users/me/password",
+            "description": {
+              "content": "Changes user password, clears temporary password requirement, and revokes all active sessions. Client must sign in again afterwards.",
+              "type": "text/plain"
+            },
             "url": {
               "path": ["users", "me", "password"],
               "host": ["{{baseUrl}}"],
@@ -357,8 +537,8 @@
           },
           "response": [
             {
-              "id": "6c0e27ef-24fe-40d8-b02c-a58b94bdc49c",
-              "name": "Password changed",
+              "id": "391a5f95-e2be-4aa0-a8eb-b726687c3b1e",
+              "name": "Password changed successfully. Client must sign in again.",
               "originalRequest": {
                 "url": {
                   "path": ["users", "me", "password"],
@@ -400,7 +580,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d9827965-1f87-4a2c-9c61-c3cdf20dae25",
+              "id": "fde63ab3-ef16-416b-b1e8-42206f14ad1f",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -443,7 +623,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "4272e68f-46eb-4673-81f9-803327e0c0e3",
+              "id": "41e9b9e5-b789-4328-8320-b8c2478ecb02",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -492,7 +672,7 @@
           }
         },
         {
-          "id": "2205a8bf-0786-442d-a77b-ca4bd57f420d",
+          "id": "f2fbaf41-c906-4a52-a5a2-3e46c5468bb0",
           "name": "{{baseUrl}}/users/me/staff-application",
           "request": {
             "name": "{{baseUrl}}/users/me/staff-application",
@@ -531,7 +711,7 @@
           },
           "response": [
             {
-              "id": "e2fc2900-0d71-4593-bc0d-307d7e7ba682",
+              "id": "bff600dc-ab9c-4c28-a3f6-1afb7f079262",
               "name": "Application submitted",
               "originalRequest": {
                 "url": {
@@ -574,7 +754,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3dcf209b-6a4e-4614-aea5-817f1c6d937b",
+              "id": "c35cdb9b-a4d7-47e1-9757-20ac99a0c078",
               "name": "Invalid application",
               "originalRequest": {
                 "url": {
@@ -617,7 +797,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b1e59236-9de5-4990-9460-c6b4c9526c34",
+              "id": "6550dd6e-c0d2-45ba-b8de-542dcf67d211",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -660,7 +840,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "0bcb436c-7467-400f-a492-8802c962b00a",
+              "id": "6553f5b4-e014-45cf-8783-1f0241f0947b",
               "name": "Citizen access required",
               "originalRequest": {
                 "url": {
@@ -712,7 +892,7 @@
       "event": []
     },
     {
-      "id": "fc8bde82-6574-405e-bbe6-39e29f93f428",
+      "id": "dfa68fbc-21ab-423f-81f0-188a28019e18",
       "name": "Technicians",
       "description": {
         "content": "",
@@ -720,7 +900,7 @@
       },
       "item": [
         {
-          "id": "66362779-2768-4080-84c3-37f2911461dd",
+          "id": "450efee1-87dc-4e04-aa34-c34455b55a0e",
           "name": "{{baseUrl}}/technicians/me/availability",
           "request": {
             "name": "{{baseUrl}}/technicians/me/availability",
@@ -759,7 +939,7 @@
           },
           "response": [
             {
-              "id": "9a6564cf-cce0-4097-9a57-cc0ea5800cdd",
+              "id": "cb3c4407-953b-4565-874f-a49fb505aa3e",
               "name": "Availability updated successfully",
               "originalRequest": {
                 "url": {
@@ -802,7 +982,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "247fd36a-1152-4ee8-9012-b44357aad8fc",
+              "id": "62067b11-e6f0-4141-ad11-8f27a788819e",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -845,7 +1025,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "707154f0-9a74-4bd3-9596-1e075af70467",
+              "id": "f736a22f-994f-4e91-8dbc-833285454c18",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -888,7 +1068,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "dedd887f-a670-4659-a36f-c90a23ae8bf8",
+              "id": "7f0f10e2-01ab-4ba7-8d7f-acf7be0bf1e4",
               "name": "Technician access required",
               "originalRequest": {
                 "url": {
@@ -937,7 +1117,7 @@
           }
         },
         {
-          "id": "e36df05d-f170-45e6-b1ce-852940587b33",
+          "id": "3a74bd54-387a-49f8-88ba-ca2365aa1873",
           "name": "{{baseUrl}}/technicians/me/performance",
           "request": {
             "name": "{{baseUrl}}/technicians/me/performance",
@@ -961,7 +1141,7 @@
           },
           "response": [
             {
-              "id": "f0d38e58-6ce1-446f-a273-a7dfedb9382b",
+              "id": "880e593f-47d7-456e-ad9f-13c4d946e764",
               "name": "Performance metrics retrieved successfully",
               "originalRequest": {
                 "url": {
@@ -996,7 +1176,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ed691c71-d6b2-4c26-96ab-a64677def5d4",
+              "id": "a2cdec7a-9351-481c-b9f2-e92c44a3fdd7",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -1031,7 +1211,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "330570ae-35e3-4908-b1f9-836ec383aff1",
+              "id": "a0480410-e320-4806-afc7-57a1f8694eae",
               "name": "Technician access required",
               "originalRequest": {
                 "url": {
@@ -1075,7 +1255,7 @@
       "event": []
     },
     {
-      "id": "f4a73d18-4855-4ab4-a8fe-0ef332f49f36",
+      "id": "a263e139-a485-4992-b917-03540b3b4741",
       "name": "Staff Applications",
       "description": {
         "content": "",
@@ -1083,7 +1263,7 @@
       },
       "item": [
         {
-          "id": "cdbc3844-8738-4d78-b026-4d87cd4ce64a",
+          "id": "6d711c19-d6cb-432e-b062-fc53fcbb4c6b",
           "name": "{{baseUrl}}/staff-applications/",
           "request": {
             "name": "{{baseUrl}}/staff-applications/",
@@ -1107,7 +1287,7 @@
           },
           "response": [
             {
-              "id": "51c1e602-14d0-42fe-b343-6c06166b1ae7",
+              "id": "7f74b239-51e1-4900-b29f-33f4f5ba589c",
               "name": "Pending applications",
               "originalRequest": {
                 "url": {
@@ -1142,7 +1322,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e8d69772-092d-4883-a145-59996d050d0c",
+              "id": "a579183d-6b80-426a-baf0-2e6d6bf5051c",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -1177,7 +1357,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b3f1c9b0-1fbd-49f6-8861-e9a4ae2c71cc",
+              "id": "859d5df7-2018-4d68-b2e4-99244986d51c",
               "name": "Manager or admin access required",
               "originalRequest": {
                 "url": {
@@ -1218,7 +1398,7 @@
           }
         },
         {
-          "id": "1d663548-073c-411a-a50b-2ad3540af4d1",
+          "id": "c996fd65-f003-492f-a116-b3c1c2c8f116",
           "name": "{{baseUrl}}/staff-applications/:id",
           "request": {
             "name": "{{baseUrl}}/staff-applications/:id",
@@ -1265,7 +1445,7 @@
           },
           "response": [
             {
-              "id": "66cb64c0-de68-4e41-b2d8-b16de998d3ff",
+              "id": "2dea1b83-1154-4997-a785-633a13da743f",
               "name": "Decision saved",
               "originalRequest": {
                 "url": {
@@ -1316,7 +1496,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "022c1635-66ea-49ec-aa0b-cef18fdbd4fd",
+              "id": "2e37c463-6467-45c2-a193-1b558035bf76",
               "name": "Invalid decision",
               "originalRequest": {
                 "url": {
@@ -1367,7 +1547,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "300b4983-1845-413c-aae6-78f448693fdb",
+              "id": "761d3340-f84d-40c4-a323-0e8aa019b9ae",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -1418,7 +1598,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "137e72d0-3675-48fe-abb3-504de12fd97b",
+              "id": "f7115ab6-87a2-4adb-bfc9-56373c7a22da",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -1469,7 +1649,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "5b2a6063-d6dc-4466-95b7-d01af5124eea",
+              "id": "71e91175-a3ab-47da-85e7-7bdd5a9ab2b5",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -1529,7 +1709,7 @@
       "event": []
     },
     {
-      "id": "8eabce03-a265-4764-95be-1d8bfcd5a75f",
+      "id": "42832838-c106-4be5-a952-4682aaa08be5",
       "name": "Reviews",
       "description": {
         "content": "",
@@ -1537,7 +1717,7 @@
       },
       "item": [
         {
-          "id": "28f4bd93-b43d-4522-b2ce-e1460468049e",
+          "id": "edefac64-ec7a-4976-9c2b-b4be9a88357d",
           "name": "{{baseUrl}}/complaints/:complaintId/review",
           "request": {
             "name": "{{baseUrl}}/complaints/:complaintId/review",
@@ -1584,7 +1764,7 @@
           },
           "response": [
             {
-              "id": "99c445e9-a581-4ec8-bbcf-a707026b1170",
+              "id": "3cb2b019-0041-4143-90fe-e5272b358178",
               "name": "Review submitted",
               "originalRequest": {
                 "url": {
@@ -1635,7 +1815,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3c7e474b-ac05-48b2-8e4f-2541b285ffbd",
+              "id": "8a68c351-2ff0-4e39-aa2c-2cd0f4bbb0b2",
               "name": "Invalid review",
               "originalRequest": {
                 "url": {
@@ -1686,7 +1866,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "33d381a4-4aec-44f0-a976-51f8fff40d24",
+              "id": "0d2ba2a9-436c-484e-b045-9a1ef2a16095",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -1737,7 +1917,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f6107c52-cfc6-4cf9-b745-eb8792cd3d06",
+              "id": "4f707c0b-fbcd-4d08-af2d-70aa68f51f23",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -1788,7 +1968,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "760ff509-b3c3-447c-9537-6fb031ac8dd1",
+              "id": "347a9354-4911-42a9-a50f-8e89f1199a56",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -1845,7 +2025,7 @@
           }
         },
         {
-          "id": "c014bf24-2225-4b0c-8564-836b972d0827",
+          "id": "f1e2f044-02cc-4b8f-86c0-c03d4fd806f7",
           "name": "{{baseUrl}}/complaints/:complaintId/review",
           "request": {
             "name": "{{baseUrl}}/complaints/:complaintId/review",
@@ -1877,7 +2057,7 @@
           },
           "response": [
             {
-              "id": "01f54d5b-a97d-4880-81a5-efa6eff1a962",
+              "id": "502a524e-cd39-4926-b024-4f39d08ed7c2",
               "name": "Review",
               "originalRequest": {
                 "url": {
@@ -1920,7 +2100,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "32d82ba8-9bae-46d7-8835-55a92048d1a6",
+              "id": "f079c5bf-79cf-4c59-afcf-88cd1c729635",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -1963,7 +2143,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8c73f76c-6dc2-49b5-a3cf-477dfe80966b",
+              "id": "fe0ed96e-c534-4fab-83ee-0f6ec1a978a9",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -2006,7 +2186,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b463b908-e512-4e7c-b548-d09e492d8144",
+              "id": "e2c6fce5-edfc-49a9-bcdd-4d212a2a6f43",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -2055,7 +2235,7 @@
           }
         },
         {
-          "id": "3c017824-814e-449e-8bd1-c55da5610ddf",
+          "id": "59131a2f-5f30-4787-8c90-21d99354b017",
           "name": "{{baseUrl}}/technicians/:id/rating",
           "request": {
             "name": "{{baseUrl}}/technicians/:id/rating",
@@ -2087,7 +2267,7 @@
           },
           "response": [
             {
-              "id": "4ea3ceed-10fe-42d1-8da3-5aa0a9f83e1c",
+              "id": "bc89931a-8343-426a-bd78-108ec00589ff",
               "name": "Rating",
               "originalRequest": {
                 "url": {
@@ -2130,7 +2310,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "0099e761-0cc4-425a-aa3f-37a9b6104e98",
+              "id": "8e08e68a-77b2-49b2-88c5-c7e67a71c596",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -2173,7 +2353,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7096c328-8837-4267-a90a-a30e827bb612",
+              "id": "f978f5b3-6173-45bd-bf5e-5611783f6875",
               "name": "Technician not found",
               "originalRequest": {
                 "url": {
@@ -2225,7 +2405,7 @@
       "event": []
     },
     {
-      "id": "d76365d9-7a49-4750-9b0a-d4a8ec2af662",
+      "id": "cb39a608-11cc-471a-abb6-2a462cf7a668",
       "name": "Public",
       "description": {
         "content": "",
@@ -2233,7 +2413,7 @@
       },
       "item": [
         {
-          "id": "22d78301-8c11-4c4d-97e9-eec57512a633",
+          "id": "e89e782e-26b7-4df8-89cd-98fc8e43c359",
           "name": "{{baseUrl}}/public/departments",
           "request": {
             "name": "{{baseUrl}}/public/departments",
@@ -2249,7 +2429,7 @@
           },
           "response": [
             {
-              "id": "51c9ff8f-25f3-4cac-92b0-1298080f2ca3",
+              "id": "fec31cd7-85b5-4923-9589-43573d28a213",
               "name": "Active departments",
               "originalRequest": {
                 "url": {
@@ -2280,7 +2460,7 @@
           }
         },
         {
-          "id": "1c5521e7-eb30-4096-b816-365bb981e806",
+          "id": "5e6fb32f-e113-48ef-8ea0-e4240c144013",
           "name": "{{baseUrl}}/public/departments/:id/technicians",
           "request": {
             "name": "{{baseUrl}}/public/departments/:id/technicians",
@@ -2304,7 +2484,7 @@
           },
           "response": [
             {
-              "id": "f1ac44b2-c838-4cfe-aba6-21b47866be7e",
+              "id": "1f6561ba-8827-4a05-8a45-85cbbcdaf0af",
               "name": "Department technicians with ratings",
               "originalRequest": {
                 "url": {
@@ -2337,7 +2517,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7f0d58f9-2696-4908-80a8-ed13d65d9263",
+              "id": "f5459cba-a21c-4085-9202-c34edbb1ce2d",
               "name": "Department not found",
               "originalRequest": {
                 "url": {
@@ -2376,7 +2556,7 @@
           }
         },
         {
-          "id": "61d3d77b-5a24-4ad7-935b-e1fbe28def86",
+          "id": "b476e84d-be45-444e-b4b7-2372a140795a",
           "name": "{{baseUrl}}/public/categories",
           "request": {
             "name": "{{baseUrl}}/public/categories",
@@ -2392,7 +2572,7 @@
           },
           "response": [
             {
-              "id": "25afe27e-2fed-42ec-9501-95b83bde208f",
+              "id": "e3fa9be0-de14-47a3-9e4c-c1fbffa84bad",
               "name": "Active categories",
               "originalRequest": {
                 "url": {
@@ -2423,7 +2603,7 @@
           }
         },
         {
-          "id": "7b403874-2a91-4afa-b4cb-eeef7d9eb75c",
+          "id": "5cadf29d-2c4c-4f23-9f25-f79bc63ce2a0",
           "name": "{{baseUrl}}/public/stats",
           "request": {
             "name": "{{baseUrl}}/public/stats",
@@ -2439,7 +2619,7 @@
           },
           "response": [
             {
-              "id": "4498d890-189c-4c2c-b13e-da8e4d087c65",
+              "id": "5207ac55-2425-43d7-8393-b4c47f3af278",
               "name": "Platform statistics",
               "originalRequest": {
                 "url": {
@@ -2470,7 +2650,7 @@
           }
         },
         {
-          "id": "dba10a46-1631-44a4-996f-820e9b86e5c8",
+          "id": "54b8e7de-4699-4234-b3d5-86d3dab3b936",
           "name": "{{baseUrl}}/public/premium-info",
           "request": {
             "name": "{{baseUrl}}/public/premium-info",
@@ -2486,7 +2666,7 @@
           },
           "response": [
             {
-              "id": "a48413bb-3f2d-4c1e-8e8a-63f762d45408",
+              "id": "74e9766a-f5f9-42c0-bd76-17daeec226be",
               "name": "Premium tier benefits and Stripe price info",
               "originalRequest": {
                 "url": {
@@ -2517,7 +2697,7 @@
           }
         },
         {
-          "id": "0c1c20be-e0eb-4d16-9449-8ae8b99eba1f",
+          "id": "36860779-63c7-4707-a8c5-c3aa45fac56b",
           "name": "{{baseUrl}}/public/overview",
           "request": {
             "name": "{{baseUrl}}/public/overview",
@@ -2533,7 +2713,7 @@
           },
           "response": [
             {
-              "id": "4988af10-1145-4395-b90f-4fe0826d9a1e",
+              "id": "8bcdfc2b-90d1-41fe-b10c-e25911dafbbc",
               "name": "Landing page content",
               "originalRequest": {
                 "url": {
@@ -2567,7 +2747,7 @@
       "event": []
     },
     {
-      "id": "a81c583a-73a1-4f8b-98de-d9ce6fa68d2a",
+      "id": "ee9b9568-6be5-4a32-878f-cac10a2357a5",
       "name": "Payments",
       "description": {
         "content": "",
@@ -2575,7 +2755,7 @@
       },
       "item": [
         {
-          "id": "bc365c1a-3b39-452b-ba11-a342d6e44dac",
+          "id": "1bdde0f0-bc2c-493f-a525-0b350c39e2b7",
           "name": "{{baseUrl}}/payments/checkout-session",
           "request": {
             "name": "{{baseUrl}}/payments/checkout-session",
@@ -2599,7 +2779,7 @@
           },
           "response": [
             {
-              "id": "984c18aa-9d2a-4861-90b3-4518a39d3b5c",
+              "id": "65b527f9-06d5-4b97-8326-a074d60e42cb",
               "name": "Checkout URL",
               "originalRequest": {
                 "url": {
@@ -2634,7 +2814,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ff186c5a-5628-4514-8da8-a794abdddd89",
+              "id": "2562ce70-6815-4115-b122-62b701fce45a",
               "name": "Already subscribed",
               "originalRequest": {
                 "url": {
@@ -2669,7 +2849,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "5fc22012-86cd-4fac-8475-b945dbb74577",
+              "id": "b9e44b35-e4e1-46fd-b7df-14f1c414745b",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -2704,7 +2884,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "2dd20a90-aa6b-47b0-86e1-d111757cf6eb",
+              "id": "5014fa7d-a123-4d4c-befd-d9657c3044f9",
               "name": "Citizen access required",
               "originalRequest": {
                 "url": {
@@ -2745,7 +2925,7 @@
           }
         },
         {
-          "id": "4ece3e9b-2762-47df-95df-fa5dfa0cfdf6",
+          "id": "2bdb4ddb-5f24-40ef-ba91-b73436208b09",
           "name": "{{baseUrl}}/payments/cancel",
           "request": {
             "name": "{{baseUrl}}/payments/cancel",
@@ -2769,7 +2949,7 @@
           },
           "response": [
             {
-              "id": "12b08a4f-b20e-4542-bad8-18fd04ff4edc",
+              "id": "b01d767c-e78d-40a2-b9e5-fd605d57f9c6",
               "name": "Cancellation scheduled",
               "originalRequest": {
                 "url": {
@@ -2804,7 +2984,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3e60c959-ae55-4900-81c6-572df599aba1",
+              "id": "f0684f92-c5a9-4082-97d6-1dc0e3fd90ca",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -2839,7 +3019,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "df27f3b0-8232-432e-be1a-3b91dec6dfa8",
+              "id": "1e194bff-24e7-4267-8678-e54d084d26a8",
               "name": "Active subscription not found",
               "originalRequest": {
                 "url": {
@@ -2880,7 +3060,7 @@
           }
         },
         {
-          "id": "134dbe47-adbd-42b2-8f0e-db987bf59cbd",
+          "id": "10ade0b2-5857-40f0-9d93-6568cce10cb7",
           "name": "{{baseUrl}}/payments/subscription",
           "request": {
             "name": "{{baseUrl}}/payments/subscription",
@@ -2904,7 +3084,7 @@
           },
           "response": [
             {
-              "id": "f44a3706-d2c5-487c-8974-1e4333286704",
+              "id": "8d017de3-e8b7-4cff-87ab-10b90def674a",
               "name": "Subscription",
               "originalRequest": {
                 "url": {
@@ -2939,7 +3119,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8336916a-ead5-4628-9449-aa8a2ca8efed",
+              "id": "862d6c5d-1248-457d-98a1-ab4de0713748",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -2980,7 +3160,7 @@
           }
         },
         {
-          "id": "7c73838e-574d-4c70-9648-e1f1a28ee014",
+          "id": "f98173b7-c5ef-4204-b7d1-9dadee532276",
           "name": "{{baseUrl}}/payments/checkout-success",
           "request": {
             "name": "{{baseUrl}}/payments/checkout-success",
@@ -3002,7 +3182,7 @@
           },
           "response": [
             {
-              "id": "3ae547a9-400e-4f49-8e39-4973c2c449f6",
+              "id": "675fea2d-7d6a-4b5e-a534-46ddf4bf9770",
               "name": "Payment successful",
               "originalRequest": {
                 "url": {
@@ -3038,7 +3218,7 @@
           }
         },
         {
-          "id": "65f54963-9693-4252-8576-a227d744ac65",
+          "id": "1d15d297-e58a-48e0-99aa-6b8cc504341e",
           "name": "{{baseUrl}}/payments/checkout-cancel",
           "request": {
             "name": "{{baseUrl}}/payments/checkout-cancel",
@@ -3054,7 +3234,7 @@
           },
           "response": [
             {
-              "id": "230d581a-d0f0-45c0-84e7-4ac999074683",
+              "id": "5fccf1ce-771a-4ae2-b7fb-a3a815575e7e",
               "name": "Checkout cancelled",
               "originalRequest": {
                 "url": {
@@ -3085,7 +3265,7 @@
           }
         },
         {
-          "id": "89dbf62b-ae93-49fb-a7e3-414e6f535ce3",
+          "id": "7f9d30ff-7f95-484d-9087-75aafba6e3bd",
           "name": "{{baseUrl}}/payments/confirm-session",
           "request": {
             "name": "{{baseUrl}}/payments/confirm-session",
@@ -3124,7 +3304,7 @@
           },
           "response": [
             {
-              "id": "b7c9d911-e804-4596-9579-e178e887adaf",
+              "id": "7febb952-eea7-49bf-b0be-70f4e8c2d3f5",
               "name": "Payment status checked",
               "originalRequest": {
                 "url": {
@@ -3167,7 +3347,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "97517960-e75d-461b-bd35-d94ebd3a2bba",
+              "id": "b4a22872-eb56-4593-b4e6-458fe18db73b",
               "name": "Validation failed",
               "originalRequest": {
                 "url": {
@@ -3210,7 +3390,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "dcc10a65-0dd0-4304-ac11-cf43d7a1f41b",
+              "id": "02bc3ef8-c4ee-4999-a82c-d764bdeba942",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -3253,7 +3433,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ff83a492-ecb3-4aaf-9fbd-cfdd5459c5a2",
+              "id": "eaf40c40-7849-4c26-b4f3-f69817dced3f",
               "name": "Citizen access required",
               "originalRequest": {
                 "url": {
@@ -3296,7 +3476,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "2675f643-6e64-4b77-b6a5-9ba6b6102cb5",
+              "id": "56ae9cfc-9486-4eaa-9b90-55c2f9cd59ae",
               "name": "Checkout session not found",
               "originalRequest": {
                 "url": {
@@ -3345,7 +3525,7 @@
           }
         },
         {
-          "id": "3ff06645-f515-4be7-9e84-dc01cdc8121b",
+          "id": "b4a8980a-8692-47c8-b5fc-c1ebeb8b77c6",
           "name": "{{baseUrl}}/payments/:id",
           "request": {
             "name": "{{baseUrl}}/payments/:id",
@@ -3377,7 +3557,7 @@
           },
           "response": [
             {
-              "id": "ada0932e-cbdc-4e1a-8619-dbb7bc0f1900",
+              "id": "db506393-cfe4-49ca-ba0f-a6c4325d9f47",
               "name": "Payment",
               "originalRequest": {
                 "url": {
@@ -3420,7 +3600,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "de11ac98-52fd-4a8a-9c0c-2423ee5672e8",
+              "id": "b2e6233c-ed07-4695-bb4c-1a6bb7f2a363",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -3463,7 +3643,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "30454d0f-1dc4-46a9-a2a7-1301d7168edf",
+              "id": "50a9a5bd-ef68-4958-b0b2-ece692ba1aab",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -3506,7 +3686,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a05b88c8-5517-42c2-9198-fb8ebb3edabc",
+              "id": "4d835ea8-fb61-4e64-a560-33dc99da9c91",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -3555,7 +3735,7 @@
           }
         },
         {
-          "id": "efc69ee2-d307-45e1-a469-9f252b6c86cf",
+          "id": "5c000783-057f-4079-bb27-df8c68aefa22",
           "name": "{{baseUrl}}/payments/webhook",
           "request": {
             "name": "{{baseUrl}}/payments/webhook",
@@ -3586,7 +3766,7 @@
           },
           "response": [
             {
-              "id": "abab9c25-9419-4422-9c60-9b64dca39292",
+              "id": "67cb6576-643b-4824-a7eb-35c3b896eaa0",
               "name": "Webhook acknowledged",
               "originalRequest": {
                 "url": {
@@ -3619,7 +3799,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "944a18e1-cfcc-42ae-8a52-6c4d8a08254f",
+              "id": "dc27a61d-a665-49db-8409-d33c6bc4522f",
               "name": "Invalid signature",
               "originalRequest": {
                 "url": {
@@ -3652,7 +3832,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "956299a7-41a3-40ab-8be4-61ce8d76409a",
+              "id": "32475bb2-e5c2-4abd-a6c2-13bcbc499bb9",
               "name": "Processing failure",
               "originalRequest": {
                 "url": {
@@ -3694,7 +3874,7 @@
       "event": []
     },
     {
-      "id": "99e57d93-2b42-4ee8-8429-cb748279782b",
+      "id": "d968498b-6722-4d2c-b8a7-df119e2841db",
       "name": "Notifications",
       "description": {
         "content": "",
@@ -3702,7 +3882,7 @@
       },
       "item": [
         {
-          "id": "008b42e8-4e80-4e82-b346-51445a822bb0",
+          "id": "969a11ff-6568-4cac-a00c-a4ac583214d8",
           "name": "{{baseUrl}}/notifications/",
           "request": {
             "name": "{{baseUrl}}/notifications/",
@@ -3742,7 +3922,7 @@
           },
           "response": [
             {
-              "id": "d20133f5-f4d1-40f2-99a2-3fe6b25b84d6",
+              "id": "5d79028c-537d-46e0-82f5-cc1ba59ddfd0",
               "name": "Notifications",
               "originalRequest": {
                 "url": {
@@ -3790,7 +3970,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "959626bf-7d7c-4249-96da-7634a1d6d910",
+              "id": "d837bf47-4769-49d6-abce-bc310eecf7e8",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -3844,7 +4024,7 @@
           }
         },
         {
-          "id": "91fe2ac2-2091-4137-aea2-b548c61cf975",
+          "id": "2fbdfc3f-c996-439f-9b76-19be3ad5b809",
           "name": "{{baseUrl}}/notifications/read-all",
           "request": {
             "name": "{{baseUrl}}/notifications/read-all",
@@ -3868,7 +4048,7 @@
           },
           "response": [
             {
-              "id": "74c1c6e3-9ea5-463f-bf77-182cdb7055de",
+              "id": "6796a0d6-2ebc-41c1-afaa-adf655b51ff6",
               "name": "Updated count",
               "originalRequest": {
                 "url": {
@@ -3903,7 +4083,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "76b7cfac-d076-43af-ac44-47feb6836769",
+              "id": "a5a82781-e5e7-42d5-9583-2b55bc0e96d5",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -3944,7 +4124,7 @@
           }
         },
         {
-          "id": "435a7df2-d55a-4b8c-8318-8cbef555a111",
+          "id": "44a7c2d5-75de-4df1-83ff-14af6baabf42",
           "name": "{{baseUrl}}/notifications/:id/read",
           "request": {
             "name": "{{baseUrl}}/notifications/:id/read",
@@ -3976,7 +4156,7 @@
           },
           "response": [
             {
-              "id": "e310f84e-0f59-456c-9474-c1dd5c671797",
+              "id": "4c6c1040-b4a1-4115-80ba-8a5ef94f245f",
               "name": "Notification",
               "originalRequest": {
                 "url": {
@@ -4019,7 +4199,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "282b82ab-b1c8-4b9a-af3a-27b19fd577e6",
+              "id": "7eb14480-5fac-4229-b644-d4fabd5c9a41",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -4062,7 +4242,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8c9d7cd9-b99f-4eb3-937b-794780f78e06",
+              "id": "5ceef1f1-8592-491a-ba32-c187c6be8538",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -4114,7 +4294,7 @@
       "event": []
     },
     {
-      "id": "a62ce6ad-2296-4dec-93c4-6c846806182a",
+      "id": "f8e3c504-d8d1-441d-aa4c-56e262d61417",
       "name": "Departments",
       "description": {
         "content": "",
@@ -4122,7 +4302,7 @@
       },
       "item": [
         {
-          "id": "bdb0d2aa-f882-4182-95c8-17f6781b1e31",
+          "id": "78f48eb3-6826-4185-8a9f-1b6f40d0ad0f",
           "name": "{{baseUrl}}/departments/",
           "request": {
             "name": "{{baseUrl}}/departments/",
@@ -4138,7 +4318,7 @@
           },
           "response": [
             {
-              "id": "4b31d513-3abc-46f4-9f92-63ce86ee9471",
+              "id": "e1901f3c-9639-4bf8-a268-1075ac898e27",
               "name": "Department id and name list",
               "originalRequest": {
                 "url": {
@@ -4169,7 +4349,1220 @@
           }
         },
         {
-          "id": "601ba6c2-87d5-4b3e-ab41-843c73653122",
+          "id": "b4f27b50-1e56-41da-bc33-2e905bdc4957",
+          "name": "{{baseUrl}}/departments/my/technicians",
+          "request": {
+            "name": "{{baseUrl}}/departments/my/technicians",
+            "description": {},
+            "url": {
+              "path": ["departments", "my", "technicians"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e660d10d-91d2-4f54-a05d-9bd2f05db9ef",
+              "name": "List of department technicians with invitePending status",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "59b16b91-5fac-40c1-8fb8-22ce8698acb4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d8d9d290-9a85-4e54-aa18-05e41b09099b",
+              "name": "Manager access required",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d6de2bf-9b41-45bb-8edd-3a81fe241493",
+          "name": "{{baseUrl}}/departments/my/technicians",
+          "request": {
+            "name": "{{baseUrl}}/departments/my/technicians",
+            "description": {},
+            "url": {
+              "path": ["departments", "my", "technicians"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4f17fbb9-4d01-4659-8f5f-372dfae39ac4",
+              "name": "Technician invited successfully with temporary password email sent",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e47a90bb-3132-4227-adba-11a8761b3b4c",
+              "name": "Validation failure",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9fcbbecf-99c7-4c73-b9c0-f780c8bd711d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2c65366d-a28f-4736-b79b-8e965e3abd0f",
+              "name": "Manager access required",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "40804b03-6248-40ff-b87b-93e91ba64d18",
+              "name": "User with email already exists",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "41089595-2056-4508-933d-5d25355bf93a",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8055ec13-fa63-498c-9514-072db1544692",
+              "name": "Failed to send invitation email",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b21bded-9a41-41ac-b578-30bc1ef6ff3d",
+          "name": "{{baseUrl}}/departments/my/technicians/:id",
+          "request": {
+            "name": "{{baseUrl}}/departments/my/technicians/:id",
+            "description": {},
+            "url": {
+              "path": ["departments", "my", "technicians", ":id"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7c0c640c-c9cb-471f-961c-13ff4ac81b9d",
+              "name": "Technician removed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians", ":id"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0a7d88e5-cf1f-4a62-a0df-faea80536e74",
+              "name": "Invalid ID",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians", ":id"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5ba9ad76-e690-42a3-b0a1-b03c7877c794",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians", ":id"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "faf41238-478f-4a2f-a44b-70fbf1b671ad",
+              "name": "Manager access required",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians", ":id"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2c6ad1e0-9bf3-49b0-9619-e51494f7e42e",
+              "name": "Technician not found in department",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians", ":id"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "85ac0337-ee3a-4bcc-a834-60f87508709e",
+              "name": "Blocked by active assigned or in-progress complaints",
+              "originalRequest": {
+                "url": {
+                  "path": ["departments", "my", "technicians", ":id"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c665e4a-ab7a-4f97-8ad8-d5c3b28fdf37",
+          "name": "{{baseUrl}}/departments/my/technicians/:id/resend-invite",
+          "request": {
+            "name": "{{baseUrl}}/departments/my/technicians/:id/resend-invite",
+            "description": {},
+            "url": {
+              "path": [
+                "departments",
+                "my",
+                "technicians",
+                ":id",
+                "resend-invite"
+              ],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7c89e1e7-34de-4cdb-86d2-c0d57465b91a",
+              "name": "Invitation resent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "departments",
+                    "my",
+                    "technicians",
+                    ":id",
+                    "resend-invite"
+                  ],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8392f4d7-c016-4abf-af58-3088d55a112a",
+              "name": "Invalid ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "departments",
+                    "my",
+                    "technicians",
+                    ":id",
+                    "resend-invite"
+                  ],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94801d1b-f385-421b-97ee-404138f3246e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "departments",
+                    "my",
+                    "technicians",
+                    ":id",
+                    "resend-invite"
+                  ],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4c05f9e6-585f-4503-8f48-16b974c8cd00",
+              "name": "Manager access required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "departments",
+                    "my",
+                    "technicians",
+                    ":id",
+                    "resend-invite"
+                  ],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cba2b35a-4352-4894-84d7-09aca2aa563b",
+              "name": "Technician not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "departments",
+                    "my",
+                    "technicians",
+                    ":id",
+                    "resend-invite"
+                  ],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fb552ee2-606d-405b-9524-99136a5e87be",
+              "name": "User has already set their password",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "departments",
+                    "my",
+                    "technicians",
+                    ":id",
+                    "resend-invite"
+                  ],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3f0be4a6-f668-43da-ad0b-79f12f2646e4",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "departments",
+                    "my",
+                    "technicians",
+                    ":id",
+                    "resend-invite"
+                  ],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "59186281-8c59-4de9-9028-6567da0068d6",
+              "name": "Failed to send invitation email",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "departments",
+                    "my",
+                    "technicians",
+                    ":id",
+                    "resend-invite"
+                  ],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4de6f43c-d4e9-46f3-83c9-1f05626e917c",
           "name": "{{baseUrl}}/admin/departments",
           "request": {
             "name": "{{baseUrl}}/admin/departments",
@@ -4208,7 +5601,7 @@
           },
           "response": [
             {
-              "id": "d8d6ee2e-a289-4936-b148-8bdea35a200f",
+              "id": "0e267f50-48ac-42a2-b618-40b0e879821c",
               "name": "Created",
               "originalRequest": {
                 "url": {
@@ -4251,7 +5644,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f91ec09d-7734-4ad9-bf09-1f816cd8670c",
+              "id": "b5cd49ef-e09a-4ea6-80a6-ccdf5a1b00d2",
               "name": "Duplicate or invalid name",
               "originalRequest": {
                 "url": {
@@ -4294,7 +5687,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "9524a207-c575-46d5-882b-73ba439d94f1",
+              "id": "97815741-2dfd-4b03-8cd9-f8844316f953",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -4337,7 +5730,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a63e3a03-01c5-4987-935a-a3af37f7a7c2",
+              "id": "cf2f7352-30ae-49e5-85f9-6c069c3534e9",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -4386,7 +5779,7 @@
           }
         },
         {
-          "id": "1476b079-2c5b-48a6-b298-e247b3788315",
+          "id": "c3259d5b-1293-4606-a4ee-c330043a119b",
           "name": "{{baseUrl}}/admin/departments",
           "request": {
             "name": "{{baseUrl}}/admin/departments",
@@ -4416,7 +5809,7 @@
           },
           "response": [
             {
-              "id": "43e1114b-144d-4896-b813-28f9ecbcb421",
+              "id": "42df295c-bb24-4a52-b216-dfdbb86fd0d9",
               "name": "Departments",
               "originalRequest": {
                 "url": {
@@ -4456,7 +5849,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7978f7ba-a6e4-405b-ad01-56936ce2b350",
+              "id": "d11686ce-6f2a-44f4-b17d-e3c5a2e4fe33",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -4496,7 +5889,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c90a7c23-b80f-4da2-b7b1-3f43115625db",
+              "id": "a39be5e4-2204-4d7a-affc-b74654a9a6f7",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -4542,7 +5935,7 @@
           }
         },
         {
-          "id": "8c2af273-e54f-48f6-a3da-e73d29148845",
+          "id": "58b96b63-5d40-4830-8c62-3dae2bf0bc37",
           "name": "{{baseUrl}}/admin/departments/:id",
           "request": {
             "name": "{{baseUrl}}/admin/departments/:id",
@@ -4574,7 +5967,7 @@
           },
           "response": [
             {
-              "id": "f59e161b-7c3f-4f94-9a71-5e34a302ad92",
+              "id": "cf9c58a1-fe4c-4296-995e-27ecee430f37",
               "name": "Department",
               "originalRequest": {
                 "url": {
@@ -4617,7 +6010,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "9a514ae5-7994-4aa8-8888-c4bad8aada02",
+              "id": "036903d0-99de-4c1d-a6be-bac3e74cb7f7",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -4660,7 +6053,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d2b7af5c-2615-42e2-9d6c-d6b2bf1c03bc",
+              "id": "d3b7cbd3-8f14-4893-9c06-317f2a8e3f7e",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -4703,7 +6096,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "62146b5b-9dd2-42f7-83ba-669528afd4bf",
+              "id": "727bf60d-ec35-42ff-a7c0-e3782a0868f1",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -4752,7 +6145,7 @@
           }
         },
         {
-          "id": "2ca4fc75-92c9-4d79-a019-ebc51fc03a80",
+          "id": "5b3ed5b6-0b10-4a91-b485-f1ebda78ba67",
           "name": "{{baseUrl}}/admin/departments/:id",
           "request": {
             "name": "{{baseUrl}}/admin/departments/:id",
@@ -4799,7 +6192,7 @@
           },
           "response": [
             {
-              "id": "41dd807e-2008-463e-b88f-388cda12fb82",
+              "id": "e95acca0-94c2-4069-a310-2b9fc797f29a",
               "name": "Updated",
               "originalRequest": {
                 "url": {
@@ -4850,7 +6243,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "2f3f2269-0d62-4064-b3c8-2dad3cfe1e47",
+              "id": "ba45e1e0-ddfe-41db-b069-c8ecff2dc821",
               "name": "Invalid update",
               "originalRequest": {
                 "url": {
@@ -4901,7 +6294,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "807e3fc3-b77d-4344-93bc-c4838b4e7066",
+              "id": "af7677cb-fbd5-4e3f-9aab-1d0c9565bb5d",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -4952,7 +6345,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c42584f3-7354-431e-98a1-6768e2a6ef1d",
+              "id": "f389f009-beae-4481-89d5-22b3a08906b4",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -5003,7 +6396,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a0c3a1a3-a47a-41b1-bb82-1dced556cd45",
+              "id": "5813698c-d77d-44b0-9948-c1d230b5a1a7",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -5060,7 +6453,7 @@
           }
         },
         {
-          "id": "59f8c06c-9156-4f85-a02c-33ad99dad5b6",
+          "id": "ca85d220-5a7d-43df-ba99-95f0c210839a",
           "name": "{{baseUrl}}/admin/departments/:id",
           "request": {
             "name": "{{baseUrl}}/admin/departments/:id",
@@ -5092,7 +6485,7 @@
           },
           "response": [
             {
-              "id": "729cfc2c-6e59-4281-932b-b6d6d9f11186",
+              "id": "e21985f1-b18c-4728-99be-210c0952f2a6",
               "name": "Deleted",
               "originalRequest": {
                 "url": {
@@ -5135,7 +6528,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "1602cd93-449a-4355-8a37-a858db10ea86",
+              "id": "384807df-7cd6-4a14-839b-f32095606d4f",
               "name": "Active complaints prevent deletion",
               "originalRequest": {
                 "url": {
@@ -5178,7 +6571,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "2cc3a1e9-c19e-4d01-b4fb-56a7bde7bbed",
+              "id": "1dbe7d11-930c-47a0-bf18-bc1901de8852",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -5221,7 +6614,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "eedac538-d2c3-4cb6-97aa-c56c991201bb",
+              "id": "ec4ee05a-4a42-45a5-b1c7-e12b3d647f64",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -5264,7 +6657,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "0cff1b7a-af72-4cd9-8f43-3b51c19d131c",
+              "id": "665e9998-a920-4868-a817-9991f4acc329",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -5316,7 +6709,7 @@
       "event": []
     },
     {
-      "id": "57f856e3-7616-4bfb-af21-8495ff8530e9",
+      "id": "fe1e9ec7-be6f-48e4-ba05-cfaf3fe9b53b",
       "name": "Complaints",
       "description": {
         "content": "",
@@ -5324,7 +6717,7 @@
       },
       "item": [
         {
-          "id": "331e58ce-66fd-4462-9fb6-9c2ad5cba153",
+          "id": "bf0d7972-f806-429a-8857-90946545c3dd",
           "name": "{{baseUrl}}/complaints/",
           "request": {
             "name": "{{baseUrl}}/complaints/",
@@ -5366,7 +6759,7 @@
           },
           "response": [
             {
-              "id": "c4a573e6-df05-4f29-8b0c-8f9895e82474",
+              "id": "0ca9aa0a-e929-4df2-8b20-c5d374e590a6",
               "name": "Created",
               "originalRequest": {
                 "url": {
@@ -5409,7 +6802,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "16e8c550-35e4-4bbe-8221-a2f9542963df",
+              "id": "6a34ae7c-4b9d-4ff6-8c61-b1d05992496a",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -5452,7 +6845,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "6e24f953-d3d7-4e09-ac77-4b25a399241f",
+              "id": "4c0bbd57-d07d-4825-b83c-ecb62da7e0d7",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -5495,7 +6888,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3c37de70-348c-45a2-bd22-49d245bf78e5",
+              "id": "d88b30f2-7723-4efb-8687-d39a37ac169e",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -5538,7 +6931,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "15fea12e-6010-4a30-b5e8-8a118e9c2882",
+              "id": "48ca8150-6531-41ff-bd60-d34e72bfaabb",
               "name": "Monthly complaint limit reached",
               "originalRequest": {
                 "url": {
@@ -5587,7 +6980,7 @@
           }
         },
         {
-          "id": "160a9d00-75c7-4910-a9f9-d9e482fa4b2b",
+          "id": "0c415a90-e429-4bfc-b437-231e2673a649",
           "name": "{{baseUrl}}/complaints/",
           "request": {
             "name": "{{baseUrl}}/complaints/",
@@ -5647,7 +7040,7 @@
           },
           "response": [
             {
-              "id": "f7c37b9c-b559-4afd-b7a2-afafd73f17bf",
+              "id": "29b9aff0-7d4b-4215-8959-81c94e403866",
               "name": "Complaint list",
               "originalRequest": {
                 "url": {
@@ -5711,7 +7104,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "dc9dd00a-e346-492a-a537-467ecbf62c9a",
+              "id": "503b9340-0653-4b0b-9345-0a357a24c55b",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -5781,7 +7174,7 @@
           }
         },
         {
-          "id": "9f0b19f4-7bff-455e-89fc-43c695dd2d5b",
+          "id": "80d5c9b2-c6bf-4c5e-8902-1498efe0a7cb",
           "name": "{{baseUrl}}/complaints/search",
           "request": {
             "name": "{{baseUrl}}/complaints/search",
@@ -5812,7 +7205,7 @@
           },
           "response": [
             {
-              "id": "f21305d9-a7ed-49e5-82e0-f62415dcc084",
+              "id": "11463f62-f6a8-4457-a502-dbbc2b9850f4",
               "name": "Search results",
               "originalRequest": {
                 "url": {
@@ -5852,7 +7245,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d0b0205b-8007-4b5d-89a0-48ff5da67cce",
+              "id": "e2abf153-97ae-4d42-bdb1-dc989b5f94ec",
               "name": "Missing query",
               "originalRequest": {
                 "url": {
@@ -5892,7 +7285,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e2af0f73-e854-4c96-888b-e702b1a0254f",
+              "id": "cc0809be-29b3-490f-b97a-959646f9f932",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -5938,7 +7331,7 @@
           }
         },
         {
-          "id": "d7bb229c-39d6-4117-a0c2-53968787be6e",
+          "id": "d5a10188-03ef-4b56-b51b-6e7dd328f3e7",
           "name": "{{baseUrl}}/complaints/my-assigned",
           "request": {
             "name": "{{baseUrl}}/complaints/my-assigned",
@@ -5962,7 +7355,7 @@
           },
           "response": [
             {
-              "id": "680401f0-4672-410f-a21d-190a45e964ca",
+              "id": "578bc45b-8ad2-4096-9a4c-b85abbdcfb0c",
               "name": "Assigned complaints",
               "originalRequest": {
                 "url": {
@@ -5997,7 +7390,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "1b20f552-b756-4cc4-bad2-58aca3be0dd9",
+              "id": "dd1f3868-2ce8-4fdc-b9f0-cd96202ab0d7",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -6032,7 +7425,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7047176f-8052-40a5-927b-0af701f973ec",
+              "id": "cdc3fd13-362d-485f-8ca3-eedec2918ce1",
               "name": "Technician access required",
               "originalRequest": {
                 "url": {
@@ -6073,7 +7466,7 @@
           }
         },
         {
-          "id": "62acc47b-8c18-413b-88c7-511f0c384a7f",
+          "id": "3f6e270b-c533-4b4f-9cbe-fddeb2e13a48",
           "name": "{{baseUrl}}/complaints/usage",
           "request": {
             "name": "{{baseUrl}}/complaints/usage",
@@ -6097,7 +7490,7 @@
           },
           "response": [
             {
-              "id": "5a1f8caf-e78c-49ea-8d83-f38d5f8cc48b",
+              "id": "8bb3b7a1-7d62-41ef-8499-0b1bba90ca0e",
               "name": "Usage statistics",
               "originalRequest": {
                 "url": {
@@ -6132,7 +7525,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f5cfa1ab-6924-4b3e-accc-0797a4732314",
+              "id": "8590abc5-cd79-4b12-ab28-926cefc111ad",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -6167,7 +7560,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "17e17352-23f1-4bcf-b034-1ab7cd3f3b13",
+              "id": "205152f9-1f8e-46a4-a713-dbae42f9a4e7",
               "name": "Citizen access required",
               "originalRequest": {
                 "url": {
@@ -6208,7 +7601,7 @@
           }
         },
         {
-          "id": "a20625e8-7463-402f-bf3d-eaf73503c059",
+          "id": "80f43315-f91c-4eb4-9b3c-dfa4b35d6267",
           "name": "{{baseUrl}}/complaints/:id",
           "request": {
             "name": "{{baseUrl}}/complaints/:id",
@@ -6240,7 +7633,7 @@
           },
           "response": [
             {
-              "id": "fbd73d7b-836e-45dc-a353-165140f44a62",
+              "id": "da6efd95-3185-48a2-8e10-c2e99ae1835f",
               "name": "Complaint",
               "originalRequest": {
                 "url": {
@@ -6283,7 +7676,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f3358ae2-f380-4ba9-bb4c-15b84514d5b3",
+              "id": "0c5d7f69-9182-4cd3-8724-ba1d17934374",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -6326,7 +7719,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8662c5d0-ccc7-43c9-98d2-71c9c97f3c83",
+              "id": "27a7f028-1c88-42d6-9b63-91e5b281af27",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -6369,7 +7762,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "4a3c04d4-a5cf-40b1-9115-a898c79a114c",
+              "id": "8fbb9036-1944-4ae9-a76b-9f6277575fec",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -6418,7 +7811,7 @@
           }
         },
         {
-          "id": "9b525016-3b83-4510-9f77-8e94c6add41d",
+          "id": "11d245cd-c65b-4d67-a74f-8c439a752c61",
           "name": "{{baseUrl}}/complaints/:id",
           "request": {
             "name": "{{baseUrl}}/complaints/:id",
@@ -6465,7 +7858,7 @@
           },
           "response": [
             {
-              "id": "549bb38b-bc91-432e-a5b3-38d875fb7901",
+              "id": "9841fcb1-d271-48aa-8002-74c291ca0972",
               "name": "Updated complaint",
               "originalRequest": {
                 "url": {
@@ -6516,7 +7909,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d31c49fc-2744-4d85-a329-b778c4176a5d",
+              "id": "e76081b5-4144-44a5-8b91-f01f80bd22a8",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -6567,7 +7960,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ad466644-a4ff-4918-bca1-3cfa7334cc33",
+              "id": "58d4be27-9ba3-4956-8e80-132cc6d26e76",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -6618,7 +8011,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e326354a-514d-4e2d-9f91-5eb49e5ba1c4",
+              "id": "fccbdba1-461b-4f2b-ba07-8a997ecead62",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -6669,7 +8062,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3aff29f2-696b-411f-a570-cb22ad80dd85",
+              "id": "2c2554e5-181e-4fd1-8758-acb28cad5434",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -6726,7 +8119,7 @@
           }
         },
         {
-          "id": "b12252c6-ace3-4c93-8185-2e4b58d59bfa",
+          "id": "af03849b-6ff7-413d-a7b3-869beaaa0fa9",
           "name": "{{baseUrl}}/complaints/:id",
           "request": {
             "name": "{{baseUrl}}/complaints/:id",
@@ -6758,7 +8151,7 @@
           },
           "response": [
             {
-              "id": "95b38f6c-3ba3-43eb-92f9-b1933acf6fd8",
+              "id": "91728eca-943f-4f6c-a82b-6e07776ea4de",
               "name": "Deleted",
               "originalRequest": {
                 "url": {
@@ -6801,7 +8194,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ad5abbb2-1cc4-4926-bc36-caf06af0d520",
+              "id": "d0739d41-0fb9-4350-9132-f5d024acb62a",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -6844,7 +8237,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "0365fbf9-2068-4227-a655-827caf5770c6",
+              "id": "e8e268bf-4f45-4fae-a0a7-2a898cf392d1",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -6887,7 +8280,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "5ec192a3-006d-4dc4-a0dc-0c55813d31ea",
+              "id": "ffdcb86d-ef58-42ed-9ff2-213e87658936",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -6936,7 +8329,7 @@
           }
         },
         {
-          "id": "9150d4ef-89eb-4c99-a655-e34a2a279d36",
+          "id": "8b6e4f1d-fab6-44f5-a432-29d039cca924",
           "name": "{{baseUrl}}/complaints/:id/assign",
           "request": {
             "name": "{{baseUrl}}/complaints/:id/assign",
@@ -6983,7 +8376,7 @@
           },
           "response": [
             {
-              "id": "76458def-fe21-4c04-83c0-22cc55437511",
+              "id": "44952a78-6795-45cb-996a-6305ffdff606",
               "name": "Assigned complaint",
               "originalRequest": {
                 "url": {
@@ -7034,7 +8427,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ca602267-2021-43f4-b02e-aa2c557a9fc2",
+              "id": "e0bf6967-eb5a-4e70-9a46-bfd1f99a4de0",
               "name": "Invalid assignment",
               "originalRequest": {
                 "url": {
@@ -7085,7 +8478,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "933aa8bc-502c-40c7-b51b-12b25a7f272c",
+              "id": "a52ef66b-e0c1-468a-88e9-469c583dc299",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -7136,7 +8529,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "0aef5547-2388-4fbd-9364-b8fa8fc24e14",
+              "id": "a2998940-e75f-43b0-b48f-c726aaa5b071",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -7187,7 +8580,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "ca748969-27de-4010-9067-9d675e5a2fa7",
+              "id": "c2def4fa-89d4-4468-b02e-7b9f2c30e683",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -7244,7 +8637,7 @@
           }
         },
         {
-          "id": "86b30fb2-3a44-457f-ab6c-40cfce270497",
+          "id": "140cb325-5139-49f0-bc47-cec5e259e957",
           "name": "{{baseUrl}}/complaints/:id/status",
           "request": {
             "name": "{{baseUrl}}/complaints/:id/status",
@@ -7291,7 +8684,7 @@
           },
           "response": [
             {
-              "id": "a0f6731d-4c11-44e1-b916-e6248ca06494",
+              "id": "46dc1327-4595-487d-a883-7f1a283aa432",
               "name": "Updated complaint",
               "originalRequest": {
                 "url": {
@@ -7342,7 +8735,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "5ae3e592-98b7-417f-ab60-43ae2945aeb9",
+              "id": "de79cc56-291c-44f1-b774-797e7babf0e1",
               "name": "Invalid transition",
               "originalRequest": {
                 "url": {
@@ -7393,7 +8786,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "9db67508-9511-4b85-9ccf-08158a85ba3e",
+              "id": "8df25029-5d79-42af-bc38-531bfc1ea6c9",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -7444,7 +8837,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a09f70c3-139e-4724-970c-0b0c9452781c",
+              "id": "1c249619-97a8-4a1d-a7b4-f06d1a5dbe2e",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -7495,7 +8888,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c252687c-193e-4bf1-ae80-c5e2695b7bfc",
+              "id": "b50a53d2-a033-4d99-bf13-d799c06239e3",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -7552,7 +8945,7 @@
           }
         },
         {
-          "id": "aa705bc5-fd68-47b3-832f-818c579caa0d",
+          "id": "df1476f6-1c4b-408f-9887-9839fa800b38",
           "name": "{{baseUrl}}/complaints/:id/cancel",
           "request": {
             "name": "{{baseUrl}}/complaints/:id/cancel",
@@ -7584,7 +8977,7 @@
           },
           "response": [
             {
-              "id": "c8d0493f-1dc4-4985-be2e-a93ef4c4a99e",
+              "id": "4d87667d-1d09-41d7-bcd5-4f4d6c7fcd34",
               "name": "Cancelled",
               "originalRequest": {
                 "url": {
@@ -7627,7 +9020,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7c789171-5f2e-4ba8-8a12-648c3eea5c68",
+              "id": "0ad97868-a0ee-4249-b6b7-527e80b17175",
               "name": "Cannot cancel",
               "originalRequest": {
                 "url": {
@@ -7670,7 +9063,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "1f797abb-dcf7-4006-ad67-d5f3c8caa7d8",
+              "id": "902066d8-30ef-4e61-a74d-d6d827170982",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -7713,7 +9106,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "db0076bd-fe61-44e7-8dc4-e0a82477dd16",
+              "id": "210765e3-17c8-4eb7-95ec-b678ce598f2f",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -7756,7 +9149,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c86c68ea-a86d-49ca-a9bc-b1ad9a174cff",
+              "id": "ed72ad6b-76d6-4940-a880-5f4f1a15df84",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -7805,7 +9198,7 @@
           }
         },
         {
-          "id": "6b439b39-41d0-4818-94eb-d9681bfe4741",
+          "id": "3786f609-b585-457b-bffd-749a715f4b8e",
           "name": "{{baseUrl}}/complaints/:id/reopen",
           "request": {
             "name": "{{baseUrl}}/complaints/:id/reopen",
@@ -7852,7 +9245,7 @@
           },
           "response": [
             {
-              "id": "ab2498df-daee-47a7-b989-f8fd62e68f2e",
+              "id": "48511505-4a4f-47d8-a66b-1c9f53fcb284",
               "name": "Reopened complaint",
               "originalRequest": {
                 "url": {
@@ -7903,7 +9296,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f4b76a9d-6edc-47cb-8baa-6355fc05aac4",
+              "id": "e1c79581-1959-473a-b48a-1f9999bff43a",
               "name": "Expired or invalid status",
               "originalRequest": {
                 "url": {
@@ -7954,7 +9347,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "45daff36-bea0-4ffd-b55b-63f824a38a29",
+              "id": "d027f57e-b391-456f-ac23-161d9e5b83e1",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -8005,7 +9398,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "0e98148c-271a-49e4-9b2d-6247a78d77a6",
+              "id": "e5bfd4fd-9825-4195-aa4c-0b0cc346da72",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -8056,7 +9449,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "fa5c88ee-7450-4935-8ba2-2cc2c7fac56e",
+              "id": "0cadd5b8-135b-4348-9c05-2e0df2d5e623",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -8113,7 +9506,7 @@
           }
         },
         {
-          "id": "4e0f14b3-b1a0-479b-8e6d-c57c45b57ac7",
+          "id": "78d695f3-893f-4111-8241-7eb7d1a6dbca",
           "name": "{{baseUrl}}/complaints/:id/escalate",
           "request": {
             "name": "{{baseUrl}}/complaints/:id/escalate",
@@ -8160,7 +9553,7 @@
           },
           "response": [
             {
-              "id": "80ac9efe-c40d-4d0c-8871-484d414b3594",
+              "id": "261ce701-737e-4f2e-af95-6c9698bfbbe4",
               "name": "Escalated complaint",
               "originalRequest": {
                 "url": {
@@ -8211,7 +9604,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3f71f7be-2b10-4528-a16a-a5a42bb92f24",
+              "id": "c9945d71-4cec-4ab5-91c1-6dafb0dd6c5a",
               "name": "Cannot escalate",
               "originalRequest": {
                 "url": {
@@ -8262,7 +9655,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a7e418fc-63d8-4445-b5b7-e181e2fa2797",
+              "id": "85345cc2-f155-4f75-8a8d-f3c3b7227163",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -8313,7 +9706,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3f8e9f92-257b-4914-a819-cb2a8b8378e4",
+              "id": "cda2079f-c0d9-4fa9-8e01-231ca43b5b3c",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -8364,7 +9757,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d4dbe11f-e8d3-4a70-835a-cd4a2d653d49",
+              "id": "43181489-9d19-4e7a-a90d-dd7e9786aa01",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -8424,7 +9817,7 @@
       "event": []
     },
     {
-      "id": "c8a7f42c-26c6-4160-9298-0567224de1f3",
+      "id": "c882cbfc-5b72-47cb-b960-f2d1e1ff048e",
       "name": "Categories",
       "description": {
         "content": "",
@@ -8432,7 +9825,7 @@
       },
       "item": [
         {
-          "id": "1123818c-c236-4a01-9bb7-f247b0d94516",
+          "id": "d41c7743-eb4a-4e24-a45a-4ec48eb56035",
           "name": "{{baseUrl}}/admin/departments/:departmentId/categories",
           "request": {
             "name": "{{baseUrl}}/admin/departments/:departmentId/categories",
@@ -8479,7 +9872,7 @@
           },
           "response": [
             {
-              "id": "08a8252e-a869-470b-85eb-d8f68e496af3",
+              "id": "6f75e954-9f84-4d78-be27-5aad4bcf2ab2",
               "name": "Created",
               "originalRequest": {
                 "url": {
@@ -8535,7 +9928,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "4c1f9bd5-715e-4614-9253-54a6fbd476de",
+              "id": "25d0c694-55ae-4670-821c-688cd41e10c4",
               "name": "Duplicate or invalid category",
               "originalRequest": {
                 "url": {
@@ -8591,7 +9984,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "225c245b-a97c-4b7d-91da-5cd96dc60b64",
+              "id": "b000edc3-82dd-468e-8001-74a9c05ccad6",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -8647,7 +10040,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8fe6bce6-74fe-47d7-9410-6ee7ac2153c8",
+              "id": "680d6f39-4a88-4f78-b668-d0510cb1ae05",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -8703,7 +10096,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "46375714-648a-4064-ad1d-597a1d51d073",
+              "id": "5f869fd6-fafd-437b-ad62-9d8acf6603a0",
               "name": "Department not found",
               "originalRequest": {
                 "url": {
@@ -8765,7 +10158,7 @@
           }
         },
         {
-          "id": "688eed94-66b1-4363-a359-b381b8b13ca6",
+          "id": "434ad94e-9a45-46b3-bd07-b94974d8e6b7",
           "name": "{{baseUrl}}/admin/departments/:departmentId/categories",
           "request": {
             "name": "{{baseUrl}}/admin/departments/:departmentId/categories",
@@ -8797,7 +10190,7 @@
           },
           "response": [
             {
-              "id": "3c8558b0-ce1e-461f-962c-b9f6e9cdd81f",
+              "id": "f75db3ba-55f4-4f1b-8c40-e55b672b90d0",
               "name": "Categories",
               "originalRequest": {
                 "url": {
@@ -8845,7 +10238,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3ece20bb-435b-49ff-950e-7106da561994",
+              "id": "e01d2eb0-b72e-4401-a809-ae490e7915d9",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -8893,7 +10286,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "94184e74-f51c-4a9a-9c4d-d3374ecd9c97",
+              "id": "0958c09d-da8a-4f08-8ded-4191eb488c18",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -8941,7 +10334,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f9728534-ac91-4fa4-af60-f72b8d0a0040",
+              "id": "0c2a4910-aad9-4f94-b993-2dce103d3274",
               "name": "Department not found",
               "originalRequest": {
                 "url": {
@@ -8995,7 +10388,7 @@
           }
         },
         {
-          "id": "66b9c64f-93ff-44c3-8538-5cfcdb49a4ef",
+          "id": "1ad91725-401f-473c-9a99-8bf809758e0a",
           "name": "{{baseUrl}}/admin/categories/:id",
           "request": {
             "name": "{{baseUrl}}/admin/categories/:id",
@@ -9042,7 +10435,7 @@
           },
           "response": [
             {
-              "id": "7c2d324a-f177-4e6b-b4b7-af3e2f83b62a",
+              "id": "ed77851d-d27f-4b37-93cb-f5d921c4dfc1",
               "name": "Updated",
               "originalRequest": {
                 "url": {
@@ -9093,7 +10486,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f6b81c4c-5704-4869-ab2e-d14b9a5c0783",
+              "id": "6dcb8447-276d-4b1e-9a1a-2333448ec4c6",
               "name": "Invalid update",
               "originalRequest": {
                 "url": {
@@ -9144,7 +10537,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "6314af6d-6cc5-4b66-a9fc-b71f96b12630",
+              "id": "aa8be17b-f59c-4047-a141-7e4caafe8c62",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -9195,7 +10588,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "22fddb47-d5f1-4f9a-b4b0-dbe6f7242e12",
+              "id": "5bc8fefb-9b57-46b5-8275-d8a9fc54afed",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -9246,7 +10639,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c2beba56-1141-4079-b93c-428f5e4af589",
+              "id": "d7fccd21-f8d2-4df7-8a8c-d6b28d8effc9",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -9303,7 +10696,7 @@
           }
         },
         {
-          "id": "d1b373cc-e1da-4b2f-9e46-c9b280722ac1",
+          "id": "89a72eb6-b870-48ac-9deb-92bbda5f4718",
           "name": "{{baseUrl}}/admin/categories/:id",
           "request": {
             "name": "{{baseUrl}}/admin/categories/:id",
@@ -9335,7 +10728,7 @@
           },
           "response": [
             {
-              "id": "a8e2aebe-8536-485f-b42c-0a70c365dbd0",
+              "id": "82be5df8-f21c-4404-89c5-800058d495c3",
               "name": "Deleted",
               "originalRequest": {
                 "url": {
@@ -9378,7 +10771,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "aa1c3b31-2ded-4d3a-bc55-df4d88f98273",
+              "id": "9ab0c6f1-fe65-46d0-b2f2-c90d70cc26e5",
               "name": "Active complaints prevent deletion",
               "originalRequest": {
                 "url": {
@@ -9421,7 +10814,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "4f8d0edb-e774-4034-bc92-02701eea58cc",
+              "id": "bb1d81f9-d455-4d01-b35f-5ae406a212db",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -9464,7 +10857,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "cdfa3735-e5cb-4730-bf51-015bbb34e4d8",
+              "id": "8824703c-110f-4905-89f2-e13d02698a3f",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -9507,7 +10900,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "321197b0-4276-4446-8629-83b555fa0852",
+              "id": "e768046c-7dc9-4472-8424-0511be1372a1",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -9559,7 +10952,7 @@
       "event": []
     },
     {
-      "id": "d80f4929-83f2-412e-9259-bc5bc078291d",
+      "id": "625abd05-f2b9-4eb9-9756-8ca7a9007ed3",
       "name": "Auth",
       "description": {
         "content": "",
@@ -9567,7 +10960,7 @@
       },
       "item": [
         {
-          "id": "ef95d847-577d-4a6e-a711-e5fd09109046",
+          "id": "7bd0529b-5e94-43e7-918d-2d0ef294baf8",
           "name": "{{baseUrl}}/auth/register",
           "request": {
             "name": "{{baseUrl}}/auth/register",
@@ -9598,7 +10991,7 @@
           },
           "response": [
             {
-              "id": "18ee4915-ed89-4081-b9b5-838e227744cb",
+              "id": "bff25c90-8ebf-4fd1-a605-3d98904de1a9",
               "name": "Registered",
               "originalRequest": {
                 "url": {
@@ -9631,7 +11024,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8934fe32-f1bb-44eb-aa8f-854e1b04f2c9",
+              "id": "1aeeb25f-cca9-4189-b3ac-b175734c9604",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -9670,7 +11063,7 @@
           }
         },
         {
-          "id": "6e78f82c-3c4f-492c-966b-7410a3267552",
+          "id": "3b44d9ed-ad96-40a7-a8e3-c118163ef971",
           "name": "{{baseUrl}}/auth/login",
           "request": {
             "name": "{{baseUrl}}/auth/login",
@@ -9701,7 +11094,7 @@
           },
           "response": [
             {
-              "id": "f8067326-30b8-421f-a5b0-cf1dba15229e",
+              "id": "bcb92e34-aa49-462c-bed1-823bf34b81fc",
               "name": "Login successful",
               "originalRequest": {
                 "url": {
@@ -9734,7 +11127,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d5df0bb7-b0c1-4775-8caf-6c8179115a80",
+              "id": "fb24b9d4-e9b8-4330-a9d9-a4eb016d47d2",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -9767,7 +11160,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b776c3fa-e975-457f-ac7b-83d1850e062b",
+              "id": "d26b76d5-7c6e-4b65-a7b0-2ad8acaa2433",
               "name": "Invalid credentials",
               "originalRequest": {
                 "url": {
@@ -9806,7 +11199,7 @@
           }
         },
         {
-          "id": "a87c46e5-0826-4ee5-9238-bbb511499e97",
+          "id": "885ec27b-47cc-4223-9803-dbd0391169a7",
           "name": "{{baseUrl}}/auth/google",
           "request": {
             "name": "{{baseUrl}}/auth/google",
@@ -9837,7 +11230,7 @@
           },
           "response": [
             {
-              "id": "1126ea21-096d-4949-985d-1af3f0371ef1",
+              "id": "f9d120c5-15aa-4ff4-8c78-e9be6cf11c09",
               "name": "Login successful",
               "originalRequest": {
                 "url": {
@@ -9870,7 +11263,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "a32d8049-a668-4099-b00e-245e75c9d8c6",
+              "id": "fda605e3-1626-4036-b12c-61f635cc1b3c",
               "name": "Invalid token",
               "originalRequest": {
                 "url": {
@@ -9909,7 +11302,7 @@
           }
         },
         {
-          "id": "b3662786-bbe9-47b7-baac-99c21b55e1ef",
+          "id": "c73b1aed-8446-4ecc-b170-659c4bfaf88b",
           "name": "{{baseUrl}}/auth/refresh-token",
           "request": {
             "name": "{{baseUrl}}/auth/refresh-token",
@@ -9925,7 +11318,7 @@
           },
           "response": [
             {
-              "id": "09778022-166c-4c97-a276-4fd656195028",
+              "id": "98084f38-3f34-4bcc-9e29-8dd9a228a854",
               "name": "Token refreshed",
               "originalRequest": {
                 "url": {
@@ -9950,7 +11343,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7316ba40-3558-463d-a9db-19e4e023f39a",
+              "id": "ba5cd131-0088-42d3-8604-190f7bbe133f",
               "name": "Invalid refresh token",
               "originalRequest": {
                 "url": {
@@ -9981,7 +11374,7 @@
           }
         },
         {
-          "id": "ae5c688f-8a6c-4738-a63e-5d6fcfec144b",
+          "id": "de4eaca4-a615-400d-84be-b91611163052",
           "name": "{{baseUrl}}/auth/logout",
           "request": {
             "name": "{{baseUrl}}/auth/logout",
@@ -9997,7 +11390,7 @@
           },
           "response": [
             {
-              "id": "01d7ef70-a713-4bbf-9d98-bdb1d8075976",
+              "id": "282a6ff9-df84-4b57-a558-1aee7a31c0a5",
               "name": "Logged out",
               "originalRequest": {
                 "url": {
@@ -10031,7 +11424,7 @@
       "event": []
     },
     {
-      "id": "a0478355-d019-4c50-b41c-19734a9fc2da",
+      "id": "acda5d22-ea46-4cea-be53-4e8b74217855",
       "name": "Attachments",
       "description": {
         "content": "",
@@ -10039,7 +11432,7 @@
       },
       "item": [
         {
-          "id": "d0986654-d47b-49e0-b7ab-c05ea7173189",
+          "id": "d45b3b56-0215-4721-8fec-63ba19c466d7",
           "name": "{{baseUrl}}/complaints/:complaintId/attachments",
           "request": {
             "name": "{{baseUrl}}/complaints/:complaintId/attachments",
@@ -10094,7 +11487,7 @@
           },
           "response": [
             {
-              "id": "4387b29a-a64b-46f3-b8e1-a44d52cbaca1",
+              "id": "3946f51d-f20b-423b-86e7-edd5ad510c3b",
               "name": "Uploaded",
               "originalRequest": {
                 "url": {
@@ -10159,7 +11552,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c397f3af-3575-4b17-bc8d-6ea50bb934d4",
+              "id": "d23e784a-87af-40fd-97ae-beebb88ca900",
               "name": "Upload or validation failure",
               "originalRequest": {
                 "url": {
@@ -10224,7 +11617,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "69088c48-05f1-42ae-a046-c74c65c7e41e",
+              "id": "1fc1be75-e531-4e10-a178-ff35c0c0b685",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -10289,7 +11682,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "fa48cc44-4700-41a8-af33-50b9711ed8bf",
+              "id": "1b6ab631-8897-409b-ba65-5418df96bc96",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -10354,7 +11747,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "eef22be9-cd8b-4eaf-8f6e-517b5fa632ff",
+              "id": "18f086d2-4221-46d9-8897-87862951ee1e",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -10425,7 +11818,7 @@
           }
         },
         {
-          "id": "1c787fe4-e238-4a98-9430-18f23063b80f",
+          "id": "fba3ac0c-561d-4190-8799-d3574e7353e4",
           "name": "{{baseUrl}}/complaints/:complaintId/attachments",
           "request": {
             "name": "{{baseUrl}}/complaints/:complaintId/attachments",
@@ -10457,7 +11850,7 @@
           },
           "response": [
             {
-              "id": "57dee740-0f91-4695-becd-2e8a6a467368",
+              "id": "a3fba453-41fb-4f64-a0ab-415ada2238fe",
               "name": "Attachments",
               "originalRequest": {
                 "url": {
@@ -10500,7 +11893,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "73a5d494-e0a5-46d0-bc5f-b3591fc82dce",
+              "id": "a88e88f4-4123-4789-ad0a-5a205c8161b6",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -10543,7 +11936,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f8bc1366-d15d-410f-9f8c-3664abb7ead6",
+              "id": "5ed9e482-ae4d-4b09-9a22-f2c395e339ea",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -10586,7 +11979,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "edb0a904-3216-4d57-aa7f-937a69180c6c",
+              "id": "b1d252e3-dbab-4ef3-a317-ddc2fb5841ce",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -10635,7 +12028,7 @@
           }
         },
         {
-          "id": "a6e44a70-15ad-40fe-bd79-5df73197ccb3",
+          "id": "cc99f3e0-3bb9-4302-9407-555ba367de60",
           "name": "{{baseUrl}}/attachments/:id",
           "request": {
             "name": "{{baseUrl}}/attachments/:id",
@@ -10667,7 +12060,7 @@
           },
           "response": [
             {
-              "id": "334a53f1-5200-4412-99a7-b32b74f0af57",
+              "id": "2a507328-1a34-4166-8de4-f4592dd7c14b",
               "name": "Deleted",
               "originalRequest": {
                 "url": {
@@ -10710,7 +12103,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "64e7ae05-b1ad-460d-a7f2-49427993d790",
+              "id": "076bcca1-ac1b-46c8-aee6-64893055cd4b",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -10753,7 +12146,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8a5f4061-c569-4df7-9f52-6aa2b93b39db",
+              "id": "b3131861-2229-4636-8caf-5472ae3d0aa8",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -10796,7 +12189,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "f8e0f555-b294-4dae-976b-9c2e10dabba8",
+              "id": "8c49a760-d716-4701-8ebc-19c6812d9228",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -10848,7 +12241,7 @@
       "event": []
     },
     {
-      "id": "c5dc399b-4ddf-4439-bd93-969cba7d1d6e",
+      "id": "2c9d9420-7379-47dc-9ebf-f2d6b52b8f78",
       "name": "Admin",
       "description": {
         "content": "",
@@ -10856,7 +12249,7 @@
       },
       "item": [
         {
-          "id": "ff727751-7e3a-4227-9dcf-e550cd10e351",
+          "id": "ecaa2a8a-5c0f-4563-80f7-77f15239b865",
           "name": "{{baseUrl}}/admin/jobs/check-overdue-slas",
           "request": {
             "name": "{{baseUrl}}/admin/jobs/check-overdue-slas",
@@ -10880,7 +12273,7 @@
           },
           "response": [
             {
-              "id": "07007f78-acc3-43d5-8c3b-b26456bf3920",
+              "id": "98ad73f6-5a2f-4906-a036-931034cd39c6",
               "name": "SLA scan summary",
               "originalRequest": {
                 "url": {
@@ -10915,7 +12308,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3cf661e3-b38e-45e5-baea-d55bc2fd753b",
+              "id": "c161505b-d52d-43e0-b6e3-fcdf1b4217c2",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -10950,7 +12343,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d666b2d5-e334-4d23-ae35-4a36b70b7a08",
+              "id": "0948f6a2-4a2c-4467-b9ce-b5208e03e006",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -10991,7 +12384,7 @@
           }
         },
         {
-          "id": "77227baf-e7b2-4de5-843b-c8d77bfd2200",
+          "id": "b9398e32-b695-44e7-a5cc-02fbb498a2b9",
           "name": "{{baseUrl}}/admin/users",
           "request": {
             "name": "{{baseUrl}}/admin/users",
@@ -11051,7 +12444,7 @@
           },
           "response": [
             {
-              "id": "1265f004-e736-412d-98b3-da673ac9a9d4",
+              "id": "2ccc07ea-f220-4603-a079-749518259d50",
               "name": "Users",
               "originalRequest": {
                 "url": {
@@ -11115,7 +12508,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "e56e2ade-01f6-40b5-95d3-f418dca28e69",
+              "id": "9d054e1b-c699-458d-8878-0535f3ad97a6",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -11179,7 +12572,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b41e78c0-66ae-4de5-90bd-92f5bfad2ccc",
+              "id": "fede9358-84c8-4279-8530-9f685186699c",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -11249,7 +12642,7 @@
           }
         },
         {
-          "id": "9c4199bf-ef12-45b8-b99f-dd6d48bc281f",
+          "id": "c7fd2cfc-8ac9-4b76-b277-fa018d1abfbc",
           "name": "{{baseUrl}}/admin/users/:id/role",
           "request": {
             "name": "{{baseUrl}}/admin/users/:id/role",
@@ -11296,7 +12689,7 @@
           },
           "response": [
             {
-              "id": "49fd3fd6-21b0-4270-aee7-cc1464baff60",
+              "id": "9a4dd39c-170c-4300-806e-e24cca599663",
               "name": "Updated user",
               "originalRequest": {
                 "url": {
@@ -11347,7 +12740,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "70c6cf64-4a05-4a3a-ab8b-1d3a1515f612",
+              "id": "ee8a6683-ba6a-4c51-b042-b8230fecc113",
               "name": "Invalid role",
               "originalRequest": {
                 "url": {
@@ -11398,7 +12791,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "39638bbf-9bfa-4da5-8ac4-b4782cb2da75",
+              "id": "37bef03b-2e16-4f5f-86d8-731993affcab",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -11449,7 +12842,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "7da461a7-286e-4b6b-be61-4aa034bd4a82",
+              "id": "66c7c262-c6d0-49d8-a322-1ae7acb44c3e",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -11500,7 +12893,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3591d7f7-d395-46ce-896c-a9913bc00055",
+              "id": "92afaa6e-7aab-4b54-adcf-37b9b1c30c9f",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -11557,7 +12950,7 @@
           }
         },
         {
-          "id": "b3093a90-e3fb-4a1b-a3a2-6de1303bdf53",
+          "id": "fac18365-b3cd-4cd6-9578-c1a6e19a7e74",
           "name": "{{baseUrl}}/admin/users/:id/deactivate",
           "request": {
             "name": "{{baseUrl}}/admin/users/:id/deactivate",
@@ -11589,7 +12982,7 @@
           },
           "response": [
             {
-              "id": "4b8d4954-6b10-4e95-9ea0-a7f31f4cf8fe",
+              "id": "92b0d663-d745-448a-b899-5c7647d1058e",
               "name": "Deactivated",
               "originalRequest": {
                 "url": {
@@ -11632,7 +13025,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "12ea12b6-d8cf-47e4-99c0-5bcb94d56357",
+              "id": "6d528b96-e653-47c3-be11-1525bf05282d",
               "name": "Last admin protection",
               "originalRequest": {
                 "url": {
@@ -11675,7 +13068,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3ef77b11-a8a1-4591-adcb-b8c84fbf419d",
+              "id": "f6db06e1-703c-48c8-a0e4-50beface9810",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -11718,7 +13111,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "93cbc569-c1bd-4289-a9a3-528742dcca79",
+              "id": "3179c385-faf1-400b-b354-56441070113d",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -11761,7 +13154,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "beed1e59-0dc4-47af-9531-b9631f2bc169",
+              "id": "58814bb8-7a3a-4c20-810b-35231617e79b",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -11810,7 +13203,7 @@
           }
         },
         {
-          "id": "f7a48f22-5945-4a95-925c-08e2479cbbb6",
+          "id": "6e10712a-8287-44fe-9422-0ce4b2d3f153",
           "name": "{{baseUrl}}/admin/users/:id/reactivate",
           "request": {
             "name": "{{baseUrl}}/admin/users/:id/reactivate",
@@ -11842,7 +13235,7 @@
           },
           "response": [
             {
-              "id": "c9865259-3df7-48ec-b086-1325d48fcc93",
+              "id": "cbd252d1-3586-44d1-bc3e-b5c905557ec3",
               "name": "Reactivated",
               "originalRequest": {
                 "url": {
@@ -11885,7 +13278,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "d97e2853-222f-41fe-bec1-069b063e6ae8",
+              "id": "a95b14d1-44a6-4ba9-a71b-82f95403683e",
               "name": "User is active",
               "originalRequest": {
                 "url": {
@@ -11928,7 +13321,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "87b8485e-070b-416c-bc34-9ecea32a9f95",
+              "id": "71f674e0-045f-4cf1-ad42-8f389e354f59",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -11971,7 +13364,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "66e9a278-8527-4ae8-8d09-4ff5aad7bb14",
+              "id": "d431c657-c435-401a-8616-5a9f1cb79ea8",
               "name": "Forbidden",
               "originalRequest": {
                 "url": {
@@ -12014,7 +13407,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c3286386-0676-49c1-9f81-8d11b416e215",
+              "id": "9effbe1a-a96c-4093-ad81-1b7330992b9b",
               "name": "Not found",
               "originalRequest": {
                 "url": {
@@ -12063,7 +13456,7 @@
           }
         },
         {
-          "id": "05b0012f-7923-4cdf-b051-c02478f156fd",
+          "id": "1c386ca4-4b30-4f12-9c67-49d5733fde86",
           "name": "{{baseUrl}}/admin/dashboard-stats",
           "request": {
             "name": "{{baseUrl}}/admin/dashboard-stats",
@@ -12087,7 +13480,7 @@
           },
           "response": [
             {
-              "id": "6f8561b2-5aa3-4b59-947c-bf8c5a80334d",
+              "id": "730db1b4-03a6-4674-89ac-a540d3861726",
               "name": "Dashboard statistics",
               "originalRequest": {
                 "url": {
@@ -12122,7 +13515,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "3c113de2-3285-41c1-b0b4-672e01648459",
+              "id": "85e32361-dbdf-4328-b718-51c33b50a846",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -12157,7 +13550,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "bea4f2b7-1a33-43ea-816d-862c120843e9",
+              "id": "4aeee815-4559-42ea-9762-e951cc9476c8",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -12198,7 +13591,7 @@
           }
         },
         {
-          "id": "09ee0920-5993-430a-a79e-b02489407613",
+          "id": "d85648b5-c605-48e3-a03c-4d7145451798",
           "name": "{{baseUrl}}/admin/audit-logs",
           "request": {
             "name": "{{baseUrl}}/admin/audit-logs",
@@ -12222,7 +13615,7 @@
           },
           "response": [
             {
-              "id": "5b886cac-e510-484b-9a9c-e7a7e4b45666",
+              "id": "a059ad0b-fd07-40e2-99bb-77e14bc6e67b",
               "name": "Audit logs",
               "originalRequest": {
                 "url": {
@@ -12257,7 +13650,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "22abe88d-50c8-4838-bc44-a646b0682404",
+              "id": "9b55acaa-da2e-4eb7-9e77-fca0e74e67ec",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -12292,7 +13685,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "613f1a3c-e506-4fd3-80d4-8b1f03536644",
+              "id": "deaa984b-88aa-4907-971f-8ce8371d47ca",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -12333,7 +13726,7 @@
           }
         },
         {
-          "id": "fbf0c7c2-43ed-4e5f-b027-aa17d4eb5bab",
+          "id": "cf943428-698d-4145-9ec6-9b547eed6984",
           "name": "{{baseUrl}}/admin/payments",
           "request": {
             "name": "{{baseUrl}}/admin/payments",
@@ -12378,7 +13771,7 @@
           },
           "response": [
             {
-              "id": "53dd883d-bbc3-4001-83c7-2bf396454328",
+              "id": "17f6bd04-b6f5-4158-b063-31607b808f0f",
               "name": "Subscriptions and payments retrieved successfully",
               "originalRequest": {
                 "url": {
@@ -12430,7 +13823,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "c38ca1e1-f0eb-4846-a036-aab6b47409ae",
+              "id": "c51a09c9-acc2-4d6d-bf90-4bc530fda6d8",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -12482,7 +13875,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "0fd6a440-304a-4988-a48d-770d9ed79577",
+              "id": "154f5f71-8b63-450f-bf8f-30e829c737bd",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -12534,7 +13927,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "963107a6-14de-49e8-9468-ca0abaa959e8",
+              "id": "8ee8ed18-4e52-47b7-bd31-0649852c9e48",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -12592,7 +13985,7 @@
           }
         },
         {
-          "id": "6ce75d67-189f-46d8-8c3d-8763deb8eecf",
+          "id": "10aa5315-5e05-4c90-888d-13a00a6d8d3e",
           "name": "{{baseUrl}}/admin/escalated-complaints",
           "request": {
             "name": "{{baseUrl}}/admin/escalated-complaints",
@@ -12627,7 +14020,7 @@
           },
           "response": [
             {
-              "id": "7163efa8-7b9f-4f90-820e-28f6f1318240",
+              "id": "086d249a-8678-4895-94ea-f1b2ef086555",
               "name": "Escalated complaints retrieved successfully",
               "originalRequest": {
                 "url": {
@@ -12671,7 +14064,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "b525bb0a-caef-4b2a-8de5-a23d65000f01",
+              "id": "f7ace1cd-e998-4fbe-9d17-f436396be024",
               "name": "Validation failure",
               "originalRequest": {
                 "url": {
@@ -12715,7 +14108,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "4b545969-24b2-4ccc-9779-2558354f6a3a",
+              "id": "569d02f4-9134-4bfa-a485-ed0190f45b83",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -12759,7 +14152,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "024cae6c-e376-4499-8eca-f92e49ba8151",
+              "id": "7e3607f1-2ffb-41cd-b1de-c496e376aa0e",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -12809,7 +14202,7 @@
           }
         },
         {
-          "id": "14c0b5e5-2eb1-4ac4-9bca-29a1abfce356",
+          "id": "03300fb8-553b-40c4-a305-a23bfbc0bb35",
           "name": "{{baseUrl}}/admin/complaints/:id/clear-escalation",
           "request": {
             "name": "{{baseUrl}}/admin/complaints/:id/clear-escalation",
@@ -12856,7 +14249,7 @@
           },
           "response": [
             {
-              "id": "1287d7a5-f612-4396-ae8f-6ffc548186ad",
+              "id": "1cb4a1ec-0d24-46a4-937c-f43d1899a624",
               "name": "Escalation cleared successfully",
               "originalRequest": {
                 "url": {
@@ -12907,7 +14300,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "974a7607-b42b-40fd-8277-5356d6373690",
+              "id": "d1cd96ff-3940-43c3-bb9f-ca8493b7f318",
               "name": "Complaint is not escalated or invalid ID",
               "originalRequest": {
                 "url": {
@@ -12958,7 +14351,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "9db9c23a-ea46-45a6-b29a-83dcd43eef0f",
+              "id": "1da07dfa-c975-4bb9-8b83-451d3893a694",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -13009,7 +14402,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "96cb5aca-a415-4916-bb85-b56cfc946552",
+              "id": "68abb145-4cea-41d6-8a9a-3d3fbcdcd1c5",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -13060,7 +14453,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "14e434be-5058-4d2e-9d95-3337dae2909d",
+              "id": "cabb51b3-cc17-455f-93fd-a5a99dbbe963",
               "name": "Complaint not found",
               "originalRequest": {
                 "url": {
@@ -13117,7 +14510,7 @@
           }
         },
         {
-          "id": "a0828539-57c7-40f3-aa74-ae5543b97b6b",
+          "id": "f15f0f3e-627a-4d40-ae3b-21f24d624d2f",
           "name": "{{baseUrl}}/admin/premium-pricing",
           "request": {
             "name": "{{baseUrl}}/admin/premium-pricing",
@@ -13141,7 +14534,7 @@
           },
           "response": [
             {
-              "id": "5c8ef519-b892-4fa9-b07f-a3ccece95f46",
+              "id": "3580c67b-3e8c-4151-bb36-1eb76d5a36dd",
               "name": "Premium pricing details retrieved successfully",
               "originalRequest": {
                 "url": {
@@ -13176,7 +14569,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "30d03c8d-de2d-4643-82c6-ef6c219caf78",
+              "id": "53e8c2aa-0de5-4e59-8932-edc20096adcd",
               "name": "Unauthorized",
               "originalRequest": {
                 "url": {
@@ -13211,7 +14604,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "96f1fa3b-a001-4832-83c6-b6d10ab7ef7a",
+              "id": "d2bbd882-0432-4790-860d-d9e0759170ab",
               "name": "Admin access required",
               "originalRequest": {
                 "url": {
@@ -13246,7 +14639,7 @@
               "_postman_previewlanguage": "text"
             },
             {
-              "id": "8faadd25-52dc-42ba-ae57-80369b8f0933",
+              "id": "a0f38df9-a8a9-4e21-b382-dcbc061a4f48",
               "name": "Failed to retrieve pricing from Stripe",
               "originalRequest": {
                 "url": {
@@ -13285,12 +14678,783 @@
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           }
+        },
+        {
+          "id": "cfc2f246-45c9-42f1-9afc-c4c74d76dc3f",
+          "name": "{{baseUrl}}/admin/staff",
+          "request": {
+            "name": "{{baseUrl}}/admin/staff",
+            "description": {},
+            "url": {
+              "path": ["admin", "staff"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"departmentId\": \"<uuid>\",\n  \"phone\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d8f8bc80-09fd-4aef-a8c6-813a52366041",
+              "name": "Staff invited successfully",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"departmentId\": \"<uuid>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6a68ad96-72f0-4ea1-b095-36892933620d",
+              "name": "Validation failure or cannot invite admin",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"departmentId\": \"<uuid>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "29fe2aa0-1802-4fa4-8ec5-53274e780630",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"departmentId\": \"<uuid>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e34c25eb-ccbf-4b26-a987-adadd7b68441",
+              "name": "Admin access required",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"departmentId\": \"<uuid>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5cca6606-1872-4918-ba3c-ffeb194e0c0e",
+              "name": "Department not found",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"departmentId\": \"<uuid>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "484070bf-2da4-4549-a91c-a4497e508b34",
+              "name": "User with email already exists",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"departmentId\": \"<uuid>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dc228b0a-d7da-4705-a2d5-ff2266a669e6",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"departmentId\": \"<uuid>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a67f2ac0-09df-449d-998d-2a045a1afa0b",
+              "name": "Failed to send invitation email",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"role\": \"<string>\",\n  \"departmentId\": \"<uuid>\",\n  \"phone\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb72cd32-cdbc-4042-a5ed-dc1e0468390d",
+          "name": "{{baseUrl}}/admin/staff/:id/resend-invite",
+          "request": {
+            "name": "{{baseUrl}}/admin/staff/:id/resend-invite",
+            "description": {},
+            "url": {
+              "path": ["admin", "staff", ":id", "resend-invite"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4babdc78-d9a3-40b6-b9ea-27be8dc3cf58",
+              "name": "Invitation email resent successfully",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff", ":id", "resend-invite"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f8a80f51-d83f-4a3f-aea2-d905b3d8dcec",
+              "name": "Invalid ID",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff", ":id", "resend-invite"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ef2b1163-1900-4f9f-8787-7efea7f78b57",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff", ":id", "resend-invite"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5d23aef0-6146-4b8a-9ffa-5775aa09c824",
+              "name": "Admin access required",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff", ":id", "resend-invite"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3bbd0c4f-b34f-4814-abae-986913f3ba2c",
+              "name": "Staff user not found",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff", ":id", "resend-invite"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bd124aa0-d161-468d-9303-7d1f4f9241eb",
+              "name": "User has already set their password",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff", ":id", "resend-invite"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2d134ab7-aa91-4c1c-baef-f2f7aea2a7ee",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff", ":id", "resend-invite"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0949aafd-c30f-45db-9b5a-bc5c75be3bc8",
+              "name": "Failed to send invitation email",
+              "originalRequest": {
+                "url": {
+                  "path": ["admin", "staff", ":id", "resend-invite"],
+                  "host": ["{{baseUrl}}"],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
       "event": []
     },
     {
-      "id": "a878cab1-827f-41c5-8f02-3edeb6c98b34",
+      "id": "478b499d-2c4e-41a6-809d-41448dbfb362",
       "name": "System",
       "description": {
         "content": "",
@@ -13298,7 +15462,7 @@
       },
       "item": [
         {
-          "id": "610c8700-0fa3-49ba-9ba8-1cf328311d8a",
+          "id": "0a7f0fe9-dca7-4aa9-b889-f00b51423096",
           "name": "{{baseUrl}}/health",
           "request": {
             "name": "{{baseUrl}}/health",
@@ -13314,7 +15478,7 @@
           },
           "response": [
             {
-              "id": "a0f8e866-4f29-4334-bcd7-d93a8168c0f3",
+              "id": "76828158-9677-452c-8906-20e7d8db3343",
               "name": "Server health",
               "originalRequest": {
                 "url": {
@@ -13357,7 +15521,7 @@
     }
   ],
   "info": {
-    "_postman_id": "9f025282-0bc4-4084-9bba-0e3e608a929a",
+    "_postman_id": "3c1eb84b-c355-4542-a98a-e668fdeb9ea2",
     "name": "City Complaint & Service Request Platform API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
