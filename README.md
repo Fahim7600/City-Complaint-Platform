@@ -232,8 +232,16 @@ stateDiagram-v2
 - **Transactional Email Delivery (Brevo HTTPS API):**
   - **SMTP Port Blocking on Render:** Render's free tier restricts outbound SMTP ports (25, 465, 587). The platform intentionally avoids SMTP and Nodemailer, using Brevo's HTTPS transactional API (`POST https://api.brevo.com/v3/smtp/email`) via native `fetch` with a 10-second `AbortController` timeout.
   - **Graceful Local Fallback:** When `BREVO_API_KEY` is omitted in non-production environments (`NODE_ENV !== "production"`), outgoing emails are logged to the console without crashing or failing requests, facilitating seamless local development.
+- **Password Reset Flow (6-Digit Code):**
+  - **3-Step Security:** 1) Request code (`POST /auth/forgot-password`), 2) Verify code (`POST /auth/verify-reset-code`), 3) Set new password (`POST /auth/reset-password`).
+  - **Account Enumeration Defense:** `POST /auth/forgot-password` always returns HTTP 200 with `{ success: true, message: "If an account exists for this email, we've sent a 6-digit code.", data: { cooldownSeconds: 60 } }` regardless of whether the email exists.
+  - **Google-Only Accounts:** If the account signs in via Google OAuth and has no password, a notification email is sent instructing the user to use "Continue with Google" (no code generated).
+  - **Code Expiration & Brute-Force Protection:** Codes are zero-padded 6-digit integers, stored as `sha256(code + JWT_ACCESS_SECRET)`, valid for 10 minutes. Verification tracks attempts and permanently invalidates (kills) the code after 5 failed tries (`400 "Too many attempts. Request a new code."`).
+  - **Cooldown & Rate Limits:** 60-second cooldown per user; maximum 5 codes per user per hour. IP-based rate limiting enforces 5 requests / 15 minutes on request code, and 15 requests / 15 minutes on verify/reset.
+  - **Reset Token & Session Invalidation:** Successful verification issues a one-time 32-byte hexadecimal `resetToken` valid for 15 minutes. Resetting the password updates the bcrypt hash, clears `mustChangePassword` and `tempPasswordExpiresAt`, revokes **all** active refresh tokens across all devices, sends a security notification email, and writes an audit log (`PASSWORD_RESET_COMPLETED`).
+  - **Automated Hourly Pruning:** A lightweight scheduled job (`cleanExpiredPasswordResetCodes`) runs hourly to remove reset code records older than 24 hours.
 - **Audit Logging & Soft Deletes:**
-  - Critical actions (complaint status transitions, user role changes, staff invitations, technician removals, account deactivations) create immutable records in `AuditLog`.
+  - Critical actions (complaint status transitions, user role changes, staff invitations, technician removals, account deactivations, password reset requests and completions) create immutable records in `AuditLog`.
   - Deletions across users, departments, categories, and complaints use `deletedAt` timestamps to preserve referential integrity.
 
 ---
@@ -326,6 +334,10 @@ All routes are mounted under `/api/v1` (except the root discovery route and Swag
 | `POST` | `/auth/google` | Public (10/15m) | Sign in with verified Google OAuth ID token |
 | `POST` | `/auth/refresh-token` | Public (30/15m) | Rotates refresh token and issues new access token |
 | `POST` | `/auth/logout` | Authenticated | Revokes refresh token in DB and clears cookie |
+| `POST` | `/auth/forgot-password` | Public (5/15m) | Request 6-digit password reset code sent by email |
+| `POST` | `/auth/verify-reset-code` | Public (15/15m) | Verify 6-digit code and receive one-time 15-minute reset token |
+| `POST` | `/auth/reset-password` | Public (15/15m) | Set new password with reset token, revoking all active sessions |
+
 
 ### 4. Users (`/api/v1/users`)
 | Method | Path | Auth / Role | Description |
