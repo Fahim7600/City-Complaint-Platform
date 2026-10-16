@@ -21,7 +21,7 @@
 | **Swagger UI Documentation** | [https://city-complaint-platform-1.onrender.com/api-docs](https://city-complaint-platform-1.onrender.com/api-docs) |
 | **Health Check Endpoint** | [https://city-complaint-platform-1.onrender.com/api/v1/health](https://city-complaint-platform-1.onrender.com/api/v1/health) |
 | **Postman Collection** | [City-Complaint-Platform.postman_collection.json](https://github.com/Fahim7600/City-Complaint-Platform/blob/main/postman/City-Complaint-Platform.postman_collection.json) |
-| **Frontend Application** | `<ADD_FRONTEND_URL>` |
+| **Frontend Application** | https://city-complaint-platform-forntend.vercel.app |
 
 ---
 
